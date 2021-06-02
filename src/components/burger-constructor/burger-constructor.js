@@ -5,7 +5,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
-import PropTypes from "prop-types";
 
 function BurgerConstructor(props) {
   return (
