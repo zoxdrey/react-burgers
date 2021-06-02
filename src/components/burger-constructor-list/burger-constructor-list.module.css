@@ -1,0 +1,21 @@
+.burger-constructor-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.burger-constructor-list__scroll-area {
+  overflow: auto;
+  height: 464px;
+}
+
+.burger-constructor-list__scroll-area::-webkit-scrollbar {
+  width: 12px;
+}
+.burger-constructor-list__scroll-area::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.burger-constructor-list__scroll-area::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}
