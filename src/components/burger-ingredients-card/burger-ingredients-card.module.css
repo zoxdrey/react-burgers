@@ -1,0 +1,6 @@
+.burger-ingredients-card {
+  position: relative;
+  width: 272px;
+  display: flex;
+  justify-content: center;
+}

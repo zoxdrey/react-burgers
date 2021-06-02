@@ -5,7 +5,7 @@ import BurgerConstructorList from "../burger-constructor-list/burger-constructor
 
 function BurgerConstructor() {
   return (
-    <section className={styles["burger-constructor"]}>
+    <section className={styles["burger-constructor"] + " mt-25 ml-10"}>
       <BurgerConstructorList></BurgerConstructorList>
       <div className={styles["burger-constructor__info"]}>
         <p className="text text_type_digits-medium">1234567890</p>
