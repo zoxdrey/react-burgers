@@ -1,5 +1,4 @@
 .burger-constructor {
-  max-width: 600px;
   display: flex;
   flex-direction: column;
 }
@@ -7,4 +6,5 @@
 .burger-constructor__info {
   display: flex;
   align-self: flex-end;
+  align-items: center;
 }

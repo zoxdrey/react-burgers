@@ -3,4 +3,13 @@
   width: 272px;
   display: flex;
   justify-content: center;
+  text-align: center;
+}
+
+.burger-ingredients-card__image {
+  max-width: 240px;
+}
+
+.burger-ingredients-card__price-info {
+  display: flex;
 }

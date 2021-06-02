@@ -1,7 +1,6 @@
 .burger-ingredients-category {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .burger-ingredients-category__cards {

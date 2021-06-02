@@ -3,17 +3,18 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor-elem.module.css";
-import img from "../../images/1.svg";
 
 function BurgerConstructorElem(props) {
+  const { type, burgerConstructorElemData } = props;
+  console.log(props);
   return (
     <div className={styles["burger-constructor-elem"] + " m-4"}>
       <DragIcon type="primary" />
       <ConstructorElement
-        text="Краторная булка N-200i (верх)"
-        price={50}
-        thumbnail={img}
-        type={props.type}
+        text={burgerConstructorElemData?.name}
+        price={burgerConstructorElemData?.price}
+        thumbnail={burgerConstructorElemData?.image}
+        type={type}
       />
     </div>
   );

@@ -3,12 +3,12 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngridientsList from "../burger-ingredients-list/burger-ingredients-list.js";
 import styles from "./burger-ingredients.module.css";
 
-function BurgerIngridients() {
+function BurgerIngridients(props) {
   const [current, setCurrent] = React.useState("one");
   return (
-    <div>
-      <h1>Соберите бургер</h1>
-      <div className={styles["burger-ingredients"]}>
+    <div className={styles["burger-ingredients"] + " mt-10"}>
+      <h1 className="text text_type_main-large">Соберите бургер</h1>
+      <div className={styles["burger-ingredients__tabs"] + " mt-5 mb-10"}>
         <Tab value="one" active={current === "one"} onClick={setCurrent}>
           Булки
         </Tab>
@@ -19,7 +19,9 @@ function BurgerIngridients() {
           Начинки
         </Tab>
       </div>
-      <BurgerIngridientsList></BurgerIngridientsList>
+      <BurgerIngridientsList
+        burgerData={props.burgersData}
+      ></BurgerIngridientsList>
     </div>
   );
 }
