@@ -3,7 +3,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients-card.module.css";
-import imgL from "../../images/1.svg";
+import PropTypes from "prop-types";
 
 function BurgerIngridientsCard(props) {
   const { cardData } = props;
@@ -27,5 +27,22 @@ function BurgerIngridientsCard(props) {
     </div>
   );
 }
+
+BurgerIngridientsCard.propTypes = {
+  cardData: PropTypes.shape({
+    calories: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    fat: PropTypes.number,
+    image: PropTypes.string,
+    image_large: PropTypes.string,
+    image_mobile: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    proteins: PropTypes.number,
+    type: PropTypes.string,
+    __v: PropTypes.number,
+    _id: PropTypes.string,
+  }).isRequired,
+};
 
 export default BurgerIngridientsCard;

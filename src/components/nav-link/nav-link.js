@@ -4,10 +4,11 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 function NavLink(props) {
   return (
-    <div className={styles.nav__link + " pl-5 pr-5 pt-4 pb-4"}>
+    <a className={styles.nav__link + " pl-5 pr-5 pt-4 pb-4"} href="/">
       {props.icon.icon === "profileIcon" ? (
         <ProfileIcon type={props.icon.type} />
       ) : (
@@ -31,8 +32,15 @@ function NavLink(props) {
       ) : (
         <p className="text text_type_main-default">{props.children}</p>
       )}
-    </div>
+    </a>
   );
 }
+
+NavLink.propTypes = {
+  icon: PropTypes.shape({
+    icon: PropTypes.string,
+    type: PropTypes.string,
+  }),
+};
 
 export default NavLink;
