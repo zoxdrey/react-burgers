@@ -1,0 +1,10 @@
+.burger-ingredients-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.burger-ingredients-category__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

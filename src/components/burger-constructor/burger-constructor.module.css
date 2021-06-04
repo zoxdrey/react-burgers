@@ -1,0 +1,10 @@
+.burger-constructor {
+  display: flex;
+  flex-direction: column;
+}
+
+.burger-constructor__info {
+  display: flex;
+  align-self: flex-end;
+  align-items: center;
+}

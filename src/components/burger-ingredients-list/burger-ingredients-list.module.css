@@ -1,0 +1,16 @@
+.burger-ingredients-list {
+  overflow: auto;
+  height: 716px;
+}
+
+.burger-ingredients-list::-webkit-scrollbar {
+  width: 12px;
+}
+.burger-ingredients-list::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.burger-ingredients-list::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}
