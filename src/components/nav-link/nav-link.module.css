@@ -1,6 +1,7 @@
 .nav__link {
   display: flex;
   text-decoration: none;
+  color: inherit;
 }
 
 .nav__link:visited {

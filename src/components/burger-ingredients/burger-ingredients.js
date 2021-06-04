@@ -5,18 +5,18 @@ import styles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 
 function BurgerIngridients(props) {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = React.useState("Булки");
   return (
     <div className={styles["burger-ingredients"] + " mt-10"}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={styles["burger-ingredients__tabs"] + " mt-5 mb-10"}>
-        <Tab value="Булки" active={current === "one"} onClick={setCurrent}>
+        <Tab value="Булки" active={current === "Булки"} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value="Соусы" active={current === "two"} onClick={setCurrent}>
+        <Tab value="Соусы" active={current === "Булки"} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab value="Начинки" active={current === "three"} onClick={setCurrent}>
+        <Tab value="Начинки" active={current === "Булки"} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>

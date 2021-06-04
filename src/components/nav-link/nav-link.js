@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 function NavLink(props) {
   return (
-    <a className={styles.nav__link + " pl-5 pr-5 pt-4 pb-4"} href="/">
+    <a className={styles.nav__link + " pl-5 pr-5 pt-4 pb-4"} href="#">
       {props.icon.icon === "profileIcon" ? (
         <ProfileIcon type={props.icon.type} />
       ) : (
@@ -40,7 +40,7 @@ NavLink.propTypes = {
   icon: PropTypes.shape({
     icon: PropTypes.string,
     type: PropTypes.string,
-  }),
+  }).isRequired,
 };
 
 export default NavLink;

@@ -8,6 +8,7 @@ function BurgerConstructorList({ burgerData }) {
       <BurgerConstructorElem
         type="top"
         burgerConstructorElemData={burgerData[0]}
+        locked
       ></BurgerConstructorElem>
       <div className={styles["burger-constructor-list__scroll-area"]}>
         {[1, 2, 4, 6, 7].map((num) => {
@@ -22,6 +23,7 @@ function BurgerConstructorList({ burgerData }) {
       <BurgerConstructorElem
         burgerConstructorElemData={burgerData[0]}
         type="bottom"
+        locked
       ></BurgerConstructorElem>
     </div>
   );
