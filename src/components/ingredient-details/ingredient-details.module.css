@@ -1,0 +1,14 @@
+.ingredient-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ingredient-details__values {
+  margin-left: 0;
+  display: flex;
+  list-style-type: none;
+  text-align: center;
+  gap: 20px;
+  padding: 0;
+}

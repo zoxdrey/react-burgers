@@ -1,7 +1,6 @@
 import {
   ConstructorElement,
   DragIcon,
-  LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor-elem.module.css";
 import PropTypes from "prop-types";

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Button,
   CurrencyIcon,
@@ -6,8 +6,47 @@ import {
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import PropTypes from "prop-types";
+import ModalOverlay from "../modal-overlay/modal-overlay.js";
+import OrderDetails from "../order-details/order-details.js";
+import { useEffect } from "react";
 
 function BurgerConstructor(props) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const escHnalder = (event) => {
+      if (event.keyCode === 27) {
+        closeModal();
+      }
+    };
+    document.addEventListener("keydown", escHnalder);
+    return () => document.removeEventListener("keydown", escHnalder);
+  }, []);
+
+  const openModal = () => {
+    setVisible(true);
+  };
+
+  const closeModal = (e) => {
+    setVisible(false);
+  };
+
+  const closeByOverlayClickHandler = (e) => {
+    if (e.target.parentNode.id == "modals") {
+      closeModal();
+    }
+  };
+
+  const modal = (
+    <ModalOverlay
+      burgersData={props.burgersData}
+      closeHandler={closeModal}
+      closeByOverlayClickHandler={closeByOverlayClickHandler}
+    >
+      <OrderDetails></OrderDetails>
+    </ModalOverlay>
+  );
+
   return (
     <section className={styles["burger-constructor"] + " mt-25 ml-10"}>
       <BurgerConstructorList
@@ -16,9 +55,10 @@ function BurgerConstructor(props) {
       <div className={styles["burger-constructor__info"]}>
         <p className="text text_type_digits-medium">438</p>
         <CurrencyIcon type="default"></CurrencyIcon>
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={openModal}>
           Оформить заказ
         </Button>
+        {visible && modal}
       </div>
     </section>
   );

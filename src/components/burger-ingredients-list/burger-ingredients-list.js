@@ -8,13 +8,22 @@ function BurgerIngridientsList(props) {
 
   return (
     <div className={styles["burger-ingredients-list"] + " mb-10"}>
-      <BurgerIngridientsCategory categoryData={getBurgerDataByType("bun")}>
+      <BurgerIngridientsCategory
+        categoryData={getBurgerDataByType("bun")}
+        openModalHandler={props.openModalHandler}
+      >
         Булки
       </BurgerIngridientsCategory>
-      <BurgerIngridientsCategory categoryData={getBurgerDataByType("sauce")}>
+      <BurgerIngridientsCategory
+        categoryData={getBurgerDataByType("sauce")}
+        openModalHandler={props.openModalHandler}
+      >
         Соусы
       </BurgerIngridientsCategory>
-      <BurgerIngridientsCategory categoryData={getBurgerDataByType("main")}>
+      <BurgerIngridientsCategory
+        categoryData={getBurgerDataByType("main")}
+        openModalHandler={props.openModalHandler}
+      >
         Начинки
       </BurgerIngridientsCategory>
     </div>

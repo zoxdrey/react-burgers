@@ -12,6 +12,7 @@ function BurgerIngridientsCategory(props) {
           <BurgerIngridientsCard
             cardData={item}
             key={item._id}
+            openModalHandler={props.openModalHandler}
           ></BurgerIngridientsCard>
         ))}
       </div>

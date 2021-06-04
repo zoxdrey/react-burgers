@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 function BurgerIngridients(props) {
   const [current, setCurrent] = React.useState("Булки");
+
   return (
     <div className={styles["burger-ingredients"] + " mt-10"}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
