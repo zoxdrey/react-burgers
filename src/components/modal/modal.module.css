@@ -17,10 +17,10 @@
 
 .modal__close-icon {
   cursor: pointer;
+  align-self: flex-end;
 }
 
 .modal__header {
   display: flex;
   justify-content: space-between;
-  align-self: flex-end;
 }

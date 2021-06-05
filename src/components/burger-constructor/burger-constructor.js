@@ -14,13 +14,13 @@ function BurgerConstructor(props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const escHnalder = (event) => {
+    const escHandler = (event) => {
       if (event.keyCode === 27) {
         closeModal();
       }
     };
-    document.addEventListener("keydown", escHnalder);
-    return () => document.removeEventListener("keydown", escHnalder);
+    document.addEventListener("keydown", escHandler);
+    return () => document.removeEventListener("keydown", escHandler);
   }, []);
 
   const openModal = () => {
@@ -32,7 +32,7 @@ function BurgerConstructor(props) {
   };
 
   const closeByOverlayClickHandler = (e) => {
-    if (e.target.parentNode.id == "modals") {
+    if (e.target.parentNode.id === "modals") {
       closeModal();
     }
   };

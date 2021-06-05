@@ -3,6 +3,8 @@ import styles from "./ingredient-details.module.css";
 function IngredientDetails(props) {
   console.log(props);
   const data = props.burgersData;
+  if (!data) return "";
+
   return (
     <div className={styles["ingredient-details"]}>
       <img src={data.image_large} alt={data.name}></img>

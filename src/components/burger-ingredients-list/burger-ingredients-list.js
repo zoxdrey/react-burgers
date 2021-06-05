@@ -10,19 +10,19 @@ function BurgerIngridientsList(props) {
     <div className={styles["burger-ingredients-list"] + " mb-10"}>
       <BurgerIngridientsCategory
         categoryData={getBurgerDataByType("bun")}
-        openModalHandler={props.openModalHandler}
+        openCardHandler={props.openCardHandler}
       >
         Булки
       </BurgerIngridientsCategory>
       <BurgerIngridientsCategory
         categoryData={getBurgerDataByType("sauce")}
-        openModalHandler={props.openModalHandler}
+        openCardHandler={props.openCardHandler}
       >
         Соусы
       </BurgerIngridientsCategory>
       <BurgerIngridientsCategory
         categoryData={getBurgerDataByType("main")}
-        openModalHandler={props.openModalHandler}
+        openCardHandler={props.openCardHandler}
       >
         Начинки
       </BurgerIngridientsCategory>

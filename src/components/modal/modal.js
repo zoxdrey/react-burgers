@@ -5,16 +5,21 @@ function Modal(props) {
   console.log(props);
   return (
     <div className={styles["modal"]}>
-      <div className={styles["modal__header"]}>
-        {props.title && (
+      {props.title && (
+        <div className={styles["modal__header"]}>
           <p className="text text_type_main-large ml-10 mt-10">
             Детали ингредиента
           </p>
-        )}
+          <div className={styles["modal__close-icon"] + " mt-10 mr-10"}>
+            <CloseIcon type="primary" onClick={props.closeHandler} />
+          </div>
+        </div>
+      )}
+      {!props.title && (
         <div className={styles["modal__close-icon"] + " mt-10 mr-10"}>
           <CloseIcon type="primary" onClick={props.closeHandler} />
         </div>
-      </div>
+      )}
 
       {props.children}
     </div>

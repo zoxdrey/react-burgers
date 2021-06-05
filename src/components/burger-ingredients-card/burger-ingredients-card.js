@@ -4,46 +4,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients-card.module.css";
 import PropTypes from "prop-types";
-import ModalOverlay from "../modal-overlay/modal-overlay.js";
-import IngredientDetails from "../ingredient-details/ingredient-details.js";
-import { useState, useEffect } from "react";
 
 function BurgerIngridientsCard(props) {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const escHanlder = (event) => {
-      if (event.keyCode === 27) {
-        closeModal();
-      }
-    };
-    document.addEventListener("keydown", escHanlder);
-    return () => document.removeEventListener("keydown", escHanlder);
-  }, []);
-
-  const openModal = () => {
-    setVisible(true);
-  };
-
-  const closeModal = (e) => {
-    setVisible(false);
-  };
-
-  const closeByOverlayClickHandler = (e) => {
-    closeModal();
-  };
-
-  const modal = (
-    <ModalOverlay onClose={closeModal}>
-      <IngredientDetails burgersData={props.cardData}></IngredientDetails>
-    </ModalOverlay>
-  );
-
   const { cardData } = props;
+
+  const clickCardHandler = () => {
+    props.openCardHandler(cardData);
+  };
   return (
     <div
       className={styles["burger-ingredients-card"] + " ml-2 mr-2 mb-10"}
-      onClick={openModal}
+      onClick={clickCardHandler}
     >
       <Counter count={1} size="default" />
       <div>
@@ -60,7 +31,6 @@ function BurgerIngridientsCard(props) {
         </div>
         <h3 className="text text_type_main-default">{cardData.name}</h3>
       </div>
-      {visible && modal}
     </div>
   );
 }
