@@ -6,7 +6,7 @@ import {
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import PropTypes from "prop-types";
-import ModalOverlay from "../modal-overlay/modal-overlay.js";
+import ModalOverlay from "../modal/modal.js";
 import OrderDetails from "../order-details/order-details.js";
 import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";

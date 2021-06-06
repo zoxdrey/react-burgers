@@ -2,7 +2,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngridientsList from "../burger-ingredients-list/burger-ingredients-list.js";
 import styles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
-import ModalOverlay from "../modal-overlay/modal-overlay.js";
+import ModalOverlay from "../modal/modal.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.js";
 import { useState, useEffect } from "react";
 import { burgerType } from "../../utils/burgerType";

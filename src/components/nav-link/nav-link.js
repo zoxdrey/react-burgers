@@ -15,4 +15,7 @@ function NavLink(props) {
   );
 }
 
+NavLink.propTypes = {
+  children: PropTypes.array,
+};
 export default NavLink;
