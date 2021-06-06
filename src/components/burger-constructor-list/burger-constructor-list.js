@@ -1,8 +1,10 @@
 import styles from "./burger-constructor-list.module.css";
 import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor-elem.js";
 import PropTypes from "prop-types";
+import { burgerType } from "../../utils/burgerType";
 
 function BurgerConstructorList({ burgerData }) {
+  const mockArray = [1, 2, 4, 6, 7];
   return (
     <div className={styles["burger-constructor-list"]}>
       <BurgerConstructorElem
@@ -11,7 +13,7 @@ function BurgerConstructorList({ burgerData }) {
         locked
       ></BurgerConstructorElem>
       <div className={styles["burger-constructor-list__scroll-area"]}>
-        {[1, 2, 4, 6, 7].map((num) => {
+        {mockArray.map((num) => {
           return (
             <BurgerConstructorElem
               key={num}
@@ -30,22 +32,7 @@ function BurgerConstructorList({ burgerData }) {
 }
 
 BurgerConstructorList.propTypes = {
-  burgerData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      fat: PropTypes.number,
-      image: PropTypes.string,
-      image_large: PropTypes.string,
-      image_mobile: PropTypes.string,
-      name: PropTypes.string,
-      price: PropTypes.number,
-      proteins: PropTypes.number,
-      type: PropTypes.string,
-      __v: PropTypes.number,
-      _id: PropTypes.string,
-    })
-  ).isRequired,
+  burgerData: PropTypes.arrayOf(PropTypes.shape(burgerType)).isRequired,
 };
 
 export default BurgerConstructorList;
