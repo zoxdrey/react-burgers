@@ -10,22 +10,19 @@ function App() {
   const url = 'https://norma.nomoreparties.space/api/ingredients';
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [burgersData, setBurgersData] = useState(data)
+  const [burgersData, setBurgersData] = useState([])
 
 useEffect(() => {
   fetch(url)
-  .then(res => res.json())
-  .then(
-    (result) => {
+    .then(res => res.json())
+    .then(result => {
       setIsLoaded(true);
-      setBurgersData(result.data);
-    },
-    (error) => {
+      setBurgersData(result.data);})
+    .catch(error => {
       setIsLoaded(true);
       setError(error);
-      console.log(error);
-    }
-  )
+    })
+    .finally(() => setIsLoaded(false))
 },[])
 
 

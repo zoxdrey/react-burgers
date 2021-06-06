@@ -1,6 +1,7 @@
 import BurgerIngridientsCard from "../burger-ingredients-card/burger-ingredients-card.js";
 import styles from "./burger-ingredients-category.module.css";
 import PropTypes from "prop-types";
+import { burgerType } from "../../utils/burgerType";
 
 function BurgerIngridientsCategory(props) {
   const { categoryData } = props;
@@ -21,22 +22,7 @@ function BurgerIngridientsCategory(props) {
 }
 
 BurgerIngridientsCategory.propTypes = {
-  categoryData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      fat: PropTypes.number,
-      image: PropTypes.string,
-      image_large: PropTypes.string,
-      image_mobile: PropTypes.string,
-      name: PropTypes.string,
-      price: PropTypes.number,
-      proteins: PropTypes.number,
-      type: PropTypes.string,
-      __v: PropTypes.number,
-      _id: PropTypes.string,
-    })
-  ).isRequired,
+  categoryData: PropTypes.arrayOf(PropTypes.shape(burgerType)).isRequired,
 };
 
 export default BurgerIngridientsCategory;

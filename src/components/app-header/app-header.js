@@ -2,27 +2,29 @@ import React from "react";
 import styles from "./app-header.module.css";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import NavLink from "../nav-link/nav-link.js";
+import {
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 function AppHeader() {
   return (
-    <header className={styles.header + " p-4"}>
+    <header className={`${styles.header} + p-4`}>
       <nav className={styles.nav}>
-        <NavLink icon={{ icon: "burgerIcon", type: "primary" }}>
+        <NavLink>
+          <BurgerIcon type="primary" />
           Конструктор
         </NavLink>
 
-        <NavLink
-          icon={{ icon: "listIcon", type: "secondary" }}
-          isInactiveText={true}
-        >
+        <NavLink isInactiveText={true}>
+          <ListIcon type="secondary" />
           Лента заказов
         </NavLink>
       </nav>
       <Logo />
-      <NavLink
-        icon={{ icon: "profileIcon", type: "secondary" }}
-        isInactiveText={true}
-      >
+      <NavLink isInactiveText={true}>
+        <ProfileIcon type="secondary" />
         Личный кабинет
       </NavLink>
     </header>
