@@ -19,7 +19,7 @@ function BurgerConstructor() {
   const [visible, setVisible] = useState(false);
   const burgerConstructorItems = useContext(ConstructorItemsContext);
   let totalCost = 0;
-  let orderId = "01";
+  const [orderId, setOrderId] = useState("01");
   useEffect(() => {
     const escHandler = (event) => {
       if (event.keyCode === ESC_KEY_CODE) {
@@ -31,15 +31,21 @@ function BurgerConstructor() {
   }, []);
 
   const openModal = () => {
-    setVisible(true);
     fetch(url, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: JSON.stringify({
         ingredients: burgerConstructorItems.map((element) => element._id),
       }),
     })
       .then((res) => res.json())
-      .then((result) => result)
+      .then((result) => {
+        setOrderId(result.order.number);
+        setVisible(true);
+      })
       .catch((error) => error)
       .finally(() => {});
   };
