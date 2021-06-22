@@ -9,13 +9,14 @@ function BurgerIngridientsCategory(props) {
     <div className={styles["burger-ingredients-category"]}>
       <p className="text text_type_main-medium mb-6">{props.children}</p>
       <div className={styles["burger-ingredients-category__cards"]}>
-        {categoryData.map((item) => (
-          <BurgerIngridientsCard
-            cardData={item}
-            key={item._id}
-            openCardHandler={props.openCardHandler}
-          ></BurgerIngridientsCard>
-        ))}
+        {categoryData &&
+          categoryData.map((item) => (
+            <BurgerIngridientsCard
+              cardData={item}
+              key={item._id}
+              openCardHandler={props.openCardHandler}
+            ></BurgerIngridientsCard>
+          ))}
       </div>
     </div>
   );
