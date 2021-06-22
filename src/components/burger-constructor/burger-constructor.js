@@ -6,7 +6,7 @@ import {
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import PropTypes from "prop-types";
-import ModalOverlay from "../modal/modal.js";
+import Modal from "../modal/modal.js";
 import OrderDetails from "../order-details/order-details.js";
 import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";
@@ -18,7 +18,7 @@ function BurgerConstructor() {
   const url = "https://norma.nomoreparties.space/api/orders";
   const [visible, setVisible] = useState(false);
   const burgerConstructorItems = useContext(ConstructorItemsContext);
-  let totalCost = 0;
+
   const [orderId, setOrderId] = useState("01");
   useEffect(() => {
     const escHandler = (event) => {
@@ -61,13 +61,13 @@ function BurgerConstructor() {
   };
 
   const modal = (
-    <ModalOverlay
+    <Modal
       burgersData={burgerConstructorItems}
       closeHandler={closeModal}
       closeByOverlayClickHandler={closeByOverlayClickHandler}
     >
       <OrderDetails orderId={orderId}></OrderDetails>
-    </ModalOverlay>
+    </Modal>
   );
 
   return (
@@ -76,7 +76,12 @@ function BurgerConstructor() {
         items={burgerConstructorItems}
       ></BurgerConstructorList>
       <div className={styles["burger-constructor__info"]}>
-        <p className="text text_type_digits-medium">{totalCost}</p>
+        <p className="text text_type_digits-medium">
+          {burgerConstructorItems.reduce(
+            (acc, curr) => acc + parseInt(curr.price),
+            0
+          )}
+        </p>
         <CurrencyIcon type="default"></CurrencyIcon>
         <Button type="primary" size="medium" onClick={openModal}>
           Оформить заказ
