@@ -4,10 +4,15 @@ import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
 
 function BurgerConstructorList({ items }) {
-  console.log(items);
   return (
     <div className={styles["burger-constructor-list"]}>
-      <BurgerConstructorElem type="top" locked></BurgerConstructorElem>
+      <BurgerConstructorElem
+        type="top"
+        burgerConstructorElemData={items.find((item) => {
+          if (item.type === "bun") return item;
+        })}
+        locked
+      ></BurgerConstructorElem>
       <div className={styles["burger-constructor-list__scroll-area"]}>
         {items.map((item) => {
           return (
@@ -18,7 +23,13 @@ function BurgerConstructorList({ items }) {
           );
         })}
       </div>
-      <BurgerConstructorElem type="bottom" locked></BurgerConstructorElem>
+      <BurgerConstructorElem
+        type="bottom"
+        burgerConstructorElemData={items.find((item) => {
+          if (item.type === "bun") return item;
+        })}
+        locked
+      ></BurgerConstructorElem>
     </div>
   );
 }

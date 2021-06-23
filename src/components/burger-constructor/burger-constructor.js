@@ -18,7 +18,6 @@ function BurgerConstructor() {
   const url = "https://norma.nomoreparties.space/api/orders";
   const [visible, setVisible] = useState(false);
   const burgerConstructorItems = useContext(ConstructorItemsContext);
-
   const [orderId, setOrderId] = useState("01");
   useEffect(() => {
     const escHandler = (event) => {
