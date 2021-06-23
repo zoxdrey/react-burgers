@@ -12,12 +12,11 @@ import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";
 import { burgerType } from "../../utils/burgerType";
 import { BurgersDataContext } from "../../services/burgersDataContext.js";
-import { ConstructorItemsContext } from "../../services/constructorItemsContext";
 
 function BurgerConstructor() {
   const url = "https://norma.nomoreparties.space/api/orders";
   const [visible, setVisible] = useState(false);
-  const burgerConstructorItems = useContext(ConstructorItemsContext);
+  const burgerConstructorItems = useContext(BurgersDataContext);
   const [orderId, setOrderId] = useState("01");
   useEffect(() => {
     const escHandler = (event) => {
@@ -72,7 +71,6 @@ function BurgerConstructor() {
   return (
     <section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
       <BurgerConstructorList
-        items={burgerConstructorItems}
       ></BurgerConstructorList>
       <div className={styles["burger-constructor__info"]}>
         <p className="text text_type_digits-medium">

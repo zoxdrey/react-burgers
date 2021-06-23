@@ -2,9 +2,16 @@ import BurgerIngridientsCategory from "../burger-ingredients-category/burger-ing
 import styles from "./burger-ingredients-list.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
+import { BurgersDataContext } from '../../services/burgersDataContext';
+import { useContext } from "react";
+
+
 function BurgerIngridientsList(props) {
+  
+  const burgerdataContext = useContext(BurgersDataContext)
+
   const getBurgerDataByType = (type) => {
-    return props.burgerData.filter((item) => item.type === type);
+    return burgerdataContext.filter((item) => item.type === type);
   };
 
   return (
@@ -31,8 +38,5 @@ function BurgerIngridientsList(props) {
   );
 }
 
-BurgerIngridientsList.propTypes = {
-  burgerData: PropTypes.arrayOf(PropTypes.shape(burgerType)).isRequired,
-};
 
 export default BurgerIngridientsList;

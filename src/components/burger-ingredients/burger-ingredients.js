@@ -2,7 +2,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngridientsList from "../burger-ingredients-list/burger-ingredients-list.js";
 import styles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
-import ModalOverlay from "../modal/modal.js";
+import Modal from "../modal/modal.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.js";
 import { useState, useEffect, useContext } from "react";
 import { burgerType } from "../../utils/burgerType";
@@ -39,14 +39,14 @@ function BurgerIngridients() {
   };
 
   const modal = (
-    <ModalOverlay
+    <Modal
       title
       burgersData={burgersData}
       closeHandler={closeModal}
       closeByOverlayClickHandler={closeByOverlayClickHandler}
     >
       <IngredientDetails burgersData={currentIngredient}></IngredientDetails>
-    </ModalOverlay>
+    </Modal>
   );
   return (
     <div className={`${styles["burger-ingredients"]} mt-10`}>
@@ -64,7 +64,6 @@ function BurgerIngridients() {
       </div>
       {visible && modal}
       <BurgerIngridientsList
-        burgerData={burgersData}
         openCardHandler={openModal}
       ></BurgerIngridientsList>
     </div>

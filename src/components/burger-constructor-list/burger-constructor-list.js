@@ -2,8 +2,12 @@ import styles from "./burger-constructor-list.module.css";
 import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor-elem.js";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
+import { useContext } from "react";
+import { BurgersDataContext } from '../../services/burgersDataContext';
 
-function BurgerConstructorList({ items }) {
+function BurgerConstructorList() {
+  const items = useContext(BurgersDataContext)
+
   return (
     <div className={styles["burger-constructor-list"]}>
       <BurgerConstructorElem
