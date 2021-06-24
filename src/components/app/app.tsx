@@ -2,39 +2,38 @@ import {useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 import BurgerIngridients from '../burger-ingredients/burger-ingredients'
-import styles from './App.module.css'
-import {data} from '../../utils/data.js'
-
+import styles from './app.module.css'
+import { BurgersDataContext } from '../../services/burgersDataContext';
 
 function App() {
   const url = 'https://norma.nomoreparties.space/api/ingredients';
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [burgersData, setBurgersData] = useState([])
+  const [burgersData, setBurgersData] = useState([1]);
 
+  
 useEffect(() => {
   fetch(url)
     .then(res => res.json())
     .then(result => {
-      setIsLoaded(true);
-      setBurgersData(result.data);})
+      setBurgersData(result.data);
+      setIsLoaded(true);})
     .catch(error => {
       setIsLoaded(true);
       setError(error);
     })
-    .finally(() => setIsLoaded(false))
+    .finally(() => setIsLoaded(false));
 },[])
-
-
-
-  
+ 
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-        <BurgerIngridients burgersData={burgersData}/>
+      <BurgersDataContext.Provider value={burgersData}>
+        <BurgerIngridients/> 
         <div className="p-4"></div>
-        <BurgerConstructor burgersData={burgersData}/>
+        <BurgerConstructor/> 
+        </BurgersDataContext.Provider>
       </main>
     </div>
   );

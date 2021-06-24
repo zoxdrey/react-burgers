@@ -3,7 +3,6 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
 function ModalOverlay(props) {
-  console.log(props);
   return (
     <div className={styles["modal-overlay"]}>
       <div className={styles["modal-overlay__header"]}>

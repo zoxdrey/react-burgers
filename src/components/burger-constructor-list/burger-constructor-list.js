@@ -2,37 +2,40 @@ import styles from "./burger-constructor-list.module.css";
 import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor-elem.js";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
+import { useContext } from "react";
+import { BurgersDataContext } from '../../services/burgersDataContext';
 
-function BurgerConstructorList({ burgerData }) {
-  const mockArray = [1, 2, 4, 6, 7];
+function BurgerConstructorList() {
+  const items = useContext(BurgersDataContext)
+
   return (
     <div className={styles["burger-constructor-list"]}>
       <BurgerConstructorElem
         type="top"
-        burgerConstructorElemData={burgerData[0]}
+        burgerConstructorElemData={items.find((item) => {
+          if (item.type === "bun") return item;
+        })}
         locked
       ></BurgerConstructorElem>
       <div className={styles["burger-constructor-list__scroll-area"]}>
-        {mockArray.map((num) => {
+        {items.map((item) => {
           return (
             <BurgerConstructorElem
-              key={num}
-              burgerConstructorElemData={burgerData[num]}
+              key={item.id}
+              burgerConstructorElemData={item}
             />
           );
         })}
       </div>
       <BurgerConstructorElem
-        burgerConstructorElemData={burgerData[0]}
         type="bottom"
+        burgerConstructorElemData={items.find((item) => {
+          if (item.type === "bun") return item;
+        })}
         locked
       ></BurgerConstructorElem>
     </div>
   );
 }
-
-BurgerConstructorList.propTypes = {
-  burgerData: PropTypes.arrayOf(PropTypes.shape(burgerType)).isRequired,
-};
 
 export default BurgerConstructorList;

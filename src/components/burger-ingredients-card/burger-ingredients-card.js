@@ -5,10 +5,12 @@ import {
 import styles from "./burger-ingredients-card.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
+import { useState, useEffect, useContext } from "react";
+import { BurgersDataContext } from "../../services/burgersDataContext.js";
 
 function BurgerIngridientsCard(props) {
   const { cardData } = props;
-
+  const burgersData = useContext(BurgersDataContext);
   const clickCardHandler = () => {
     props.openCardHandler(cardData);
   };

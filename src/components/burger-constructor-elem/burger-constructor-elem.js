@@ -8,6 +8,7 @@ import { burgerType } from "../../utils/burgerType";
 
 function BurgerConstructorElem(props) {
   const { type, burgerConstructorElemData } = props;
+
   return (
     <div className={`${styles["burger-constructor-elem"]} m-4`}>
       <DragIcon type="primary" />
@@ -27,6 +28,23 @@ function BurgerConstructorElem(props) {
 BurgerConstructorElem.propTypes = {
   burgerConstructorElemData: PropTypes.shape(burgerType),
   type: PropTypes.string,
+};
+
+BurgerConstructorElem.defaultProps = {
+  burgerConstructorElemData: {
+    calories: 0,
+    carbohydrates: 0,
+    fat: 0,
+    image: "",
+    image_large: "",
+    image_mobile: "",
+    name: "Placeholder",
+    price: 0,
+    proteins: 0,
+    type: "bun",
+    __v: 0,
+    _id: 0,
+  },
 };
 
 export default BurgerConstructorElem;

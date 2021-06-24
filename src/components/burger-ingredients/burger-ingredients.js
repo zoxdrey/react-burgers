@@ -2,16 +2,17 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngridientsList from "../burger-ingredients-list/burger-ingredients-list.js";
 import styles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
-import ModalOverlay from "../modal/modal.js";
+import Modal from "../modal/modal.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { burgerType } from "../../utils/burgerType";
+import { BurgersDataContext } from "../../services/burgersDataContext.js";
 
-function BurgerIngridients(props) {
+function BurgerIngridients() {
   const [current, setCurrent] = useState("Булки");
   const [visible, setVisible] = useState(false);
   const [currentIngredient, setCurrentIngredient] = useState(null);
-
+  const burgersData = useContext(BurgersDataContext);
   useEffect(() => {
     const escHanlder = (event) => {
       if (event.keyCode === 27) {
@@ -38,14 +39,14 @@ function BurgerIngridients(props) {
   };
 
   const modal = (
-    <ModalOverlay
+    <Modal
       title
-      burgersData={props.burgersData}
+      burgersData={burgersData}
       closeHandler={closeModal}
       closeByOverlayClickHandler={closeByOverlayClickHandler}
     >
       <IngredientDetails burgersData={currentIngredient}></IngredientDetails>
-    </ModalOverlay>
+    </Modal>
   );
   return (
     <div className={`${styles["burger-ingredients"]} mt-10`}>
@@ -63,15 +64,10 @@ function BurgerIngridients(props) {
       </div>
       {visible && modal}
       <BurgerIngridientsList
-        burgerData={props.burgersData}
         openCardHandler={openModal}
       ></BurgerIngridientsList>
     </div>
   );
 }
-
-BurgerIngridients.propTypes = {
-  burgersData: PropTypes.arrayOf(PropTypes.shape(burgerType)).isRequired,
-};
 
 export default BurgerIngridients;
