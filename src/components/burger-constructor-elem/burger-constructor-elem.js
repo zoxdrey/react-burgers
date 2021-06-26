@@ -84,7 +84,9 @@ function BurgerConstructorElem(props) {
         data-handler-id={handlerId}
         className={`${styles["burger-constructor-elem"]} m-4`}
       >
-        <DragIcon type="primary" />
+        {burgerConstructorElemData.type !== "bun" ? (
+          <DragIcon type="primary" />
+        ) : null}
 
         <ConstructorElement
           text={burgerConstructorElemData?.name}

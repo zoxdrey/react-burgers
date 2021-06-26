@@ -57,7 +57,7 @@ function BurgerConstructor() {
       closeHandler={closeModal}
       closeByOverlayClickHandler={closeByOverlayClickHandler}
     >
-      <OrderDetails orderId={orderId}></OrderDetails>
+      <OrderDetails orderId={orderId + ""}></OrderDetails>
     </Modal>
   );
 
