@@ -5,14 +5,25 @@ import {
 import styles from "./burger-ingredients-card.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
-import { useState, useEffect, useContext } from "react";
-import { BurgersDataContext } from "../../services/burgersDataContext.js";
+import { useDispatch } from "react-redux";
+import {
+  ADD_CONSTRUCTOR_ITEM,
+  ADD_CURRENT_INGREDIENT,
+} from "../../services/actions/actions";
 
 function BurgerIngridientsCard(props) {
+  const dispatch = useDispatch();
   const { cardData } = props;
-  const burgersData = useContext(BurgersDataContext);
   const clickCardHandler = () => {
     props.openCardHandler(cardData);
+    dispatch({
+      type: ADD_CONSTRUCTOR_ITEM,
+      item: cardData,
+    });
+    dispatch({
+      type: ADD_CURRENT_INGREDIENT,
+      item: cardData,
+    });
   };
   return (
     <div

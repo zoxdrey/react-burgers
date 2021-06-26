@@ -7,12 +7,15 @@ import IngredientDetails from "../ingredient-details/ingredient-details.js";
 import { useState, useEffect, useContext } from "react";
 import { burgerType } from "../../utils/burgerType";
 import { BurgersDataContext } from "../../services/burgersDataContext.js";
+import { REMOVE_CURRENT_INGREDIENT } from "../../services/actions/actions";
+import { useDispatch } from "react-redux";
 
 function BurgerIngridients() {
   const [current, setCurrent] = useState("Булки");
   const [visible, setVisible] = useState(false);
   const [currentIngredient, setCurrentIngredient] = useState(null);
   const burgersData = useContext(BurgersDataContext);
+  const dispatch = useDispatch();
   useEffect(() => {
     const escHanlder = (event) => {
       if (event.keyCode === 27) {
@@ -30,6 +33,9 @@ function BurgerIngridients() {
 
   const closeModal = () => {
     setVisible(false);
+    dispatch({
+      type: REMOVE_CURRENT_INGREDIENT,
+    });
   };
 
   const closeByOverlayClickHandler = (e) => {

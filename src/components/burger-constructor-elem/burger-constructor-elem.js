@@ -5,9 +5,18 @@ import {
 import styles from "./burger-constructor-elem.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
+import { REMOVE_CONSTRUCTOR_ITEM } from "../../services/actions/actions";
+import { useDispatch } from "react-redux";
 
 function BurgerConstructorElem(props) {
   const { type, burgerConstructorElemData } = props;
+  const dispacth = useDispatch();
+  function handleClose() {
+    dispacth({
+      type: REMOVE_CONSTRUCTOR_ITEM,
+      item: burgerConstructorElemData,
+    });
+  }
 
   return (
     <div className={`${styles["burger-constructor-elem"]} m-4`}>
@@ -19,6 +28,7 @@ function BurgerConstructorElem(props) {
           thumbnail={burgerConstructorElemData?.image}
           type={type}
           isLocked={props.locked}
+          handleClose={handleClose}
         />
       )}
     </div>

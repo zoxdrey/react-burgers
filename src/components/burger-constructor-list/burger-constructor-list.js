@@ -1,14 +1,10 @@
 import styles from "./burger-constructor-list.module.css";
 import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor-elem.js";
-import PropTypes from "prop-types";
-import { burgerType } from "../../utils/burgerType";
-import { useContext } from "react";
-import { BurgersDataContext } from "../../services/burgersDataContext";
 import { useSelector } from "react-redux";
 
 function BurgerConstructorList() {
   const items = useSelector(
-    (store) => store.ingredientsListReducer.ingredientsList
+    (store) => store.constructorItemsListReducer.constructorItemsList
   );
 
   return (

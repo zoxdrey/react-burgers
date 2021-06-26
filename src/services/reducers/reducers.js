@@ -5,6 +5,10 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_ERROR,
+  ADD_CONSTRUCTOR_ITEM,
+  REMOVE_CONSTRUCTOR_ITEM,
+  ADD_CURRENT_INGREDIENT,
+  REMOVE_CURRENT_INGREDIENT,
 } from "../actions/actions";
 
 import { combineReducers } from "redux";
@@ -94,9 +98,55 @@ export const orderReducer = (state = initialState, action) => {
   }
 };
 
+export const constructorItemsListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_CONSTRUCTOR_ITEM: {
+      return {
+        ...state,
+        constructorItemsList: [...state.constructorItemsList, action.item],
+      };
+    }
+    case REMOVE_CONSTRUCTOR_ITEM: {
+      return {
+        ...state,
+        constructorItemsList: state.constructorItemsList.filter(
+          (item) => item._id !== action.item._id
+        ),
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
+
+export const currentIngredientReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_CURRENT_INGREDIENT: {
+      return {
+        ...state,
+        currentIngredient: action.item,
+      };
+    }
+    case REMOVE_CURRENT_INGREDIENT: {
+      return {
+        ...state,
+        currentIngredient: {},
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
+
 const rootReducer = combineReducers({
   ingredientsListReducer,
   orderReducer,
+  constructorItemsListReducer,
+  currentIngredientReducer,
 });
 
 export default rootReducer;

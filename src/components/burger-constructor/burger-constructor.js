@@ -15,12 +15,9 @@ function BurgerConstructor() {
   const [visible, setVisible] = useState(false);
 
   const burgerConstructorItems = useSelector(
-    (store) => store.ingredientsListReducer.ingredientsList
+    (store) => store.constructorItemsListReducer.constructorItemsList
   );
-  const orderId = useSelector((store) => {
-    console.log(store);
-    return store.orderReducer.order.orderId;
-  });
+  const orderId = useSelector((store) => store.orderReducer.order.orderId);
   const dispatch = useDispatch();
   useEffect(() => {
     const escHandler = (event) => {

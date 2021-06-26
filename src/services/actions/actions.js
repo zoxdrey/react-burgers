@@ -6,6 +6,12 @@ export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const GET_ORDER_ERROR = "GET_ORDER_ERROR";
 
+export const ADD_CONSTRUCTOR_ITEM = "ADD_CONSTRUCTOR_ITEM";
+export const REMOVE_CONSTRUCTOR_ITEM = "REMOVE_CONSTRUCTOR_ITEM";
+
+export const ADD_CURRENT_INGREDIENT = "ADD_CURRENT_INGREDIENT";
+export const REMOVE_CURRENT_INGREDIENT = "REMOVE_CURRENT_INGREDIENT";
+
 export function getIngredientsList() {
   return function (dispatch) {
     dispatch({
@@ -15,7 +21,6 @@ export function getIngredientsList() {
       .then((res) => res.json())
       .then((res) => {
         if (res && res.success) {
-          console.log(res.data);
           dispatch({
             type: GET_BURGER_INGREDIENTS_SUCCESS,
             ingredientsList: res.data,
