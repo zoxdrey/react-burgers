@@ -3,37 +3,52 @@ import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
 import { useContext } from "react";
-import { BurgersDataContext } from '../../services/burgersDataContext';
+import { BurgersDataContext } from "../../services/burgersDataContext";
+import { useSelector } from "react-redux";
 
 function BurgerConstructorList() {
-  const items = useContext(BurgersDataContext)
+  const items = useSelector(
+    (store) => store.ingredientsListReducer.ingredientsList
+  );
 
   return (
     <div className={styles["burger-constructor-list"]}>
-      <BurgerConstructorElem
-        type="top"
-        burgerConstructorElemData={items.find((item) => {
-          if (item.type === "bun") return item;
-        })}
-        locked
-      ></BurgerConstructorElem>
+      {items ? (
+        <BurgerConstructorElem
+          type="top"
+          burgerConstructorElemData={items.find((item) => {
+            if (item.type === "bun") return item;
+          })}
+          locked
+        ></BurgerConstructorElem>
+      ) : (
+        <div></div>
+      )}
       <div className={styles["burger-constructor-list__scroll-area"]}>
-        {items.map((item) => {
-          return (
-            <BurgerConstructorElem
-              key={item.id}
-              burgerConstructorElemData={item}
-            />
-          );
-        })}
+        {items ? (
+          items.map((item) => {
+            return (
+              <BurgerConstructorElem
+                key={item.id}
+                burgerConstructorElemData={item}
+              />
+            );
+          })
+        ) : (
+          <div></div>
+        )}
       </div>
-      <BurgerConstructorElem
-        type="bottom"
-        burgerConstructorElemData={items.find((item) => {
-          if (item.type === "bun") return item;
-        })}
-        locked
-      ></BurgerConstructorElem>
+      {items ? (
+        <BurgerConstructorElem
+          type="bottom"
+          burgerConstructorElemData={items.find((item) => {
+            if (item.type === "bun") return item;
+          })}
+          locked
+        ></BurgerConstructorElem>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

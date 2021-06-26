@@ -1,39 +1,29 @@
-import {useEffect, useState} from 'react';
-import AppHeader from '../app-header/app-header'
-import BurgerConstructor from '../burger-constructor/burger-constructor'
-import BurgerIngridients from '../burger-ingredients/burger-ingredients'
-import styles from './app.module.css'
-import { BurgersDataContext } from '../../services/burgersDataContext';
+import { useEffect, useState } from "react";
+import AppHeader from "../app-header/app-header";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngridients from "../burger-ingredients/burger-ingredients";
+import styles from "./app.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { getIngredientsList } from "../../services/actions/actions";
 
 function App() {
-  const url = 'https://norma.nomoreparties.space/api/ingredients';
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [burgersData, setBurgersData] = useState([1]);
+  const { ingredientsList, ingrediantsRequest, ingredientsError } = useSelector(
+    (store: any) => store.ingredientsListReducer
+  );
+  const dispatch = useDispatch();
 
-  
-useEffect(() => {
-  fetch(url)
-    .then(res => res.json())
-    .then(result => {
-      setBurgersData(result.data);
-      setIsLoaded(true);})
-    .catch(error => {
-      setIsLoaded(true);
-      setError(error);
-    })
-    .finally(() => setIsLoaded(false));
-},[])
- 
+  useEffect(() => {
+    dispatch(getIngredientsList());
+  }, []);
+
+  console.log(ingredientsList);
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-      <BurgersDataContext.Provider value={burgersData}>
-        <BurgerIngridients/> 
+        <BurgerIngridients />
         <div className="p-4"></div>
-        <BurgerConstructor/> 
-        </BurgersDataContext.Provider>
+        <BurgerConstructor />
       </main>
     </div>
   );

@@ -2,16 +2,17 @@ import BurgerIngridientsCategory from "../burger-ingredients-category/burger-ing
 import styles from "./burger-ingredients-list.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
-import { BurgersDataContext } from '../../services/burgersDataContext';
+import { BurgersDataContext } from "../../services/burgersDataContext";
 import { useContext } from "react";
-
+import { useSelector } from "react-redux";
 
 function BurgerIngridientsList(props) {
-  
-  const burgerdataContext = useContext(BurgersDataContext)
+  const burgerdata = useSelector(
+    (store) => store.ingredientsListReducer.ingredientsList
+  );
 
   const getBurgerDataByType = (type) => {
-    return burgerdataContext.filter((item) => item.type === type);
+    return burgerdata.filter((item) => item.type === type);
   };
 
   return (
@@ -37,6 +38,5 @@ function BurgerIngridientsList(props) {
     </div>
   );
 }
-
 
 export default BurgerIngridientsList;
