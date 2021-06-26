@@ -16,7 +16,6 @@ function App() {
     dispatch(getIngredientsList());
   }, []);
 
-  console.log(ingredientsList);
   return (
     <div className={styles.app}>
       <AppHeader />

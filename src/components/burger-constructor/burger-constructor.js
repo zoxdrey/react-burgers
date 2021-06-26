@@ -1,23 +1,27 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
-import PropTypes from "prop-types";
 import Modal from "../modal/modal.js";
 import OrderDetails from "../order-details/order-details.js";
 import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";
-import { burgerType } from "../../utils/burgerType";
-import { BurgersDataContext } from "../../services/burgersDataContext.js";
-
+import { useSelector, useDispatch } from "react-redux";
+import { getOrder } from "../../services/actions/actions";
 function BurgerConstructor() {
-  const url = "https://norma.nomoreparties.space/api/orders";
   const [visible, setVisible] = useState(false);
-  const burgerConstructorItems = [];
-  const [orderId, setOrderId] = useState("01");
+
+  const burgerConstructorItems = useSelector(
+    (store) => store.ingredientsListReducer.ingredientsList
+  );
+  const orderId = useSelector((store) => {
+    console.log(store);
+    return store.orderReducer.order.orderId;
+  });
+  const dispatch = useDispatch();
   useEffect(() => {
     const escHandler = (event) => {
       if (event.keyCode === ESC_KEY_CODE) {
@@ -29,23 +33,9 @@ function BurgerConstructor() {
   }, []);
 
   const openModal = () => {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify({
-        ingredients: burgerConstructorItems.map((element) => element._id),
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setOrderId(result.order.number);
-        setVisible(true);
-      })
-      .catch((error) => error)
-      .finally(() => {});
+    const ingredientsIds = burgerConstructorItems.map((element) => element._id);
+    dispatch(getOrder(ingredientsIds, setVisible));
+    console.log(orderId);
   };
 
   const closeModal = (e) => {
