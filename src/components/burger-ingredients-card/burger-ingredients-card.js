@@ -6,31 +6,36 @@ import styles from "./burger-ingredients-card.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
 import { useDispatch } from "react-redux";
-import {
-  ADD_CONSTRUCTOR_ITEM,
-  ADD_CURRENT_INGREDIENT,
-} from "../../services/actions/actions";
+import { ADD_CURRENT_INGREDIENT } from "../../services/actions/actions";
+import { useDrag } from "react-dnd";
 
 function BurgerIngridientsCard(props) {
   const dispatch = useDispatch();
   const { cardData } = props;
+
+  const [{ isDrag }, dragRef] = useDrag({
+    item: cardData,
+    type: "card",
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
   const clickCardHandler = () => {
     props.openCardHandler(cardData);
-    dispatch({
-      type: ADD_CONSTRUCTOR_ITEM,
-      item: cardData,
-    });
     dispatch({
       type: ADD_CURRENT_INGREDIENT,
       item: cardData,
     });
   };
+
   return (
     <div
       className={`${styles["burger-ingredients-card"]} ml-2 mr-2 mb-10`}
       onClick={clickCardHandler}
+      ref={dragRef}
     >
-      <Counter count={1} size="default" />
+      <Counter count={0} size="default" />
       <div>
         <img
           className={`${styles["burger-ingredients-card__image"]} ml-4 mr-4 mb-1`}

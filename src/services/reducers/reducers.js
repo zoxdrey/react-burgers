@@ -9,6 +9,9 @@ import {
   REMOVE_CONSTRUCTOR_ITEM,
   ADD_CURRENT_INGREDIENT,
   REMOVE_CURRENT_INGREDIENT,
+  MOVE_CONSTRUCTOR_ITEM,
+  ADD_BUN_CONSTRUCTOR_ITEM,
+  RESET_CONSTRUCTOR,
 } from "../actions/actions";
 
 import { combineReducers } from "redux";
@@ -19,7 +22,7 @@ const initialState = {
   ingredientsError: false,
 
   constructorItemsList: [],
-
+  constructorBun: {},
   currentIngredient: {},
 
   order: {
@@ -100,6 +103,12 @@ export const orderReducer = (state = initialState, action) => {
 
 export const constructorItemsListReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_BUN_CONSTRUCTOR_ITEM: {
+      return {
+        ...state,
+        constructorBun: action.item,
+      };
+    }
     case ADD_CONSTRUCTOR_ITEM: {
       return {
         ...state,
@@ -110,8 +119,29 @@ export const constructorItemsListReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorItemsList: state.constructorItemsList.filter(
-          (item) => item._id !== action.item._id
+          (val, i) => i !== action.index
         ),
+      };
+    }
+    case MOVE_CONSTRUCTOR_ITEM: {
+      const { dragIndex, hoverIndex } = action.payload;
+      const arr = [...state.constructorItemsList];
+      const dragEl = arr[dragIndex];
+      const hoverEl = arr[hoverIndex];
+      arr[hoverIndex] = dragEl;
+      arr[dragIndex] = hoverEl;
+      console.log(arr);
+      return {
+        ...state,
+        constructorItemsList: arr,
+      };
+    }
+
+    case RESET_CONSTRUCTOR: {
+      return {
+        ...state,
+        constructorItemsList: initialState.constructorItemsList,
+        constructorBun: initialState.constructorBun,
       };
     }
 

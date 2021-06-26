@@ -9,6 +9,7 @@ import Modal from "../modal/modal.js";
 import OrderDetails from "../order-details/order-details.js";
 import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";
+import { RESET_CONSTRUCTOR } from "../../services/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrder } from "../../services/actions/actions";
 function BurgerConstructor() {
@@ -16,6 +17,9 @@ function BurgerConstructor() {
 
   const burgerConstructorItems = useSelector(
     (store) => store.constructorItemsListReducer.constructorItemsList
+  );
+  const bun = useSelector(
+    (store) => store.constructorItemsListReducer.constructorBun
   );
   const orderId = useSelector((store) => store.orderReducer.order.orderId);
   const dispatch = useDispatch();
@@ -32,7 +36,9 @@ function BurgerConstructor() {
   const openModal = () => {
     const ingredientsIds = burgerConstructorItems.map((element) => element._id);
     dispatch(getOrder(ingredientsIds, setVisible));
-    console.log(orderId);
+    dispatch({
+      type: RESET_CONSTRUCTOR,
+    });
   };
 
   const closeModal = (e) => {
@@ -60,10 +66,11 @@ function BurgerConstructor() {
       <BurgerConstructorList></BurgerConstructorList>
       <div className={styles["burger-constructor__info"]}>
         <p className="text text_type_digits-medium">
-          {burgerConstructorItems.reduce(
-            (acc, curr) => acc + parseInt(curr.price),
-            0
-          )}
+          {bun.price * 2 +
+            burgerConstructorItems.reduce(
+              (acc, curr) => acc + parseInt(curr.price),
+              0
+            ) || 0}
         </p>
         <CurrencyIcon type="default"></CurrencyIcon>
         <Button type="primary" size="medium" onClick={openModal}>
