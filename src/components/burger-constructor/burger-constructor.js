@@ -71,7 +71,7 @@ function BurgerConstructor() {
       <BurgerConstructorList></BurgerConstructorList>
       <div className={styles["burger-constructor__info"]}>
         <p className="text text_type_digits-medium">
-          {bun.price * 2 +
+          {(bun.price || 0) * 2 +
             burgerConstructorItems.reduce(
               (acc, curr) => acc + parseInt(curr.price),
               0
