@@ -50,10 +50,12 @@ function BurgerConstructorElem(props) {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
+
       dispatch({
         type: MOVE_CONSTRUCTOR_ITEM,
         payload: { dragIndex, hoverIndex },
       });
+
       item.index = hoverIndex;
     },
   });
@@ -69,28 +71,27 @@ function BurgerConstructorElem(props) {
   });
 
   drag(drop(ref));
-
+  const opacity = isDragging ? 0 : 1;
   return (
-    !isDragging && (
-      <div
-        ref={ref}
-        data-handler-id={handlerId}
-        className={`${styles["burger-constructor-elem"]} m-4`}
-      >
-        {burgerConstructorElemData.type !== "bun" ? (
-          <DragIcon type="primary" />
-        ) : null}
+    <div
+      ref={ref}
+      data-handler-id={handlerId}
+      className={`${styles["burger-constructor-elem"]} m-4`}
+      style={{ opacity }}
+    >
+      {burgerConstructorElemData.type !== "bun" ? (
+        <DragIcon type="primary" />
+      ) : null}
 
-        <ConstructorElement
-          text={burgerConstructorElemData?.name}
-          price={burgerConstructorElemData?.price}
-          thumbnail={burgerConstructorElemData?.image}
-          type={type}
-          isLocked={props.locked}
-          handleClose={handleClose}
-        />
-      </div>
-    )
+      <ConstructorElement
+        text={burgerConstructorElemData?.name}
+        price={burgerConstructorElemData?.price}
+        thumbnail={burgerConstructorElemData?.image}
+        type={type}
+        isLocked={props.locked}
+        handleClose={handleClose}
+      />
+    </div>
   );
 }
 
