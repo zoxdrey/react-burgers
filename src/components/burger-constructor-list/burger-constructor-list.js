@@ -7,6 +7,7 @@ import {
   ADD_BUN_CONSTRUCTOR_ITEM,
   ADD_CONSTRUCTOR_ITEM,
 } from "../../services/actions/actions";
+import { v4 as uuidv4 } from "uuid";
 
 function BurgerConstructorList() {
   const items = useSelector(
@@ -32,7 +33,7 @@ function BurgerConstructorList() {
     } else {
       dispatch({
         type: ADD_CONSTRUCTOR_ITEM,
-        item: item,
+        item: { ...item, key: uuidv4() },
       });
     }
   }
@@ -55,7 +56,7 @@ function BurgerConstructorList() {
             .map((item, index) => {
               return (
                 <BurgerConstructorElem
-                  key={index}
+                  key={item.key}
                   burgerConstructorElemData={item}
                   index={index}
                 />
