@@ -20,25 +20,8 @@ function BurgerConstructorElem(props) {
       index: index,
     });
   }
-  // const [{ isDrag }, dragRef] = useDrag({
-  // type: "card",
-  //  item: { burgerConstructorElemData },
-  //  collect: (monitor) => ({
-  //   isDrag: monitor.isDragging(),
-  //  }),
-  // });
 
   const ref = useRef(null);
-
-  const [{ isDragging }, drag] = useDrag({
-    type: "card-list",
-    item: () => {
-      return { burgerConstructorElemData, index };
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
 
   const [{ handlerId }, drop] = useDrop({
     accept: "card-list",
@@ -73,6 +56,16 @@ function BurgerConstructorElem(props) {
       });
       item.index = hoverIndex;
     },
+  });
+
+  const [{ isDragging }, drag] = useDrag({
+    type: "card-list",
+    item: () => {
+      return { burgerConstructorElemData, index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   drag(drop(ref));

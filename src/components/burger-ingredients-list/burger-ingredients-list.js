@@ -8,9 +8,9 @@ function BurgerIngridientsList(props) {
     (store) => store.ingredientsListReducer.ingredientsList
   );
 
-  const [bunsRef, inViewBuns, entryBuns] = useInView({ threshold: 0.1 });
-  const [saucesRef, inViewSauces, entrySauces] = useInView({ threshold: 0.1 });
-  const [mainsRef, inViewMains, entryMains] = useInView({ threshold: 0.1 });
+  const [bunsRef, inViewBuns] = useInView({ threshold: 0.1 });
+  const [saucesRef, inViewSauces] = useInView({ threshold: 0.1 });
+  const [mainsRef, inViewMains] = useInView({ threshold: 0.1 });
   useEffect(() => {
     if (inViewBuns) {
       props.setCurrentTab("Булки");
