@@ -21,6 +21,7 @@ export function getIngredientsList() {
       type: GET_BURGER_INGREDIENTS_REQUEST,
     });
     fetch("https://norma.nomoreparties.space/api/ingredients")
+      .then((res) => (res.ok ? res : Promise.reject(res)))
       .then((res) => res.json())
       .then((res) => {
         if (res && res.success) {
@@ -54,6 +55,7 @@ export function getOrder(orderIds, openModalFunc) {
       },
       body: JSON.stringify({ ingredients: orderIds }),
     })
+      .then((res) => (res.ok ? res : Promise.reject(res)))
       .then((res) => res.json())
       .then((res) => {
         if (res && res.success) {

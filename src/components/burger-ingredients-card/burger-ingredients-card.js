@@ -20,7 +20,7 @@ function BurgerIngridientsCard(props) {
   );
 
   function countItems() {
-    if (cardData.type == "bun") {
+    if (cardData.type === "bun") {
       return bun._id === cardData._id ? 2 : 0;
     } else {
       return items.filter((item) => item._id === cardData._id).length;

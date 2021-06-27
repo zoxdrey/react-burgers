@@ -34,11 +34,16 @@ function BurgerConstructor() {
   }, []);
 
   const openModal = () => {
-    const ingredientsIds = burgerConstructorItems.map((element) => element._id);
-    dispatch(getOrder(ingredientsIds, setVisible));
-    dispatch({
-      type: RESET_CONSTRUCTOR,
-    });
+    if (bun._id) {
+      const ingredientsIds = [
+        ...burgerConstructorItems.map((element) => element._id),
+        bun._id,
+      ];
+      dispatch(getOrder(ingredientsIds, setVisible));
+      dispatch({
+        type: RESET_CONSTRUCTOR,
+      });
+    }
   };
 
   const closeModal = (e) => {
