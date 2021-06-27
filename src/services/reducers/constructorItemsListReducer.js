@@ -36,7 +36,6 @@ export const constructorItemsListReducer = (state = initialState, action) => {
       const hoverEl = arr[hoverIndex];
       arr[hoverIndex] = dragEl;
       arr[dragIndex] = hoverEl;
-      console.log(arr);
       return {
         ...state,
         constructorItemsList: arr,
