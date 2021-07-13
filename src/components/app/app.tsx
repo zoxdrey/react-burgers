@@ -8,12 +8,10 @@ import {getIngredientsList} from "../../services/actions/actions";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import LoginPage from "../../pages/login";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import RegisterPage from "../../pages/register";
+import ForgotPasswordPage from "../../pages/forgot-password";
+import ResetPasswordPage from "../../pages/reset-password";
 
 function App() {
 
@@ -29,22 +27,25 @@ function App() {
             <DndProvider backend={HTML5Backend}>
                 <main className={styles.main}>
                     <Router>
-                    <Switch>
-                        <Route exact path='/'>
-                            <BurgerIngredients/>
-                            <div className="p-4"></div>
-                            <BurgerConstructor/>
-                        </Route>
-                        <Route exact path='/login'>
-                            <LoginPage />
-                        </Route>
-                        <Route exact path='/register'>
-                            <RegisterPage />
-                        </Route>
-                        <Route exact path='/login'>
-                            <LoginPage />
-                        </Route>
-                    </Switch>
+                        <Switch>
+                            <Route exact path='/'>
+                                <BurgerIngredients/>
+                                <div className="p-4"></div>
+                                <BurgerConstructor/>
+                            </Route>
+                            <Route exact path='/login'>
+                                <LoginPage/>
+                            </Route>
+                            <Route exact path='/register'>
+                                <RegisterPage/>
+                            </Route>
+                            <Route exact path='/forgot-password'>
+                                <ForgotPasswordPage/>
+                            </Route>
+                            <Route exact path='/reset-password'>
+                                <ResetPasswordPage/>
+                            </Route>
+                        </Switch>
                     </Router>
                 </main>
             </DndProvider>
