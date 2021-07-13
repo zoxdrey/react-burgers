@@ -1,39 +1,80 @@
 import styles from "./burger-constructor-list.module.css";
 import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor-elem.js";
-import PropTypes from "prop-types";
-import { burgerType } from "../../utils/burgerType";
-import { useContext } from "react";
-import { BurgersDataContext } from '../../services/burgersDataContext';
+import { useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
+import {
+  ADD_BUN_CONSTRUCTOR_ITEM,
+  ADD_CONSTRUCTOR_ITEM,
+} from "../../services/actions/actions";
+import { v4 as uuidv4 } from "uuid";
 
 function BurgerConstructorList() {
-  const items = useContext(BurgersDataContext)
+  const items = useSelector(
+    (store) => store.constructorItemsListReducer.constructorItemsList
+  );
+  const bun = useSelector(
+    (store) => store.constructorItemsListReducer.constructorBun
+  );
+  const dispatch = useDispatch();
+  const [, dropTarget] = useDrop({
+    accept: "card",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+
+  function onDropHandler(item) {
+    if (item.type === "bun") {
+      dispatch({
+        type: ADD_BUN_CONSTRUCTOR_ITEM,
+        item: item,
+      });
+    } else {
+      dispatch({
+        type: ADD_CONSTRUCTOR_ITEM,
+        item: { ...item, key: uuidv4() },
+      });
+    }
+  }
 
   return (
-    <div className={styles["burger-constructor-list"]}>
-      <BurgerConstructorElem
-        type="top"
-        burgerConstructorElemData={items.find((item) => {
-          if (item.type === "bun") return item;
-        })}
-        locked
-      ></BurgerConstructorElem>
+    <div ref={dropTarget} className={styles["burger-constructor-list"]}>
+      {bun ? (
+        <BurgerConstructorElem
+          type="top"
+          burgerConstructorElemData={bun}
+          locked
+        ></BurgerConstructorElem>
+      ) : (
+        <div></div>
+      )}
       <div className={styles["burger-constructor-list__scroll-area"]}>
-        {items.map((item) => {
-          return (
-            <BurgerConstructorElem
-              key={item.id}
-              burgerConstructorElemData={item}
-            />
-          );
-        })}
+        {items ? (
+          items
+            .filter((item) => item.type !== "bun")
+            .map((item, index) => {
+              return (
+                <BurgerConstructorElem
+                  key={item.key}
+                  burgerConstructorElemData={item}
+                  index={index}
+                />
+              );
+            })
+        ) : (
+          <div></div>
+        )}
       </div>
-      <BurgerConstructorElem
-        type="bottom"
-        burgerConstructorElemData={items.find((item) => {
-          if (item.type === "bun") return item;
-        })}
-        locked
-      ></BurgerConstructorElem>
+      {bun ? (
+        <BurgerConstructorElem
+          type="bottom"
+          burgerConstructorElemData={bun}
+          locked
+        ></BurgerConstructorElem>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

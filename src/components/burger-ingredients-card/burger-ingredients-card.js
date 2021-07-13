@@ -5,21 +5,50 @@ import {
 import styles from "./burger-ingredients-card.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
-import { useState, useEffect, useContext } from "react";
-import { BurgersDataContext } from "../../services/burgersDataContext.js";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_CURRENT_INGREDIENT } from "../../services/actions/actions";
+import { useDrag } from "react-dnd";
 
 function BurgerIngridientsCard(props) {
+  const dispatch = useDispatch();
   const { cardData } = props;
-  const burgersData = useContext(BurgersDataContext);
+  const items = useSelector(
+    (store) => store.constructorItemsListReducer.constructorItemsList
+  );
+  const bun = useSelector(
+    (store) => store.constructorItemsListReducer.constructorBun
+  );
+
+  function countItems() {
+    if (cardData.type === "bun") {
+      return bun._id === cardData._id ? 2 : 0;
+    } else {
+      return items.filter((item) => item._id === cardData._id).length;
+    }
+  }
+  const [{ isDrag }, dragRef] = useDrag({
+    item: cardData,
+    type: "card",
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
   const clickCardHandler = () => {
     props.openCardHandler(cardData);
+    dispatch({
+      type: ADD_CURRENT_INGREDIENT,
+      item: cardData,
+    });
   };
+
   return (
     <div
       className={`${styles["burger-ingredients-card"]} ml-2 mr-2 mb-10`}
       onClick={clickCardHandler}
+      ref={dragRef}
     >
-      <Counter count={1} size="default" />
+      <Counter count={countItems() || 0} size="default" />
       <div>
         <img
           className={`${styles["burger-ingredients-card__image"]} ml-4 mr-4 mb-1`}

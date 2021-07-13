@@ -1,23 +1,28 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
-import PropTypes from "prop-types";
 import Modal from "../modal/modal.js";
 import OrderDetails from "../order-details/order-details.js";
 import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";
-import { burgerType } from "../../utils/burgerType";
-import { BurgersDataContext } from "../../services/burgersDataContext.js";
-
+import { RESET_CONSTRUCTOR } from "../../services/actions/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { getOrder } from "../../services/actions/actions";
 function BurgerConstructor() {
-  const url = "https://norma.nomoreparties.space/api/orders";
   const [visible, setVisible] = useState(false);
-  const burgerConstructorItems = useContext(BurgersDataContext);
-  const [orderId, setOrderId] = useState("01");
+
+  const burgerConstructorItems = useSelector(
+    (store) => store.constructorItemsListReducer.constructorItemsList
+  );
+  const bun = useSelector(
+    (store) => store.constructorItemsListReducer.constructorBun
+  );
+  const orderId = useSelector((store) => store.orderReducer.order.orderId);
+  const dispatch = useDispatch();
   useEffect(() => {
     const escHandler = (event) => {
       if (event.keyCode === ESC_KEY_CODE) {
@@ -29,23 +34,16 @@ function BurgerConstructor() {
   }, []);
 
   const openModal = () => {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify({
-        ingredients: burgerConstructorItems.map((element) => element._id),
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setOrderId(result.order.number);
-        setVisible(true);
-      })
-      .catch((error) => error)
-      .finally(() => {});
+    if (bun._id) {
+      const ingredientsIds = [
+        ...burgerConstructorItems.map((element) => element._id),
+        bun._id,
+      ];
+      dispatch(getOrder(ingredientsIds, setVisible));
+      dispatch({
+        type: RESET_CONSTRUCTOR,
+      });
+    }
   };
 
   const closeModal = (e) => {
@@ -64,20 +62,20 @@ function BurgerConstructor() {
       closeHandler={closeModal}
       closeByOverlayClickHandler={closeByOverlayClickHandler}
     >
-      <OrderDetails orderId={orderId}></OrderDetails>
+      <OrderDetails orderId={orderId + ""}></OrderDetails>
     </Modal>
   );
 
   return (
     <section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
-      <BurgerConstructorList
-      ></BurgerConstructorList>
+      <BurgerConstructorList></BurgerConstructorList>
       <div className={styles["burger-constructor__info"]}>
         <p className="text text_type_digits-medium">
-          {burgerConstructorItems.reduce(
-            (acc, curr) => acc + parseInt(curr.price),
-            0
-          )}
+          {(bun.price || 0) * 2 +
+            burgerConstructorItems.reduce(
+              (acc, curr) => acc + parseInt(curr.price),
+              0
+            ) || 0}
         </p>
         <CurrencyIcon type="default"></CurrencyIcon>
         <Button type="primary" size="medium" onClick={openModal}>
