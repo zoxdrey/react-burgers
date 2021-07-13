@@ -1,3 +1,5 @@
+import {baseUrl} from '../../utils/constants'
+
 export const GET_BURGER_INGREDIENTS_REQUEST = "GET_BURGER_INGREDIENTS_REQUEST";
 export const GET_BURGER_INGREDIENTS_SUCCESS = "GET_BURGER_INGREDIENTS_SUCCESS";
 export const GET_BURGER_INGREDIENTS_ERROR = "GET_BURGER_INGREDIENTS_ERROR";
@@ -20,7 +22,7 @@ export function getIngredientsList() {
     dispatch({
       type: GET_BURGER_INGREDIENTS_REQUEST,
     });
-    fetch("https://norma.nomoreparties.space/api/ingredients")
+    fetch(`${baseUrl}api/ingredients`)
       .then((res) => (res.ok ? res : Promise.reject(res)))
       .then((res) => res.json())
       .then((res) => {
@@ -48,7 +50,7 @@ export function getOrder(orderIds, openModalFunc) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-    fetch("https://norma.nomoreparties.space/api/orders", {
+    fetch(`${baseUrl}api/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
