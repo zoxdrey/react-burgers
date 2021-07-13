@@ -1,0 +1,14 @@
+.main-container {
+    display: flex;
+    margin: 0 auto;
+    height: 90vh;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
