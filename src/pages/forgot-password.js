@@ -1,15 +1,23 @@
-import React from "react";
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useState} from "react";
+import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
 
 function ForgotPasswordPage() {
+
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(email);
+    }
+
     return (
         <div className={`${styles['main-container']}`}>
             <div className={`${styles['login-container']}`}>
                 <div className={`${styles['login-form-title']}`}>Восстановление пароля</div>
                 <form className={`${styles['login-form']}`} name='login-form'>
-                    <Input placeholder={'Укажите e-mail'} onChange={(e) => console.log(e)}/>
-                    <Button type="primary" size="medium">
+                    <EmailInput placeholder={'Укажите e-mail'} onChange={(e) => setEmail(e.target.value)}/>
+                    <Button type="primary" size="medium" onClick={handleSubmit}>
                         Восстановить
                     </Button>
                     <p className="text text_type_main-default text_color_inactive">
