@@ -1,0 +1,7 @@
+.main-container {
+    display: flex;
+}
+
+.profile-input {
+    width: 400px;
+}

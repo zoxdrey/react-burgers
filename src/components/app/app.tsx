@@ -12,6 +12,8 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import RegisterPage from "../../pages/register";
 import ForgotPasswordPage from "../../pages/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password";
+import ProfilePage from "../../pages/profile";
+import NotFoundPage from "../../pages/not-found";
 
 function App() {
 
@@ -23,10 +25,10 @@ function App() {
 
     return (
         <div className={styles.app}>
-            <AppHeader/>
-            <DndProvider backend={HTML5Backend}>
-                <main className={styles.main}>
-                    <Router>
+            <Router>
+                <AppHeader/>
+                <DndProvider backend={HTML5Backend}>
+                    <main className={styles.main}>
                         <Switch>
                             <Route exact path='/'>
                                 <BurgerIngredients/>
@@ -45,10 +47,16 @@ function App() {
                             <Route exact path='/reset-password'>
                                 <ResetPasswordPage/>
                             </Route>
+                            <Route exact path='/profile'>
+                                <ProfilePage/>
+                            </Route>
+                            <Route>
+                                <NotFoundPage/>
+                            </Route>
                         </Switch>
-                    </Router>
-                </main>
-            </DndProvider>
+                    </main>
+                </DndProvider>
+            </Router>
         </div>
     );
 }

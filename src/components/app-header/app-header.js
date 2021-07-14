@@ -1,34 +1,29 @@
 import React from "react";
 import styles from "./app-header.module.css";
-import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
-import NavLink from "../nav-link/nav-link.js";
-import {
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import NavBurgerLink from "../nav-link/nav-link.js";
 
 function AppHeader() {
-  return (
-    <header className={`${styles.header} + p-4`}>
-      <nav className={styles.nav}>
-        <NavLink>
-          <BurgerIcon type="primary" />
-          Конструктор
-        </NavLink>
+    return (
+        <header className={`${styles.header} + p-4`}>
+            <nav className={styles.nav}>
+                <NavBurgerLink target={'/'}>
+                    <BurgerIcon type="primary"/>
+                    Конструктор
+                </NavBurgerLink>
 
-        <NavLink isInactiveText={true}>
-          <ListIcon type="secondary" />
-          Лента заказов
-        </NavLink>
-      </nav>
-      <Logo />
-      <NavLink isInactiveText={true}>
-        <ProfileIcon type="secondary" />
-        Личный кабинет
-      </NavLink>
-    </header>
-  );
+                <NavBurgerLink isInactiveText={true} target={'feed'}>
+                    <ListIcon type="secondary"/>
+                    Лента заказов
+                </NavBurgerLink>
+            </nav>
+            <Logo/>
+            <NavBurgerLink isInactiveText={true} target={'profile'}>
+                <ProfileIcon type="secondary"/>
+                Личный кабинет
+            </NavBurgerLink>
+        </header>
+    );
 }
 
 export default AppHeader;
