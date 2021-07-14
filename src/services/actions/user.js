@@ -1,4 +1,5 @@
 import {baseUrl} from '../../utils/constants'
+import {setCookie} from "../../utils/cookie";
 
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -39,15 +40,27 @@ export function loginUser(email, password) {
             type: LOGIN_REQUEST,
         });
         fetch(`${baseUrl}api/auth/login`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password,
+            })
         })
             .then((res) => (res.ok ? res : Promise.reject(res)))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
+                    setCookie('token', res.accessToken);
+                    localStorage.setItem('token', res.refreshToken);
+                    localStorage.setItem('userName', res.user.name);
                     dispatch({
                         type: LOGIN_SUCCESS,
-                        ingredientsList: res.data,
+                        accessToken: res.accessToken,
+                        refreshToken: res.refreshToken,
+                        user: res.user
                     });
                 } else {
                     dispatch({
@@ -69,7 +82,15 @@ export function registerUser(name, email, password) {
             type: REGISTER_REQUEST,
         });
         fetch(`${baseUrl}api/auth/register`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password,
+                "name": name
+            })
         })
             .then((res) => (res.ok ? res : Promise.reject(res)))
             .then((res) => res.json())
@@ -77,7 +98,8 @@ export function registerUser(name, email, password) {
                 if (res && res.success) {
                     dispatch({
                         type: REGISTER_SUCCESS,
-                        ingredientsList: res.data,
+                        accessToken: res.accessToken,
+                        refreshToken: res.refreshToken,
                     });
                 } else {
                     dispatch({

@@ -2,15 +2,19 @@ import React, {useState} from "react";
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
 import {Link} from 'react-router-dom'
+import {useDispatch} from "react-redux";
+import {loginUser} from "../services/actions/user";
 
 function LoginPage() {
+
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email, password);
+        dispatch(loginUser(email, password));
     }
 
 
