@@ -11,6 +11,7 @@ import forgotPassReducer from "./forgotPassReducer";
 import {refreshTokenReducer} from "./refreshTokenReducer";
 import {resetPassReducer} from "./resetPassReducer";
 import {userInfoReducer} from "./userInfoReducer";
+import userReducer from "./userReducer";
 
 const rootReducer = combineReducers({
     ingredientsListReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     forgotPassReducer,
     refreshTokenReducer,
     resetPassReducer,
-    userInfoReducer
+    userInfoReducer,
+    userReducer
 });
 
 export default rootReducer;

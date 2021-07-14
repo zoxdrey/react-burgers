@@ -1,14 +1,19 @@
 import React, {useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
+import {useDispatch} from "react-redux";
+import {resetPassword} from "../services/actions/user";
 
 function ResetPasswordPage() {
+
+    const dispatch = useDispatch();
+
     const [password, setPassword] = useState('');
     const [mailCode, setMailCode] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(password);
+        dispatch(resetPassword(password, mailCode))
     }
 
     return (

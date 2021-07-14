@@ -1,14 +1,18 @@
 import React, {useState} from "react";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
+import {useDispatch} from "react-redux";
+import {forgotPassword} from "../services/actions/user";
 
 function ForgotPasswordPage() {
+
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        dispatch(forgotPassword(email));
     }
 
     return (

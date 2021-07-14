@@ -1,23 +1,34 @@
 import React from "react";
 import styles from './profile.module.css';
 import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutUser} from "../services/actions/user";
 
 function ProfilePage() {
+
+    const dispatch = useDispatch();
+    const {refreshToken} = useSelector(store => store.userReducer);
+
+    function logoutHandler() {
+        dispatch(logoutUser(refreshToken))
+    }
+
     return (
         <div className={`${styles['main-container']} + mt-20`}>
             <div className={`${styles['profile-nav']} + mr-30`}>
-                <div className={`${styles['profile-nav-link']} + mb-5`}>
+                <NavLink className={`${styles['profile-nav-link']} + mb-5`} to={'/profile'}>
                     <p className="text text_type_main-medium">
                         Профиль
-                    </p></div>
-                <div className={`${styles['profile-nav-link']} + mb-5`}>
+                    </p></NavLink>
+                <NavLink className={`${styles['profile-nav-link']} + mb-5`} to={'/profile/orders'}>
                     <p className="text text_type_main-medium text_color_inactive">
                         История заказов
-                    </p></div>
-                <div className={`${styles['profile-nav-link']} + mb-20`}>
+                    </p></NavLink>
+                <NavLink className={`${styles['profile-nav-link']} + mb-20`} to={'/profile/'} onClick={logoutHandler}>
                     <p className="text text_type_main-medium text_color_inactive">
                         Выход
-                    </p></div>
+                    </p></NavLink>
                 <p className="text text_type_main-small text_color_inactive">
                     В этом разделе вы можете
                     изменить свои персональные данные

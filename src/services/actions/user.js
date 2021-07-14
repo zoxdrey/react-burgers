@@ -96,10 +96,14 @@ export function registerUser(name, email, password) {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
+                    setCookie('token', res.accessToken);
+                    localStorage.setItem('token', res.refreshToken);
+                    localStorage.setItem('userName', res.user.name);
                     dispatch({
                         type: REGISTER_SUCCESS,
                         accessToken: res.accessToken,
                         refreshToken: res.refreshToken,
+                        user: res.user
                     });
                 } else {
                     dispatch({
@@ -122,15 +126,24 @@ export function logoutUser(token) {
             type: LOGOUT_REQUEST,
         });
         fetch(`${baseUrl}api/auth/logout`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "token": token
+            })
         })
             .then((res) => (res.ok ? res : Promise.reject(res)))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
+                    setCookie('token', '');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userName');
                     dispatch({
                         type: LOGOUT_SUCCESS,
-                        ingredientsList: res.data,
+
                     });
                 } else {
                     dispatch({
@@ -152,15 +165,21 @@ export function forgotPassword(email) {
             type: FORGOT_PASS_REQUEST,
         });
         fetch(`${baseUrl}api/password-reset`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+            })
         })
             .then((res) => (res.ok ? res : Promise.reject(res)))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
+                    //redirect to reset
                     dispatch({
                         type: FORGOT_PASS_SUCCESS,
-                        ingredientsList: res.data,
                     });
                 } else {
                     dispatch({
@@ -182,7 +201,14 @@ export function resetPassword(email, token) {
             type: RESET_PASS_REQUEST,
         });
         fetch(`${baseUrl}api/password-reset/reset`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "token": token
+            })
         })
             .then((res) => (res.ok ? res : Promise.reject(res)))
             .then((res) => res.json())
@@ -190,7 +216,6 @@ export function resetPassword(email, token) {
                 if (res && res.success) {
                     dispatch({
                         type: RESET_PASS_SUCCESS,
-                        ingredientsList: res.data,
                     });
                 } else {
                     dispatch({
