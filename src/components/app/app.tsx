@@ -14,6 +14,7 @@ import ForgotPasswordPage from "../../pages/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile";
 import NotFoundPage from "../../pages/not-found";
+import ProtectedRoute from "../protected-route/protected-route";
 
 function App() {
 
@@ -47,9 +48,9 @@ function App() {
                             <Route exact path='/reset-password'>
                                 <ResetPasswordPage/>
                             </Route>
-                            <Route exact path='/profile'>
+                            <ProtectedRoute exact path='/profile'>
                                 <ProfilePage/>
-                            </Route>
+                            </ProtectedRoute>
                             <Route>
                                 <NotFoundPage/>
                             </Route>
