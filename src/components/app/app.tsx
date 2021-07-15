@@ -16,12 +16,11 @@ import ProfilePage from "../../pages/profile";
 import NotFoundPage from "../../pages/not-found";
 import ProtectedRoute from "../protected-route/protected-route";
 import DefaultRoute from "../default-route/default-route";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import IngredientDetailsFull from "../../pages/ingredient-details-full";
 
 function App() {
 
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(getIngredientsList());
     }, [dispatch]);
@@ -54,7 +53,7 @@ function App() {
                                 <ProfilePage/>
                             </ProtectedRoute>
                             <ProtectedRoute exact path='/ingredients/:id'>
-                                <IngredientDetails/>
+                                <IngredientDetailsFull/>
                             </ProtectedRoute>
                             <DefaultRoute>
                                 <NotFoundPage/>
