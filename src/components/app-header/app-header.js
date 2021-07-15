@@ -4,6 +4,9 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-devel
 import NavBurgerLink from "../nav-link/nav-link.js";
 
 function AppHeader() {
+
+    const userName = localStorage.getItem('userName');
+
     return (
         <header className={`${styles.header} + p-4`}>
             <nav className={styles.nav}>
@@ -20,7 +23,7 @@ function AppHeader() {
             <Logo/>
             <NavBurgerLink isInactiveText={true} target={'profile'}>
                 <ProfileIcon type="secondary"/>
-                Личный кабинет
+                {userName ? userName : 'Личный кабинет'}
             </NavBurgerLink>
         </header>
     );

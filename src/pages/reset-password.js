@@ -3,9 +3,10 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import styles from './login.module.css';
 import {useDispatch} from "react-redux";
 import {resetPassword} from "../services/actions/user";
+import {useHistory} from "react-router-dom";
 
 function ResetPasswordPage() {
-
+    let history = useHistory();
     const dispatch = useDispatch();
 
     const [password, setPassword] = useState('');
@@ -13,7 +14,7 @@ function ResetPasswordPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(resetPassword(password, mailCode))
+        dispatch(resetPassword(password, mailCode, history))
     }
 
     return (

@@ -3,17 +3,18 @@ import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-compon
 import styles from './login.module.css';
 import {useDispatch} from "react-redux";
 import {forgotPassword} from "../services/actions/user";
+import {useHistory} from "react-router-dom";
 
 function ForgotPasswordPage() {
-
+    let history = useHistory();
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(forgotPassword(email));
-    }
+        dispatch(forgotPassword(email, history));
+    };
 
     return (
         <div className={`${styles['main-container']}`}>

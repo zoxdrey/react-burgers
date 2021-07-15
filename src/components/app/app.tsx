@@ -8,13 +8,15 @@ import {getIngredientsList} from "../../services/actions/actions";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import LoginPage from "../../pages/login";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Switch} from "react-router-dom";
 import RegisterPage from "../../pages/register";
 import ForgotPasswordPage from "../../pages/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile";
 import NotFoundPage from "../../pages/not-found";
 import ProtectedRoute from "../protected-route/protected-route";
+import DefaultRoute from "../default-route/default-route";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function App() {
 
@@ -31,30 +33,34 @@ function App() {
                 <DndProvider backend={HTML5Backend}>
                     <main className={styles.main}>
                         <Switch>
-                            <Route exact path='/'>
+                            <ProtectedRoute exact path='/'>
                                 <BurgerIngredients/>
                                 <div className="p-4"></div>
                                 <BurgerConstructor/>
-                            </Route>
-                            <Route exact path='/login'>
+                            </ProtectedRoute>
+                            <DefaultRoute exact path='/login'>
                                 <LoginPage/>
-                            </Route>
-                            <Route exact path='/register'>
+                            </DefaultRoute>
+                            <DefaultRoute exact path='/register'>
                                 <RegisterPage/>
-                            </Route>
-                            <Route exact path='/forgot-password'>
+                            </DefaultRoute>
+                            <DefaultRoute exact path='/forgot-password'>
                                 <ForgotPasswordPage/>
-                            </Route>
-                            <Route exact path='/reset-password'>
+                            </DefaultRoute>
+                            <DefaultRoute exact path='/reset-password'>
                                 <ResetPasswordPage/>
-                            </Route>
+                            </DefaultRoute>
                             <ProtectedRoute exact path='/profile'>
                                 <ProfilePage/>
                             </ProtectedRoute>
-                            <Route>
+                            <ProtectedRoute exact path='/ingredients/:id'>
+                                <IngredientDetails/>
+                            </ProtectedRoute>
+                            <DefaultRoute>
                                 <NotFoundPage/>
-                            </Route>
+                            </DefaultRoute>
                         </Switch>
+
                     </main>
                 </DndProvider>
             </Router>

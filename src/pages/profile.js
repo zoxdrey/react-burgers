@@ -1,17 +1,19 @@
 import React from "react";
 import styles from './profile.module.css';
 import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {NavLink, useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {logoutUser} from "../services/actions/user";
 
 function ProfilePage() {
+    let history = useHistory();
+
 
     const dispatch = useDispatch();
-    const {refreshToken} = useSelector(store => store.userReducer);
+    const refreshToken = localStorage.getItem('token');
 
     function logoutHandler() {
-        dispatch(logoutUser(refreshToken))
+        dispatch(logoutUser(refreshToken, history));
     }
 
     return (

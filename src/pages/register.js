@@ -3,9 +3,10 @@ import {useDispatch} from 'react-redux';
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
 import {registerUser} from "../services/actions/user";
+import {useHistory} from "react-router-dom";
 
 function RegisterPage() {
-
+    let history = useHistory();
     const dispatch = useDispatch();
 
     const [userName, setUserName] = useState('');
@@ -14,7 +15,7 @@ function RegisterPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(registerUser(userName, email, password));
+        dispatch(registerUser(userName, email, password, history));
     }
 
 

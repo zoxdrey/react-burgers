@@ -1,6 +1,6 @@
 import {baseUrl} from '../../utils/constants'
 import {setCookie} from "../../utils/cookie";
-
+import React from "react";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -34,7 +34,8 @@ export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
 export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
 export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
 
-export function loginUser(email, password) {
+
+export function loginUser(email, password, history) {
     return function (dispatch) {
         dispatch({
             type: LOGIN_REQUEST,
@@ -56,6 +57,7 @@ export function loginUser(email, password) {
                     setCookie('token', res.accessToken);
                     localStorage.setItem('token', res.refreshToken);
                     localStorage.setItem('userName', res.user.name);
+                    history.push('/profile');
                     dispatch({
                         type: LOGIN_SUCCESS,
                         accessToken: res.accessToken,
@@ -76,7 +78,7 @@ export function loginUser(email, password) {
     };
 }
 
-export function registerUser(name, email, password) {
+export function registerUser(name, email, password, history) {
     return function (dispatch) {
         dispatch({
             type: REGISTER_REQUEST,
@@ -99,6 +101,7 @@ export function registerUser(name, email, password) {
                     setCookie('token', res.accessToken);
                     localStorage.setItem('token', res.refreshToken);
                     localStorage.setItem('userName', res.user.name);
+                    history.push('/');
                     dispatch({
                         type: REGISTER_SUCCESS,
                         accessToken: res.accessToken,
@@ -120,7 +123,7 @@ export function registerUser(name, email, password) {
 }
 
 
-export function logoutUser(token) {
+export function logoutUser(token, history) {
     return function (dispatch) {
         dispatch({
             type: LOGOUT_REQUEST,
@@ -141,9 +144,9 @@ export function logoutUser(token) {
                     setCookie('token', '');
                     localStorage.removeItem('token');
                     localStorage.removeItem('userName');
+                    history.push('/');
                     dispatch({
                         type: LOGOUT_SUCCESS,
-
                     });
                 } else {
                     dispatch({
@@ -159,7 +162,7 @@ export function logoutUser(token) {
     };
 }
 
-export function forgotPassword(email) {
+export function forgotPassword(email, history) {
     return function (dispatch) {
         dispatch({
             type: FORGOT_PASS_REQUEST,
@@ -177,7 +180,7 @@ export function forgotPassword(email) {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
-                    //redirect to reset
+                    history.push('/reset-password');
                     dispatch({
                         type: FORGOT_PASS_SUCCESS,
                     });
@@ -195,7 +198,7 @@ export function forgotPassword(email) {
     };
 }
 
-export function resetPassword(email, token) {
+export function resetPassword(password, token, history) {
     return function (dispatch) {
         dispatch({
             type: RESET_PASS_REQUEST,
@@ -206,7 +209,7 @@ export function resetPassword(email, token) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "email": email,
+                "password": password,
                 "token": token
             })
         })
@@ -214,8 +217,10 @@ export function resetPassword(email, token) {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
+                    history.push('/profile');
                     dispatch({
                         type: RESET_PASS_SUCCESS,
+
                     });
                 } else {
                     dispatch({
