@@ -15,13 +15,13 @@ function AppHeader() {
                     Конструктор
                 </NavBurgerLink>
 
-                <NavBurgerLink isInactiveText={true} target={'feed'}>
+                <NavBurgerLink isInactiveText={true} target={'/feed'}>
                     <ListIcon type="secondary"/>
                     Лента заказов
                 </NavBurgerLink>
             </nav>
             <Logo/>
-            <NavBurgerLink isInactiveText={true} target={'profile'}>
+            <NavBurgerLink isInactiveText={true} target={'/profile'}>
                 <ProfileIcon type="secondary"/>
                 {userName ? userName : 'Личный кабинет'}
             </NavBurgerLink>

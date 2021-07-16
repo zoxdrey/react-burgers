@@ -1,4 +1,4 @@
-.order-detail-card {
+.order-card {
     background-color: #1C1C21;
     border-radius: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
@@ -9,42 +9,42 @@
     color: inherit;
 }
 
-.order-detail-card__header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.order-detail-card__header-number {
-    align-self: center;
-}
-
-.order-detail-card__header-date {
-
-}
-
-.order-detail-card__title {
-
-}
-
-.order-detail-card__main-name {
-
-}
-
-.order-detail-card__footer {
+.order-card__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.order-detail-card__footer-list {
+.order-card__header-number {
+
+}
+
+.order-card__header-date {
+
+}
+
+.order-card__title {
+
+}
+
+.order-card__main-name {
+
+}
+
+.order-card__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order-card__footer-list {
     display: flex;
     flex-direction: row;
     height: 56px;
     width: 112px;
 }
 
-.order-detail-card__footer-price {
+.order-card__footer-price {
     display: flex;
     flex-direction: row;
 

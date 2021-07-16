@@ -14,9 +14,9 @@ import ForgotPasswordPage from "../../pages/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile";
 import NotFoundPage from "../../pages/not-found";
-import ProtectedRoute from "../protected-route/protected-route";
-import DefaultRoute from "../default-route/default-route";
 import IngredientDetailsFull from "../../pages/ingredient-details-full";
+import {Route} from "react-router";
+import OrderDetails from "../order-details/order-details";
 
 function App() {
 
@@ -32,32 +32,42 @@ function App() {
                 <DndProvider backend={HTML5Backend}>
                     <main className={styles.main}>
                         <Switch>
-                            <ProtectedRoute exact path='/'>
+                            <Route exact path='/'>
                                 <BurgerIngredients/>
                                 <div className="p-4"></div>
                                 <BurgerConstructor/>
-                            </ProtectedRoute>
-                            <DefaultRoute exact path='/login'>
+                            </Route>
+                            <Route exact path='/login'>
                                 <LoginPage/>
-                            </DefaultRoute>
-                            <DefaultRoute exact path='/register'>
+                            </Route>
+                            <Route exact path='/register'>
                                 <RegisterPage/>
-                            </DefaultRoute>
-                            <DefaultRoute exact path='/forgot-password'>
+                            </Route>
+                            <Route exact path='/forgot-password'>
                                 <ForgotPasswordPage/>
-                            </DefaultRoute>
-                            <DefaultRoute exact path='/reset-password'>
+                            </Route>
+                            <Route exact path='/reset-password'>
                                 <ResetPasswordPage/>
-                            </DefaultRoute>
-                            <ProtectedRoute exact path='/profile'>
+                            </Route>
+                            <Route exact path='/feed'>
+                                <ResetPasswordPage/>
+                            </Route>
+                            <Route exact path='/feed/:id'>
+                                <ResetPasswordPage/>
+                            </Route>
+                            <Route exact path='/profile'>
                                 <ProfilePage/>
-                            </ProtectedRoute>
-                            <ProtectedRoute exact path='/ingredients/:id'>
+                            </Route>
+
+                            <Route exact path='/profile/orders/:id'>
+                                <OrderDetails/>
+                            </Route>
+                            <Route exact path='/ingredients/:id'>
                                 <IngredientDetailsFull/>
-                            </ProtectedRoute>
-                            <DefaultRoute>
+                            </Route>
+                            <Route>
                                 <NotFoundPage/>
-                            </DefaultRoute>
+                            </Route>
                         </Switch>
 
                     </main>
