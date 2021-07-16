@@ -32,11 +32,10 @@ function OrderDetails() {
 
                 </div>
                 <div className={`${styles["order-detail-card__main-list"]} `}>
-                    <div className={`${styles["order-detail-card__main-row"]} `}>
-                        <div className={`${styles["order-detail-card__main-row-img"]} `}>
-                            <img className="img" src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
-                        </div>
-                        <div className={`${styles["order-detail-card__main-row-title"]} `}>
+                    <div className={`${styles["order-detail-card__main-row"]} mb-4 mr-6`}>
+                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                             src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
+                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
                             <p className="text text_type_main-default">
                                 Флюоресцентная булка R2-D3
                             </p>
@@ -46,14 +45,70 @@ function OrderDetails() {
                             <CurrencyIcon type="primary"/>
                         </div>
                     </div>
-                    <div className={`${styles["order-detail-card__main-row"]} `}>
-                        row
+                    <div className={`${styles["order-detail-card__main-row"]}  mb-4 mr-6`}>
+                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                             src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
+                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
+                            <p className="text text_type_main-default">
+                                Флюоресцентная булка R2-D3
+                            </p>
+                        </div>
+                        <div className={`${styles["order-detail-card__main-row-price"]} `}>
+                            <p className="text text_type_digits-default">1 x 510</p>
+                            <CurrencyIcon type="primary"/>
+                        </div>
                     </div>
-                    <div className={`${styles["order-detail-card__main-row"]} `}>
-                        row
+                    <div className={`${styles["order-detail-card__main-row"]}  mb-4 mr-6`}>
+                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                             src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
+                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
+                            <p className="text text_type_main-default">
+                                Флюоресцентная булка R2-D3
+                            </p>
+                        </div>
+                        <div className={`${styles["order-detail-card__main-row-price"]} `}>
+                            <p className="text text_type_digits-default">1 x 510</p>
+                            <CurrencyIcon type="primary"/>
+                        </div>
                     </div>
-                    <div className={`${styles["order-detail-card__main-row"]} `}>
-                        row
+                    <div className={`${styles["order-detail-card__main-row"]}  mb-4 mr-6`}>
+                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                             src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
+                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
+                            <p className="text text_type_main-default">
+                                Флюоресцентная булка R2-D3
+                            </p>
+                        </div>
+                        <div className={`${styles["order-detail-card__main-row-price"]} `}>
+                            <p className="text text_type_digits-default">1 x 510</p>
+                            <CurrencyIcon type="primary"/>
+                        </div>
+                    </div>
+                    <div className={`${styles["order-detail-card__main-row"]}  mb-4 mr-6`}>
+                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                             src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
+                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
+                            <p className="text text_type_main-default">
+                                Флюоресцентная булка R2-D3
+                            </p>
+                        </div>
+                        <div className={`${styles["order-detail-card__main-row-price"]} `}>
+                            <p className="text text_type_digits-default">1 x 510</p>
+                            <CurrencyIcon type="primary"/>
+                        </div>
+                    </div>
+                    <div className={`${styles["order-detail-card__main-row"]}  mb-4 mr-6`}>
+                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                             src="https://code.s3.yandex.net/react/code/bun-02.png" alt=""/>
+                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
+                            <p className="text text_type_main-default">
+                                Флюоресцентная булка R2-D3
+                            </p>
+                        </div>
+                        <div className={`${styles["order-detail-card__main-row-price"]} `}>
+                            <p className="text text_type_digits-default">1 x 510</p>
+                            <CurrencyIcon type="primary"/>
+                        </div>
                     </div>
                 </div>
             </div>
