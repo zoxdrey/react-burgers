@@ -17,6 +17,7 @@ import NotFoundPage from "../../pages/not-found";
 import IngredientDetailsFull from "../../pages/ingredient-details-full";
 import {Route} from "react-router";
 import OrderDetails from "../order-details/order-details";
+import FeedPage from "../../pages/feed";
 
 function App() {
 
@@ -50,18 +51,19 @@ function App() {
                                 <ResetPasswordPage/>
                             </Route>
                             <Route exact path='/feed'>
-                                <ResetPasswordPage/>
+                                <FeedPage/>
                             </Route>
                             <Route exact path='/feed/:id'>
                                 <ResetPasswordPage/>
                             </Route>
-                            <Route exact path='/profile'>
-                                <ProfilePage/>
-                            </Route>
-
                             <Route exact path='/profile/orders/:id'>
                                 <OrderDetails/>
                             </Route>
+                            <Route path='/profile'>
+                                <ProfilePage/>
+                            </Route>
+
+
                             <Route exact path='/ingredients/:id'>
                                 <IngredientDetailsFull/>
                             </Route>
