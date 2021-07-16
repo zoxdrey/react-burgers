@@ -1,3 +1,4 @@
+/*
 import {REGISTER_ERROR, REGISTER_REQUEST, REGISTER_SUCCESS} from "../actions/user";
 import {initialUserState} from "./initialUserState";
 
@@ -35,3 +36,4 @@ export const registerUserReducer = (state = initialUserState, action) => {
 };
 
 export default registerUserReducer;
+*/

@@ -5,7 +5,7 @@ import Modal from "../modal/modal.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.js";
 import React, {useContext, useEffect, useState} from "react";
 import {BurgersDataContext} from "../../services/burgersDataContext.js";
-import {REMOVE_CURRENT_INGREDIENT} from "../../services/actions/actions";
+import {REMOVE_CURRENT_INGREDIENT} from "../../services/actions/ingredients";
 import {useDispatch} from "react-redux";
 
 function BurgerIngredients() {

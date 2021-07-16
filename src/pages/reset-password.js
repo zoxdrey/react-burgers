@@ -24,11 +24,11 @@ function ResetPasswordPage() {
                 <form className={`${styles['reset-password-form']}`} name='login-form'>
                     <div className={`${styles['input']} mb-6`}>
                         <PasswordInput placeholder={'Укажите e-mail'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={"ShowIcon"} name={password} value={""}/>
+                                       icon={"ShowIcon"} name={password}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <Input placeholder={'Введите код из письма'} onChange={(e) => setMailCode(e.target.value)}
-                               value={""}/>
+                               />
                     </div>
                     <div className={`${styles['button']} mb-20`}>
                         <Button type="primary" size="medium" onClick={handleSubmit}>

@@ -25,15 +25,15 @@ function RegisterPage() {
                 <div className={`${styles['register-form-title']} text text_type_main-default mb-9`}>Регистрация</div>
                 <form className={`${styles['register-form']}`} name='login-form'>
                     <div className={`${styles['input']} mb-6`}>
-                        <Input placeholder={'Имя'} onChange={(e) => setUserName(e.target.value)} value={""}/>
+                        <Input placeholder={'Имя'} onChange={(e) => setUserName(e.target.value)}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
-                                    value={""}/>
+                        />
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <PasswordInput placeholder={'Пароль'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={'ShowIcon'} name={password} value={""}/>
+                                       icon={'ShowIcon'} name={password}/>
                     </div>
                     <div className={`${styles['button']} mb-20`}>
                         <Button type="primary" size="medium" onClick={handleSubmit}>

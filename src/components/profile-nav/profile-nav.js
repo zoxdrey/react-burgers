@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {logoutUser} from "../../services/actions/user";
 
 
-function ProfileNav({url}) {
+function ProfileNav() {
     let history = useHistory();
     const dispatch = useDispatch();
     const refreshToken = localStorage.getItem('token');

@@ -27,7 +27,7 @@ function ForgotPasswordPage() {
                 <form className={`${styles['forgot-password-form']}`} name='login-form'>
                     <div className={`${styles['input']} mb-6`}>
                         <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
-                                    value={''}/>
+                                    />
                     </div>
                     <div className={`${styles['button']} mb-20`}>
                         <Button type="primary" size="medium" onClick={handleSubmit}>

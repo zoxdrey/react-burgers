@@ -1,3 +1,4 @@
+/*
 import {GET_USER_INFO_REQUEST, GET_USER_INFO_SUCCESS, GET_USER_INFO_ERROR, UPDATE_USER_INFO_REQUEST, UPDATE_USER_INFO_SUCCESS, UPDATE_USER_INFO_ERROR} from "../actions/user";
 import {initialUserState} from "./initialUserState";
 
@@ -68,3 +69,4 @@ export const userInfoReducer = (state = initialUserState, action) => {
 };
 
 export default userInfoReducer;
+*/

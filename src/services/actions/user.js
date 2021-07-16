@@ -1,5 +1,5 @@
 import {baseUrl} from '../../utils/constants'
-import {setCookie} from "../../utils/cookie";
+import {getCookie, setCookie} from "../../utils/cookie";
 import React from "react";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -50,7 +50,7 @@ export function loginUser(email, password, history) {
                 "password": password,
             })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
@@ -94,7 +94,7 @@ export function registerUser(name, email, password, history) {
                 "name": name
             })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
@@ -137,7 +137,7 @@ export function logoutUser(token, history) {
                 "token": token
             })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
@@ -176,7 +176,7 @@ export function forgotPassword(email, history) {
                 "email": email,
             })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
@@ -213,7 +213,7 @@ export function resetPassword(password, token, history) {
                 "token": token
             })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
@@ -236,21 +236,30 @@ export function resetPassword(password, token, history) {
     };
 }
 
-export function refreshToken(token) {
+export function refreshToken(token, cb) {
     return function (dispatch) {
         dispatch({
             type: REFRESH_TOKEN_REQUEST,
         });
         fetch(`${baseUrl}api/auth/token`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "token": token
+            })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
+                    localStorage.setItem('token', res.data.refreshToken)
+                    setCookie('token', res.data.accessToken)
+                    cb();
                     dispatch({
                         type: REFRESH_TOKEN_SUCCESS,
-                        ingredientsList: res.data,
+                        token: res.data,
                     });
                 } else {
                     dispatch({
@@ -272,16 +281,20 @@ export function getUserInfo() {
             type: GET_USER_INFO_REQUEST,
         });
         fetch(`${baseUrl}api/auth/user`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: getCookie('token')
+                },
             }
         )
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
                     dispatch({
                         type: GET_USER_INFO_SUCCESS,
-                        ingredientsList: res.data,
+                        user: res.user,
                     });
                 } else {
                     dispatch({
@@ -293,6 +306,9 @@ export function getUserInfo() {
                 dispatch({
                     type: GET_USER_INFO_ERROR,
                 });
+                if (err) {
+                    dispatch(refreshToken(localStorage.getItem('token')), getUserInfo);
+                }
             });
     };
 }
@@ -303,15 +319,24 @@ export function updateUserInfo(name, email, password) {
             type: UPDATE_USER_INFO_REQUEST,
         });
         fetch(`${baseUrl}api/auth/user`, {
-            method: 'PATCH'
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: getCookie('token')
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password,
+                "name": name
+            })
         })
-            .then((res) => (res.ok ? res : Promise.reject(res)))
+            .then(res => _checkResponse(res))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
                     dispatch({
                         type: UPDATE_USER_INFO_SUCCESS,
-                        ingredientsList: res.data,
+                        user: res.user,
                     });
                 } else {
                     dispatch({
@@ -325,4 +350,13 @@ export function updateUserInfo(name, email, password) {
                 });
             });
     };
+
+
+}
+
+function _checkResponse(res) {
+    if (res.ok) {
+        return res;
+    }
+    return Promise.reject(res);
 }

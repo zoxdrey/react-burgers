@@ -1,10 +1,8 @@
 import React, {useEffect} from "react";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from "./app.module.css";
 import {useDispatch} from "react-redux";
-import {getIngredientsList} from "../../services/actions/actions";
+import {getIngredientsList} from "../../services/actions/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import LoginPage from "../../pages/login";
@@ -18,6 +16,9 @@ import IngredientDetailsFull from "../../pages/ingredient-details-full";
 import {Route} from "react-router";
 import OrderDetails from "../order-details/order-details";
 import FeedPage from "../../pages/feed";
+import HomePage from "../../pages/home";
+import ProtectedRoute from "../protected-route/protected-route";
+import DefaultRoute from "../default-route/default-route";
 
 function App() {
 
@@ -33,40 +34,38 @@ function App() {
                 <DndProvider backend={HTML5Backend}>
                     <main className={styles.main}>
                         <Switch>
-                            <Route exact path='/'>
-                                <BurgerIngredients/>
-                                <div className="p-4"></div>
-                                <BurgerConstructor/>
-                            </Route>
-                            <Route exact path='/login'>
+                            <ProtectedRoute exact path='/'>
+                                <HomePage/>
+                            </ProtectedRoute>
+                            <DefaultRoute exact path='/login'>
                                 <LoginPage/>
-                            </Route>
-                            <Route exact path='/register'>
+                            </DefaultRoute>
+                            <DefaultRoute exact path='/register'>
                                 <RegisterPage/>
-                            </Route>
-                            <Route exact path='/forgot-password'>
+                            </DefaultRoute>
+                            <DefaultRoute exact path='/forgot-password'>
                                 <ForgotPasswordPage/>
-                            </Route>
-                            <Route exact path='/reset-password'>
+                            </DefaultRoute>
+                            <DefaultRoute exact path='/reset-password'>
                                 <ResetPasswordPage/>
-                            </Route>
-                            <Route exact path='/feed'>
+                            </DefaultRoute>
+                            <ProtectedRoute exact path='/feed'>
                                 <FeedPage/>
-                            </Route>
-                            <Route exact path='/feed/:id'>
+                            </ProtectedRoute>
+                            <ProtectedRoute exact path='/feed/:id'>
                                 <ResetPasswordPage/>
-                            </Route>
-                            <Route exact path='/profile/orders/:id'>
+                            </ProtectedRoute>
+                            <ProtectedRoute exact path='/profile/orders/:id'>
                                 <OrderDetails/>
-                            </Route>
-                            <Route path='/profile'>
+                            </ProtectedRoute>
+                            <ProtectedRoute path='/profile'>
                                 <ProfilePage/>
-                            </Route>
+                            </ProtectedRoute>
 
 
-                            <Route exact path='/ingredients/:id'>
+                            <ProtectedRoute exact path='/ingredients/:id'>
                                 <IngredientDetailsFull/>
-                            </Route>
+                            </ProtectedRoute>
                             <Route>
                                 <NotFoundPage/>
                             </Route>

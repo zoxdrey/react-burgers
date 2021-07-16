@@ -2,7 +2,7 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_ERROR,
-} from "../actions/actions";
+} from "../actions/ingredients";
 import { initialState } from "./initialState";
 
 export const orderReducer = (state = initialState, action) => {

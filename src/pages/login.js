@@ -24,11 +24,11 @@ function LoginPage() {
                 <form className={`${styles['login-form']}`} name='login-form'>
                     <div className={`${styles['input']} mb-6`}>
                         <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
-                                    value={''}/>
+                                    />
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <PasswordInput placeholder={'Пароль'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={'ShowIcon'} name={password} value={''}/>
+                                       icon={'ShowIcon'} name={password} />
                     </div>
                     <div className={`${styles['button']} mb-20`}>
                         <Button type="primary" size="medium" onClick={handleSubmit}>

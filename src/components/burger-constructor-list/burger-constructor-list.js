@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import {
   ADD_BUN_CONSTRUCTOR_ITEM,
   ADD_CONSTRUCTOR_ITEM,
-} from "../../services/actions/actions";
+} from "../../services/actions/ingredients";
 import { v4 as uuidv4 } from "uuid";
 
 function BurgerConstructorList() {

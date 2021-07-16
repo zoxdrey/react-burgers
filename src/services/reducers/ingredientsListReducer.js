@@ -2,7 +2,7 @@ import {
     GET_BURGER_INGREDIENTS_ERROR,
     GET_BURGER_INGREDIENTS_REQUEST,
     GET_BURGER_INGREDIENTS_SUCCESS,
-} from "../actions/actions";
+} from "../actions/ingredients";
 import {initialState} from "./initialState";
 
 export const ingredientsListReducer = (state = initialState, action) => {

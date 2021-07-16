@@ -5,11 +5,11 @@ import {
 import styles from "./burger-constructor-elem.module.css";
 import PropTypes from "prop-types";
 import { burgerType } from "../../utils/burgerType";
-import { REMOVE_CONSTRUCTOR_ITEM } from "../../services/actions/actions";
+import { REMOVE_CONSTRUCTOR_ITEM } from "../../services/actions/ingredients";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
-import { MOVE_CONSTRUCTOR_ITEM } from "../../services/actions/actions";
+import { MOVE_CONSTRUCTOR_ITEM } from "../../services/actions/ingredients";
 
 function BurgerConstructorElem(props) {
   const { type, burgerConstructorElemData, index } = props;

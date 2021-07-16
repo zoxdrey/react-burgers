@@ -4,7 +4,7 @@ import {
   MOVE_CONSTRUCTOR_ITEM,
   ADD_BUN_CONSTRUCTOR_ITEM,
   RESET_CONSTRUCTOR,
-} from "../actions/actions";
+} from "../actions/ingredients";
 import { initialState } from "./initialState";
 
 export const constructorItemsListReducer = (state = initialState, action) => {

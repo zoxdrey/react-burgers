@@ -1,3 +1,4 @@
+/*
 import {FORGOT_PASS_ERROR, FORGOT_PASS_REQUEST, FORGOT_PASS_SUCCESS} from "../actions/user";
 import {initialUserState} from "./initialUserState";
 
@@ -36,4 +37,4 @@ export const forgotPassReducer = (state = initialUserState, action) => {
     }
 };
 
-export default forgotPassReducer;
+export default forgotPassReducer;*/

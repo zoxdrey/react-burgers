@@ -9,9 +9,9 @@ import Modal from "../modal/modal.js";
 import OrderDetails from "../order-details/order-details.js";
 import { useEffect } from "react";
 import { ESC_KEY_CODE } from "../../utils/constants";
-import { RESET_CONSTRUCTOR } from "../../services/actions/actions";
+import { RESET_CONSTRUCTOR } from "../../services/actions/ingredients";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrder } from "../../services/actions/actions";
+import { getOrder } from "../../services/actions/ingredients";
 function BurgerConstructor() {
   const [visible, setVisible] = useState(false);
 
