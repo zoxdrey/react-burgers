@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "../../pages/profile.module.css";
 import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useSelector} from "react-redux";
 
 
 function ProfileUserInfo() {
+
+    const data = useSelector(state => state.userReducer);
 
     return (
         <div>
