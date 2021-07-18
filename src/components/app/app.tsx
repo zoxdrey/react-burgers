@@ -19,18 +19,19 @@ import IngredientDetailsFull from "../../pages/ingredient-details-full";
 import Modal from "../modal/modal";
 import DefaultRoute from "../default-route/default-route";
 import ProtectedRoute from "../protected-route/protected-route";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 
 function App() {
     let location = useLocation();
     const history = useHistory();
     let background = history.action === 'PUSH' && location.state && location.state.background;
+    // @ts-ignore
 
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getIngredientsList());
     }, []);
-
     const back = () => {
         history.goBack();
     }
@@ -81,6 +82,7 @@ function App() {
                     </Switch>
                     {background && (<Route path='/ingredients/:id'>
                         <Modal title={true} closeHandler={back} closeByOverlayClickHandler={closeByOverlayClickHandler}>
+                            <IngredientDetails/>
                         </Modal>
                     </Route>)}
                 </main>

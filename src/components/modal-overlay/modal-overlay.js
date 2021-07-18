@@ -1,7 +1,6 @@
 import styles from "./modal-overlay.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import React from "react";
 
 function ModalOverlay(props) {
@@ -15,9 +14,7 @@ function ModalOverlay(props) {
                     <CloseIcon type="primary" onClick={props.closeHandler}/>
                 </div>
             </div>
-
-            <IngredientDetails
-                burgersData={props.currIngredient[0]}/>
+            {React.cloneElement(props.children, {burgersData: props.currIngredient})}
         </div>
     );
 }

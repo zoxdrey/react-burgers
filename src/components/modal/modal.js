@@ -8,15 +8,15 @@ function Modal(props) {
     const modalRoot = document.getElementById("modals");
     const {id} = useParams();
     const ingredient = useSelector((state) => state.ingredientsListReducer);
-    const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id);
-
+    const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id)[0];
+    console.log(currIngredient)
     return ReactDOM.createPortal(
         <>
             <div
                 className={styles["modal"]}
                 onClick={props.closeByOverlayClickHandler}
             >
-                <ModalOverlay {...props} currIngredient={currIngredient}/>
+                <ModalOverlay {...props} currIngredient={currIngredient}>{props.children}</ModalOverlay>
             </div>
         </>,
         modalRoot
