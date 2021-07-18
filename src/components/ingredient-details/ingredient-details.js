@@ -5,6 +5,7 @@ import React from "react";
 
 function IngredientDetails(props) {
 
+
     function renderIngredient(data) {
         return (
 

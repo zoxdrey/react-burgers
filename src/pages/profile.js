@@ -22,7 +22,7 @@ function ProfilePage() {
                     <OrderList/>
                 </Route>
                 <Route exact path={path}>
-                    <ProfileUserInfo user={user}/>
+                    <ProfileUserInfo/>
                 </Route>
             </Switch>
         </div>

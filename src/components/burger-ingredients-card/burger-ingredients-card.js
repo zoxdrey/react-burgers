@@ -44,7 +44,8 @@ function BurgerIngredientsCard(props) {
     };
 
     return (
-        <Link key={cardData._id} to={{pathname: `/ingredients/${cardData._id}`, state: {background: location}}}>
+        <Link className={`${styles["link"]}`} key={cardData._id}
+              to={{pathname: `/ingredients/${cardData._id}`, state: {background: location}}}>
             < div
                 className={`${styles["burger-ingredients-card"]} ml-2 mr-2 mb-10`
                 }

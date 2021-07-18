@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {getIngredientsList} from "../../services/actions/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {Route, Switch, useLocation, useParams} from "react-router-dom";
+import {Route, Switch, useHistory, useLocation} from "react-router-dom";
 import OrderDetails from "../order-details/order-details";
 import FeedPage from "../../pages/feed";
 import HomePage from "../../pages/home";
@@ -17,20 +17,28 @@ import ProfilePage from "../../pages/profile";
 import NotFoundPage from "../../pages/not-found";
 import IngredientDetailsFull from "../../pages/ingredient-details-full";
 import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import DefaultRoute from "../default-route/default-route";
+import ProtectedRoute from "../protected-route/protected-route";
 
 
 function App() {
     let location = useLocation();
-    const background = location.state && location.state.background;
+    const history = useHistory();
+    let background = history.action === 'PUSH' && location.state && location.state.background;
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getIngredientsList());
     }, [dispatch]);
-    const {id} = useParams();
-    const ingredient = useSelector((state: any) => state.ingredientsListReducer);
-    const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id);
-    console.log(location, background)
+
+    const back = () => {
+        history.goBack();
+    }
+    const closeByOverlayClickHandler = (e) => {
+        if (e.target.parentNode.id === "modals") {
+            back();
+        }
+    }
     return (
 
         <div className={styles.app}>
@@ -43,36 +51,38 @@ function App() {
                             <HomePage/>
                         </Route>
                         <Route path='/ingredients/:id' children={<IngredientDetailsFull/>}/>
-                        <Route exact path='/login'>
+                        <DefaultRoute exact path='/login'>
                             <LoginPage/>
-                        </Route>
-                        <Route exact path='/register'>
+                        </DefaultRoute>
+                        <DefaultRoute exact path='/register'>
                             <RegisterPage/>
-                        </Route>
-                        <Route exact path='/forgot-password'>
+                        </DefaultRoute>
+                        <DefaultRoute exact path='/forgot-password'>
                             <ForgotPasswordPage/>
-                        </Route>
-                        <Route exact path='/reset-password'>
+                        </DefaultRoute>
+                        <DefaultRoute exact path='/reset-password'>
                             <ResetPasswordPage/>
-                        </Route>
-                        <Route exact path='/feed'>
+                        </DefaultRoute>
+                        <ProtectedRoute exact path='/feed'>
                             <FeedPage/>
-                        </Route>
-                        <Route exact path='/feed/:id'>
+                        </ProtectedRoute>
+                        <ProtectedRoute exact path='/feed/:id'>
                             <ResetPasswordPage/>
-                        </Route>
-                        <Route exact path='/profile/orders/:id'>
+                        </ProtectedRoute>
+                        <ProtectedRoute exact path='/profile/orders/:id'>
                             <OrderDetails/>
-                        </Route>
-                        <Route path='/profile'>
+                        </ProtectedRoute>
+                        <ProtectedRoute path='/profile'>
                             <ProfilePage/>
-                        </Route>
+                        </ProtectedRoute>
                         <Route>
                             <NotFoundPage/>
                         </Route>
                     </Switch>
-                    {background && <Route path='/ingredients/:id' children={<Modal> <IngredientDetails
-                        burgersData={currIngredient}/></Modal>}/>}
+                    {background && (<Route path='/ingredients/:id'>
+                        <Modal title={true} closeHandler={back} closeByOverlayClickHandler={closeByOverlayClickHandler}>
+                        </Modal>
+                    </Route>)}
                 </main>
             </DndProvider>
         </div>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../../pages/profile.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,10 +8,13 @@ import {updateUserInfo} from "../../services/actions/user";
 function ProfileUserInfo() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.userReducer.user)
-    const [userName, setUserName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    useEffect(() => {
+        setUserName(user.name)
+        setEmail(user.email)
+    }, [])
 
     function handleSubmit() {
         dispatch(updateUserInfo(userName, email, password))
