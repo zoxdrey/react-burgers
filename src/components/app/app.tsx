@@ -29,7 +29,7 @@ function App() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getIngredientsList());
-    }, [dispatch]);
+    }, []);
 
     const back = () => {
         history.goBack();
