@@ -19,7 +19,7 @@ function ProfileUserInfo() {
 
     return (
         <div>
-            <div className={`${styles['profile-main']}`}>
+            <form className={`${styles['profile-main']}`} onSubmit={handleSubmit} name="user-info-form">
                 <div className={`${styles['profile-input']} + mb-6`}>
                     <Input placeholder={'Имя'} value={userName} onChange={(e) => setUserName(e.target.value)}
                            icon={"EditIcon"}
@@ -27,19 +27,19 @@ function ProfileUserInfo() {
                 </div>
                 <div className={`${styles['profile-input']} + mb-6`}>
                     <EmailInput placeholder={'Логин'} value={email}
-                                onChange={(e) => setEmail(e.target.value)}/>
+                                onChange={(e) => setEmail(e.target.value)} name={email}/>
                 </div>
                 <div className={`${styles['profile-input']} + mb-6`}>
                     <PasswordInput placeholder={'Пароль'} value={'******'}
-                                   onChange={(e) => setPassword(e.target.value)}/>
+                                   onChange={(e) => setPassword(e.target.value)} name={password}/>
                 </div>
 
                 <div className={`${styles['button']} mb-20`}>
-                    <Button type="primary" size="medium" onClick={handleSubmit}>
+                    <Button type="primary" size="medium">
                         Сохранить
                     </Button>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

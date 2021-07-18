@@ -21,17 +21,18 @@ function ResetPasswordPage() {
         <div className={`${styles['main-container']}`}>
             <div className={`${styles['reset-password-container']}`}>
                 <div className={`${styles['reset-password-form-title']} mb-6`}>Восстановление пароля</div>
-                <form className={`${styles['reset-password-form']}`} name='login-form'>
+                <form className={`${styles['reset-password-form']}`} name='login-form' onSubmit={handleSubmit}>
                     <div className={`${styles['input']} mb-6`}>
                         <PasswordInput placeholder={'Укажите e-mail'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={"ShowIcon"} name={password}/>
+                                       icon={"ShowIcon"} name={password} value={password}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <Input placeholder={'Введите код из письма'} onChange={(e) => setMailCode(e.target.value)}
-                               />
+                               value={mailCode}
+                        />
                     </div>
                     <div className={`${styles['button']} mb-20`}>
-                        <Button type="primary" size="medium" onClick={handleSubmit}>
+                        <Button type="primary" size="medium">
                             Сохранить
                         </Button>
                     </div>

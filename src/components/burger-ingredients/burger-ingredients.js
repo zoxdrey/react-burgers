@@ -7,10 +7,11 @@ import React, {useContext, useEffect, useState} from "react";
 import {BurgersDataContext} from "../../services/burgersDataContext.js";
 import {REMOVE_CURRENT_INGREDIENT} from "../../services/actions/ingredients";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState("Булки");
-
+    let history = useHistory();
     const [visible, setVisible] = useState(false);
     const [currentIngredient, setCurrentIngredient] = useState(null);
     const burgersData = useContext(BurgersDataContext);
@@ -25,19 +26,21 @@ function BurgerIngredients() {
         document.addEventListener("keydown", escHandler);
         return () => {
             document.removeEventListener("keydown", escHandler);
-            window.history.replaceState(null, null, `/`);
         };
     }, []);
 
     const openModal = (data) => {
         if (data) setCurrentIngredient(data);
-        window.history.replaceState(null, null, `/ingredients/${data._id}`);
         setVisible(true);
+    };
+
+    let back = () => {
+        history.goBack();
     };
 
     const closeModal = () => {
         setVisible(false);
-        window.history.replaceState(null, null, `/`);
+        back();
         dispatch({
             type: REMOVE_CURRENT_INGREDIENT,
         });
@@ -45,7 +48,9 @@ function BurgerIngredients() {
 
     const closeByOverlayClickHandler = (e) => {
         if (e.target.parentNode.id === "modals") {
+            back();
             closeModal();
+
         }
     };
 
@@ -88,7 +93,7 @@ function BurgerIngredients() {
             {visible && modal}
             <BurgerIngredientsList
                 setCurrentTab={setCurrent}
-                openCardHandler={openModal}
+            
             />
         </div>
     );

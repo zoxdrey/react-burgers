@@ -23,20 +23,20 @@ function RegisterPage() {
         <div className={`${styles['main-container']}`}>
             <div className={`${styles['register-container']}`}>
                 <div className={`${styles['register-form-title']} text text_type_main-default mb-9`}>Регистрация</div>
-                <form className={`${styles['register-form']}`} name='login-form'>
+                <form className={`${styles['register-form']}`} name='login-form' onSubmit={handleSubmit}>
                     <div className={`${styles['input']} mb-6`}>
-                        <Input placeholder={'Имя'} onChange={(e) => setUserName(e.target.value)}/>
+                        <Input placeholder={'Имя'} onChange={(e) => setUserName(e.target.value)} value={userName}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
-                        />
+                                    value={email}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <PasswordInput placeholder={'Пароль'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={'ShowIcon'} name={password}/>
+                                       icon={'ShowIcon'} name={password} value={password}/>
                     </div>
                     <div className={`${styles['button']} mb-20`}>
-                        <Button type="primary" size="medium" onClick={handleSubmit}>
+                        <Button type="primary" size="medium">
                             Зарегистрироваться
                         </Button>
                     </div>

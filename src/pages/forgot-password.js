@@ -24,13 +24,13 @@ function ForgotPasswordPage() {
                     пароля
                 </div>
 
-                <form className={`${styles['forgot-password-form']}`} name='login-form'>
+                <form className={`${styles['forgot-password-form']}`} name='login-form' onSubmit={handleSubmit}>
                     <div className={`${styles['input']} mb-6`}>
                         <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
-                                    />
+                         value={email}/>
                     </div>
                     <div className={`${styles['button']} mb-20`}>
-                        <Button type="primary" size="medium" onClick={handleSubmit}>
+                        <Button type="primary" size="medium">
                             Восстановить
                         </Button>
                     </div>
