@@ -47,9 +47,9 @@ function App() {
                 <main className={styles.main}>
                     <Switch location={background || location}>
 
-                        <Route exact path='/'>
+                        <ProtectedRoute exact path='/'>
                             <HomePage/>
-                        </Route>
+                        </ProtectedRoute>
                         <Route path='/ingredients/:id' children={<IngredientDetailsFull/>}/>
                         <DefaultRoute exact path='/login'>
                             <LoginPage/>
