@@ -3,10 +3,10 @@ import {Button, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-com
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import Modal from "../modal/modal.js";
-import OrderDetails from "../order-details/order-details.js";
 import {ESC_KEY_CODE} from "../../utils/constants";
 import {getOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
+import OrderSuccess from "../order-success/order-success";
 
 function BurgerConstructor() {
     const [visible, setVisible] = useState(false);
@@ -58,7 +58,7 @@ function BurgerConstructor() {
             closeHandler={closeModal}
             closeByOverlayClickHandler={closeByOverlayClickHandler}
         >
-            <OrderDetails orderId={orderId + ""}></OrderDetails>
+            <OrderSuccess orderId={orderId + ""}/>
         </Modal>
     );
 

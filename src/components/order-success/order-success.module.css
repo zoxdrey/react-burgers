@@ -1,0 +1,6 @@
+
+.order-success {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
