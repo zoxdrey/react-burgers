@@ -64,12 +64,12 @@ function App() {
                         <DefaultRoute exact path='/reset-password'>
                             <ResetPasswordPage/>
                         </DefaultRoute>
-                        <ProtectedRoute exact path='/feed'>
+                        <Route exact path='/feed'>
                             <FeedPage/>
-                        </ProtectedRoute>
-                        <ProtectedRoute exact path='/feed/:id'>
+                        </Route>
+                        <Route exact path='/feed/:id'>
                             <ResetPasswordPage/>
-                        </ProtectedRoute>
+                        </Route>
                         <ProtectedRoute exact path='/profile/orders/:id'>
                             <OrderDetails/>
                         </ProtectedRoute>

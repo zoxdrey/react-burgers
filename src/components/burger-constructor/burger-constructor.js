@@ -64,7 +64,7 @@ function BurgerConstructor() {
 
     return (
         <section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
-            <BurgerConstructorList></BurgerConstructorList>
+            <BurgerConstructorList/>
             <div className={styles["burger-constructor__info"]}>
                 <p className="text text_type_digits-medium">
                     {(bun.price || 0) * 2 +
@@ -73,7 +73,7 @@ function BurgerConstructor() {
                         0
                     ) || 0}
                 </p>
-                <CurrencyIcon type="default"></CurrencyIcon>
+                <CurrencyIcon type="default"/>
                 <Button type="primary" size="medium" onClick={openModal}>
                     Оформить заказ
                 </Button>
