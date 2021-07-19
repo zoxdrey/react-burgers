@@ -57,7 +57,7 @@ export function loginUser(email, password, history) {
                     setCookie('token', res.accessToken);
                     localStorage.setItem('token', res.refreshToken);
                     localStorage.setItem('userName', res.user.name);
-                    history.push('/profile');
+                    history.goBack();
                     dispatch({
                         type: LOGIN_SUCCESS,
                         accessToken: res.accessToken,

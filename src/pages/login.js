@@ -13,6 +13,7 @@ function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(history)
         dispatch(loginUser(email, password, history));
     };
 

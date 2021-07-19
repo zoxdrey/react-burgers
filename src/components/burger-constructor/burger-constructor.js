@@ -7,10 +7,14 @@ import {ESC_KEY_CODE} from "../../utils/constants";
 import {getOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import OrderSuccess from "../order-success/order-success";
+import {useHistory, useLocation} from "react-router-dom";
 
 function BurgerConstructor() {
     const [visible, setVisible] = useState(false);
 
+    const userName = localStorage.getItem('userName');
+    const history = useHistory();
+    const location = useLocation();
     const burgerConstructorItems = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
     );
@@ -19,6 +23,7 @@ function BurgerConstructor() {
     );
     const orderId = useSelector((store) => store.orderReducer.order.orderId);
     const dispatch = useDispatch();
+
     useEffect(() => {
         const escHandler = (event) => {
             if (event.keyCode === ESC_KEY_CODE) {
@@ -30,6 +35,10 @@ function BurgerConstructor() {
     }, []);
 
     const openModal = () => {
+        if (!userName) {
+            history.replace({pathname: '/login', state: {target: location}});
+            return;
+        }
         if (bun._id) {
             const ingredientsIds = [
                 ...burgerConstructorItems.map((element) => element._id),
