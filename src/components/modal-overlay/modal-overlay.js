@@ -14,7 +14,7 @@ function ModalOverlay(props) {
                     <CloseIcon type="primary" onClick={props.closeHandler}/>
                 </div>
             </div>
-            {React.cloneElement(props.children, {burgersData: props.currIngredient})}
+            {props.children}
         </div>
     );
 }

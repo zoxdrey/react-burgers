@@ -2,8 +2,14 @@ import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import {burgerType} from "../../utils/burgerType";
 import React from "react";
+import {useParams} from "react-router";
+import {useSelector} from "react-redux";
 
-function IngredientDetails(props) {
+function IngredientDetails() {
+
+    const {id} = useParams();
+    const ingredient = useSelector((state) => state.ingredientsListReducer);
+    const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id)[0];
 
     function renderIngredient(data) {
         return (
@@ -51,7 +57,7 @@ function IngredientDetails(props) {
     };
 
     return (
-        renderIngredient(props.burgersData)
+        renderIngredient(currIngredient)
     );
 
 
