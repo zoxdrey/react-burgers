@@ -1,57 +1,70 @@
 import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
-import { burgerType } from "../../utils/burgerType";
+import {burgerType} from "../../utils/burgerType";
+import React from "react";
+import {useParams} from "react-router";
+import {useSelector} from "react-redux";
 
-function IngredientDetails(props) {
-  const data = props.burgersData;
-  if (!data) return "";
+function IngredientDetails() {
 
-  return (
-    <div className={styles["ingredient-details"]}>
-      <img src={data.image_large} alt={data.name}></img>
+    const {id} = useParams();
+    const ingredient = useSelector((state) => state.ingredientsListReducer);
+    const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id)[0];
 
-      <p className="text text_type_main-medium mb-8 mt-4">{data.name}</p>
+    function renderIngredient(data) {
+        return (
 
-      <ul className={`${styles["ingredient-details__values"]} mb-15`}>
-        <li>
-          <p className="text text_type_main-default text_color_inactive">
-            Калории,ккал
-          </p>
-          <p className="text text_type_digits-default text_color_inactive">
-            {data.calories}
-          </p>
-        </li>
-        <li>
-          <p className="text text_type_main-default text_color_inactive">
-            Белки, г
-          </p>
-          <p className="text text_type_digits-default text_color_inactive">
-            {data.calories}
-          </p>
-        </li>
-        <li>
-          <p className="text text_type_main-default text_color_inactive">
-            Жиры, г
-          </p>
-          <p className="text text_type_digits-default text_color_inactive">
-            {data.calories}
-          </p>
-        </li>
-        <li>
-          <p className="text text_type_main-default text_color_inactive">
-            Углеводы, г
-          </p>
-          <p className="text text_type_digits-default text_color_inactive">
-            {data.calories}
-          </p>
-        </li>
-      </ul>
-    </div>
-  );
+            <div className={styles["ingredient-details"]}>
+                <img src={data?.image_large} alt={data?.name}/>
+
+                <p className="text text_type_main-medium mb-8 mt-4">{data?.name}</p>
+
+                <ul className={`${styles["ingredient-details__values"]} mb-15`}>
+                    <li>
+                        <p className="text text_type_main-default text_color_inactive">
+                            Калории,ккал
+                        </p>
+                        <p className="text text_type_digits-default text_color_inactive">
+                            {data?.calories}
+                        </p>
+                    </li>
+                    <li>
+                        <p className="text text_type_main-default text_color_inactive">
+                            Белки, г
+                        </p>
+                        <p className="text text_type_digits-default text_color_inactive">
+                            {data?.calories}
+                        </p>
+                    </li>
+                    <li>
+                        <p className="text text_type_main-default text_color_inactive">
+                            Жиры, г
+                        </p>
+                        <p className="text text_type_digits-default text_color_inactive">
+                            {data?.calories}
+                        </p>
+                    </li>
+                    <li>
+                        <p className="text text_type_main-default text_color_inactive">
+                            Углеводы, г
+                        </p>
+                        <p className="text text_type_digits-default text_color_inactive">
+                            {data?.calories}
+                        </p>
+                    </li>
+                </ul>
+            </div>)
+    };
+
+    return (
+        renderIngredient(currIngredient)
+    );
+
+
 }
 
 IngredientDetails.propTypes = {
-  burgersData: PropTypes.shape(burgerType),
+    burgersData: PropTypes.shape(burgerType),
 };
 
 export default IngredientDetails;

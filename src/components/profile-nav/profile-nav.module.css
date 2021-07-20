@@ -1,0 +1,10 @@
+.profile-nav {
+    width: 320px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.profile-nav-link {
+    text-decoration: none;
+}

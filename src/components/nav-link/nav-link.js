@@ -1,21 +1,20 @@
 import styles from "./nav-link.module.css";
 import PropTypes from "prop-types";
+import {NavLink} from "react-router-dom";
+import React from "react";
 
-function NavLink(props) {
-  return (
-    <a className={styles.nav__link + " pl-5 pr-5 pt-4 pb-4"} href="#">
-      {props.isInactiveText ? (
+function NavBurgerLink(props) {
+    return (
         <p className="text text_type_main-default text_color_inactive">
-          {props.children}
+            <NavLink className={styles.nav__link + " pl-5 pr-5 pt-4 pb-4"} to={props.target}
+                     activeClassName={'text text_type_main-default'}>
+                {props.children}
+            </NavLink>
         </p>
-      ) : (
-        <p className="text text_type_main-default">{props.children}</p>
-      )}
-    </a>
-  );
+    );
 }
 
 NavLink.propTypes = {
-  children: PropTypes.array,
+    children: PropTypes.array,
 };
-export default NavLink;
+export default NavBurgerLink;

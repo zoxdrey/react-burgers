@@ -1,7 +1,7 @@
 import {
   ADD_CURRENT_INGREDIENT,
   REMOVE_CURRENT_INGREDIENT,
-} from "../actions/actions";
+} from "../actions/ingredients";
 import { initialState } from "./initialState";
 
 export const currentIngredientReducer = (state = initialState, action) => {

@@ -1,16 +1,21 @@
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .burger-ingredients-card {
-  position: relative;
-  width: 272px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
+    position: relative;
+    width: 272px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
 }
 
 .burger-ingredients-card__image {
-  max-width: 240px;
+    max-width: 240px;
 }
 
 .burger-ingredients-card__price-info {
-  display: flex;
+    display: flex;
 }
