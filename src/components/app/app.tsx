@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
 import {useDispatch} from "react-redux";
-import {getIngredientsList} from "../../services/actions/ingredients";
+import {getIngredientsList, WS_CONNECTION_START} from "../../services/actions/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {Route, Switch, useHistory, useLocation} from "react-router-dom";
@@ -27,21 +27,27 @@ function App() {
     const history = useHistory();
     let background = history.action === 'PUSH' && location.state && location.state.background;
     // @ts-ignore
-
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getIngredientsList());
     }, []);
+
+    useEffect(() => {
+        dispatch({type: WS_CONNECTION_START});
+    }, []);
+
     const back = () => {
         history.goBack();
     }
+
     const closeByOverlayClickHandler = (e) => {
         if (e.target.parentNode.id === "modals") {
             back();
         }
     }
-    return (
 
+    return (
         <div className={styles.app}>
             <AppHeader/>
             <DndProvider backend={HTML5Backend}>

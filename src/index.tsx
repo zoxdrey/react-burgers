@@ -3,18 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/app'
 import reportWebVitals from './reportWebVitals';
-import {applyMiddleware, compose, createStore} from 'redux';
 import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
-import rootReducer from './services/reducers/index';
 import {BrowserRouter} from "react-router-dom";
+import {configureStore} from "./services/store";
 
-const composeEnhancers =
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-const store = createStore(rootReducer, enhancer);
-
+const store = configureStore();
 
 ReactDOM.render(
     <React.StrictMode>
