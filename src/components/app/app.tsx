@@ -33,9 +33,11 @@ function App() {
         dispatch(getIngredientsList());
     }, []);
 
+
     useEffect(() => {
         dispatch({type: WS_CONNECTION_START});
-    }, []);
+
+    }, [dispatch]);
 
     const back = () => {
         history.goBack();

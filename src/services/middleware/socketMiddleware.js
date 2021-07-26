@@ -10,6 +10,11 @@ export const socketMiddleware = (wsUrl) => {
                 // объект класса WebSocket
                 socket = new WebSocket(wsUrl);
             }
+
+            if (type === 'WS_CONNECTION_CLOSE' && socket) {
+                // объект класса WebSocket
+                socket.close(1000, 'code 1000')
+            }
             if (socket) {
 
                 // функция, которая вызывается при открытии сокета
@@ -25,7 +30,10 @@ export const socketMiddleware = (wsUrl) => {
                 // функция, которая вызывается при получения события от сервера
                 socket.onmessage = event => {
                     const {data} = event;
-                    dispatch({type: 'WS_GET_MESSAGE', payload: data});
+                    const parsedData = JSON.parse(data);
+                    dispatch({
+                        type: 'WS_GET_MESSAGE', payload: parsedData
+                    });
                 };
                 // функция, которая вызывается при закрытии соединения
                 socket.onclose = event => {

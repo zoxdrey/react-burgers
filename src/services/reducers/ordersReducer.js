@@ -1,4 +1,10 @@
-import {WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE} from '../actions/ingredients';
+import {
+    WS_CONNECTION_CLOSE,
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_SUCCESS,
+    WS_GET_MESSAGE
+} from '../actions/ingredients';
 
 const initialState = {
     wsConnected: false,
@@ -29,6 +35,13 @@ export const wsReducer = (state = initialState, action) => {
         // Опишем обработку экшена с типом WS_CONNECTION_CLOSED, когда соединение закрывается
         // Установим флаг wsConnected в состояние false
         case WS_CONNECTION_CLOSED:
+            return {
+                ...state,
+                error: null,
+                wsConnected: false
+            };
+
+        case WS_CONNECTION_CLOSE:
             return {
                 ...state,
                 error: null,
