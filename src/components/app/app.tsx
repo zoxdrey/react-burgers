@@ -37,7 +37,7 @@ function App() {
     useEffect(() => {
         dispatch({type: WS_CONNECTION_START});
 
-    }, [dispatch]);
+    }, []);
 
     const back = () => {
         history.goBack();

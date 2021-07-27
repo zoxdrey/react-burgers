@@ -6,14 +6,26 @@ import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 
 function OrderCard({order}) {
-
+    let totalCost;
     const {ingredientsList} = useSelector((store) => store.ingredientsListReducer);
     const getOrderIngredientList = () => {
         let ingrList = []
         order.ingredients.forEach(orderIngredient => {
             ingrList = [...ingrList, ...ingredientsList.filter(item => item._id === orderIngredient)]
         })
+        totalCost = getTotalCost(ingrList);
         return ingrList;
+    }
+
+    const getTotalCost = (ingredients) => {
+        let result = 0
+        ingredients.forEach(item => {
+            if (item.type === 'bun') {
+                result += item.price * 2
+            }
+            result += item.price
+        })
+        return result
     }
 
     const getStateName = (status) => {
@@ -60,7 +72,7 @@ function OrderCard({order}) {
                 <div className={`${styles["order-card__footer-price"]}`}>
                     <p
                         className="text text_type_digits-default">
-                        480
+                        {totalCost}
                     </p>
                     <CurrencyIcon type="primary"/>
                 </div>
