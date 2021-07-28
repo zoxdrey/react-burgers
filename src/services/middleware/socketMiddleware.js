@@ -9,8 +9,11 @@ export const socketMiddleware = (wsUrl) => {
             const {type, payload} = action;
 
             if (type === 'WS_CONNECTION_START') {
-                const token = getCookie('token').split(' ')[1] //if token exist user is auth
-                if (token) wsUrl = `${wsUrl}?token=${token}`
+                let token = getCookie('token') //if token exist user is auth
+                if (token) {
+                    token = token.split(' ')[1]
+                    wsUrl = `${wsUrl}?token=${token}`
+                }
                 socket = new WebSocket(wsUrl);
             }
 
