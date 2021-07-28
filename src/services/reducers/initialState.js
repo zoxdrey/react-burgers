@@ -6,10 +6,11 @@ export const initialState = {
     constructorItemsList: [],
     constructorBun: {},
     currentIngredient: {},
-
-    order: {
-        orderId: 0,
-    },
+    orders: [],
+    order: null,
+    orderId: 0,
     orderRequest: false,
     orderError: false,
+    orderIdError: false,
+    orderIdRequest: false,
 };

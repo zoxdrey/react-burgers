@@ -1,14 +1,13 @@
 import React from "react";
 import styles from './order-summary.module.css';
 
-function OrderSummary({ordersFeed}) {
+function OrderSummary({ordersFeed, total, totalToday}) {
 
-    const {orders, total, totalToday} = ordersFeed[0];
-    const doneOrders = orders.filter((item) => {
+    const doneOrders = ordersFeed.filter((item) => {
         return item.status === 'done'
     })
 
-    const pendingOrders = orders.filter((item) => {
+    const pendingOrders = ordersFeed.filter((item) => {
         return item.status === 'pending'
     })
 

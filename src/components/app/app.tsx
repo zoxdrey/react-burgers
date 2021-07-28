@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getIngredientsList, WS_CONNECTION_START} from "../../services/actions/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
@@ -36,9 +36,10 @@ function App() {
 
     useEffect(() => {
         dispatch({type: WS_CONNECTION_START});
-
     }, []);
+    // @ts-ignore
 
+    const {error, orders, wsConnected, total, totalToday} = useSelector(state => state.wsReducer)
     const back = () => {
         history.goBack();
     }
@@ -63,9 +64,9 @@ function App() {
                         <DefaultRoute exact path='/login'>
                             <LoginPage/>
                         </DefaultRoute>
-                        <DefaultRoute exact path='/register'>
+                        <Route exact path='/register'>
                             <RegisterPage/>
-                        </DefaultRoute>
+                        </Route>
                         <DefaultRoute exact path='/forgot-password'>
                             <ForgotPasswordPage/>
                         </DefaultRoute>
@@ -76,7 +77,7 @@ function App() {
                             <FeedPage/>
                         </Route>
                         <Route exact path='/feed/:id'>
-                            <ResetPasswordPage/>
+                            <OrderDetails/>
                         </Route>
                         <ProtectedRoute exact path='/profile/orders/:id'>
                             <OrderDetails/>
@@ -91,6 +92,18 @@ function App() {
                     {background && (<Route path='/ingredients/:id'>
                         <Modal title={true} closeHandler={back} closeByOverlayClickHandler={closeByOverlayClickHandler}>
                             <IngredientDetails/>
+                        </Modal>
+                    </Route>)}
+                    {background && (<Route path='/feed/:id'>
+                        <Modal title={false} closeHandler={back}
+                               closeByOverlayClickHandler={closeByOverlayClickHandler}>
+                            <OrderDetails/>
+                        </Modal>
+                    </Route>)}
+                    {background && (<Route path='/profile/orders/:id'>
+                        <Modal title={false} closeHandler={back}
+                               closeByOverlayClickHandler={closeByOverlayClickHandler}>
+                            <OrderDetails/>
                         </Modal>
                     </Route>)}
                 </main>

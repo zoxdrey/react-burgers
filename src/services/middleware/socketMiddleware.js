@@ -1,3 +1,5 @@
+import {getCookie} from "../../utils/cookie";
+
 export const socketMiddleware = (wsUrl) => {
     return store => {
         let socket = null;
@@ -7,7 +9,8 @@ export const socketMiddleware = (wsUrl) => {
             const {type, payload} = action;
 
             if (type === 'WS_CONNECTION_START') {
-                // объект класса WebSocket
+                const token = getCookie('token').split(' ')[1] //if token exist user is auth
+                if (token) wsUrl = `${wsUrl}?token=${token}`
                 socket = new WebSocket(wsUrl);
             }
 

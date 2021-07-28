@@ -6,19 +6,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {WS_CONNECTION_START} from "../services/actions/ingredients";
 
 function FeedPage() {
+    const dispatch = useDispatch();
 
-
-
-    const {error, messages, wsConnected} = useSelector(state => state.wsReducer)
-
-
+    useEffect(() => {
+        dispatch({type: WS_CONNECTION_START});
+    }, [dispatch]);
+    const {error, orders, wsConnected, total, totalToday} = useSelector(state => state.wsReducer)
     return (
 
         <div className={`${styles['main-container']} + mt-20`}>
-            {wsConnected && (
+            {orders && (
                 <>
-                    <OrderList ordersFeed={messages}/>
-                    <OrderSummary ordersFeed={messages}/>
+                    <OrderList ordersFeed={orders}/>
+                    <OrderSummary ordersFeed={orders} total={total} totalToday={totalToday}/>
                 </>)}
 
         </div>

@@ -6,10 +6,18 @@ import ProfileNav from "../components/profile-nav/profile-nav";
 import ProfileUserInfo from "../components/profile-user-info/profile-user-info";
 import {useDispatch, useSelector} from "react-redux";
 import {getUserInfo} from "../services/actions/user";
+import {WS_CONNECTION_START} from "../services/actions/ingredients";
 
 function ProfilePage() {
-    let {path, url} = useRouteMatch();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({type: WS_CONNECTION_START});
+    }, [dispatch]);
+
+    const {error, orders, wsConnected, total, totalToday} = useSelector(state => state.wsReducer)
+    let {path, url} = useRouteMatch();
+
     const user = useSelector(state => state.userReducer.user)
     useEffect(() => {
         dispatch(getUserInfo())
@@ -19,7 +27,7 @@ function ProfilePage() {
             <ProfileNav/>
             <Switch>
                 <Route exact path={`${path}/orders`}>
-                    <OrderList/>
+                    <OrderList ordersFeed={orders}/>
                 </Route>
                 <Route exact path={path}>
                     <ProfileUserInfo/>

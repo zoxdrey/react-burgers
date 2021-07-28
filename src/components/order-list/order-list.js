@@ -6,7 +6,7 @@ function OrderList({ordersFeed}) {
 
     return (
         <div className={`${styles['order-list']}`}>
-            {ordersFeed && ordersFeed[0].orders.map((item) => <OrderCard key={item._id} order={item}/>)}
+            {ordersFeed && ordersFeed.map((item) => <OrderCard key={item._id} order={item}/>)}
         </div>
     )
 }

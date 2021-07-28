@@ -4,7 +4,7 @@ import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import Modal from "../modal/modal.js";
 import {ESC_KEY_CODE} from "../../utils/constants";
-import {getOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
+import {createOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import OrderSuccess from "../order-success/order-success";
 import {useHistory, useLocation} from "react-router-dom";
@@ -21,9 +21,8 @@ function BurgerConstructor() {
     const bun = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
-    const orderId = useSelector((store) => store.orderReducer.order.orderId);
+    const orderId = useSelector((store) => store.orderReducer.orderId);
     const dispatch = useDispatch();
-
     useEffect(() => {
         const escHandler = (event) => {
             if (event.keyCode === ESC_KEY_CODE) {
@@ -44,7 +43,7 @@ function BurgerConstructor() {
                 ...burgerConstructorItems.map((element) => element._id),
                 bun._id,
             ];
-            dispatch(getOrder(ingredientsIds, setVisible));
+            dispatch(createOrder(ingredientsIds, setVisible));
             dispatch({
                 type: RESET_CONSTRUCTOR,
             });
@@ -67,7 +66,7 @@ function BurgerConstructor() {
             closeHandler={closeModal}
             closeByOverlayClickHandler={closeByOverlayClickHandler}
         >
-            <OrderSuccess orderId={orderId + ""}/>
+            <OrderSuccess orderId={orderId + ''}/>
         </Modal>
     );
 
