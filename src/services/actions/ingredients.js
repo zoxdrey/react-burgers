@@ -1,4 +1,5 @@
 import {baseUrl} from '../../utils/constants'
+import {getCookie} from "../../utils/cookie";
 
 export const GET_BURGER_INGREDIENTS_REQUEST = "GET_BURGER_INGREDIENTS_REQUEST";
 export const GET_BURGER_INGREDIENTS_SUCCESS = "GET_BURGER_INGREDIENTS_SUCCESS";
@@ -66,6 +67,7 @@ export function createOrder(orderIds, openModalFunc) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: getCookie('token'),
             },
             body: JSON.stringify({ingredients: orderIds}),
         })

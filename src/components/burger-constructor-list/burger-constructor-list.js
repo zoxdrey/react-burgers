@@ -41,6 +41,7 @@ function BurgerConstructorList() {
                     type="top"
                     burgerConstructorElemData={bun}
                     locked
+                    postfix={' (верх)'}
                 />
             ) : (
                 <div></div>
@@ -67,6 +68,7 @@ function BurgerConstructorList() {
                     type="bottom"
                     burgerConstructorElemData={bun}
                     locked
+                    postfix={' (низ)'}
                 />
             ) : (
                 <div></div>

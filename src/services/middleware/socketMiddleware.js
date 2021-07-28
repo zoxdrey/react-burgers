@@ -1,14 +1,23 @@
 import {getCookie} from "../../utils/cookie";
+import {
+    WS_CONNECTION_CLOSE,
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS,
+    WS_GET_MESSAGE,
+    WS_SEND_MESSAGE
+} from "../actions/ingredients";
 
 export const socketMiddleware = (wsUrl) => {
     return store => {
         let socket = null;
 
         return next => action => {
-            const {dispatch, getState} = store;
+            const {dispatch} = store;
             const {type, payload} = action;
 
-            if (type === 'WS_CONNECTION_START') {
+            if (type === WS_CONNECTION_START) {
                 let token = getCookie('token') //if token exist user is auth
                 if (token) {
                     token = token.split(' ')[1]
@@ -17,7 +26,7 @@ export const socketMiddleware = (wsUrl) => {
                 socket = new WebSocket(wsUrl);
             }
 
-            if (type === 'WS_CONNECTION_CLOSE' && socket) {
+            if (type === WS_CONNECTION_CLOSE && socket) {
                 // объект класса WebSocket
                 socket.close(1000, 'code 1000')
             }
@@ -25,12 +34,12 @@ export const socketMiddleware = (wsUrl) => {
 
                 // функция, которая вызывается при открытии сокета
                 socket.onopen = event => {
-                    dispatch({type: 'WS_CONNECTION_SUCCESS', payload: event});
+                    dispatch({type: WS_CONNECTION_SUCCESS, payload: event});
                 };
 
                 // функция, которая вызывается при ошибке соединения
                 socket.onerror = event => {
-                    dispatch({type: 'WS_CONNECTION_ERROR', payload: event});
+                    dispatch({type: WS_CONNECTION_ERROR, payload: event});
                 };
 
                 // функция, которая вызывается при получения события от сервера
@@ -38,18 +47,17 @@ export const socketMiddleware = (wsUrl) => {
                     const {data} = event;
                     const parsedData = JSON.parse(data);
                     dispatch({
-                        type: 'WS_GET_MESSAGE', payload: parsedData
+                        type: WS_GET_MESSAGE, payload: parsedData
                     });
                 };
                 // функция, которая вызывается при закрытии соединения
                 socket.onclose = event => {
-                    dispatch({type: 'WS_CONNECTION_CLOSED', payload: event});
+                    dispatch({type: WS_CONNECTION_CLOSED, payload: event});
                 };
 
-                if (type === 'WS_SEND_MESSAGE') {
-                    const message = payload;
+                if (type === WS_SEND_MESSAGE) {
                     // функция для отправки сообщения на сервер
-                    socket.send(JSON.stringify(message));
+                    socket.send(JSON.stringify(payload));
                 }
             }
 

@@ -22,6 +22,7 @@ function BurgerConstructor() {
         (store) => store.constructorItemsListReducer.constructorBun
     );
     const orderId = useSelector((store) => store.orderReducer.orderId);
+    const orderRequest = useSelector((store) => store.orderReducer.orderRequest);
     const dispatch = useDispatch();
     useEffect(() => {
         const escHandler = (event) => {
@@ -71,24 +72,30 @@ function BurgerConstructor() {
     );
 
     return (
-        <section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
-            <BurgerConstructorList/>
-            <div className={styles["burger-constructor__info"]}>
-                <p className="text text_type_digits-medium">
-                    {(bun.price || 0) * 2 +
-                    burgerConstructorItems.reduce(
-                        (acc, curr) => acc + parseInt(curr.price),
-                        0
-                    ) || 0}
-                </p>
-                <CurrencyIcon type="default"/>
-                <Button type="primary" size="medium" onClick={openModal}>
-                    Оформить заказ
-                </Button>
-                {visible && modal}
-            </div>
-        </section>
-    );
+
+        (<section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
+            {!orderRequest && (
+                <>
+                    <BurgerConstructorList/>
+                    <div className={styles["burger-constructor__info"]}>
+                        <p className="text text_type_digits-medium">
+                            {(bun.price || 0) * 2 +
+                            burgerConstructorItems.reduce(
+                                (acc, curr) => acc + parseInt(curr.price),
+                                0
+                            ) || 0}
+                        </p>
+                        <CurrencyIcon type="default"/>
+                        <Button type="primary" size="medium" onClick={openModal}>
+                            Оформить заказ
+                        </Button>
+
+                        {visible && modal}
+                    </div>
+                </>)}
+        </section>)
+    )
 }
+
 
 export default BurgerConstructor;

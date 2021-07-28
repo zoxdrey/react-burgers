@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./app-header.module.css";
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import NavBurgerLink from "../nav-link/nav-link.js";
+import {NavLink} from "react-router-dom";
 
 function AppHeader() {
 
@@ -20,7 +21,7 @@ function AppHeader() {
                     Лента заказов
                 </NavBurgerLink>
             </nav>
-            <Logo/>
+            <NavLink to={'/'}><Logo/></NavLink>
             <NavBurgerLink isInactiveText={true} target={'/profile'}>
                 <ProfileIcon type="secondary"/>
                 {userName ? userName : 'Личный кабинет'}
