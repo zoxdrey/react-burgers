@@ -1,6 +1,6 @@
 
 .order-summary {
-
+    min-width: 40vw;
 }
 
 .order-summary__section {
@@ -16,4 +16,6 @@
 
 .order-summary__section-complete-list {
     color: #00CCCC;
+    height: 15em;
+    overflow: hidden;
 }

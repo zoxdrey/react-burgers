@@ -4,7 +4,7 @@ import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import Modal from "../modal/modal.js";
 import {ESC_KEY_CODE} from "../../utils/constants";
-import {getOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
+import {createOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import OrderSuccess from "../order-success/order-success";
 import {useHistory, useLocation} from "react-router-dom";
@@ -21,9 +21,9 @@ function BurgerConstructor() {
     const bun = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
-    const orderId = useSelector((store) => store.orderReducer.order.orderId);
+    const orderId = useSelector((store) => store.orderReducer.orderId);
+    const orderRequest = useSelector((store) => store.orderReducer.orderRequest);
     const dispatch = useDispatch();
-
     useEffect(() => {
         const escHandler = (event) => {
             if (event.keyCode === ESC_KEY_CODE) {
@@ -44,7 +44,7 @@ function BurgerConstructor() {
                 ...burgerConstructorItems.map((element) => element._id),
                 bun._id,
             ];
-            dispatch(getOrder(ingredientsIds, setVisible));
+            dispatch(createOrder(ingredientsIds, setVisible));
             dispatch({
                 type: RESET_CONSTRUCTOR,
             });
@@ -67,29 +67,35 @@ function BurgerConstructor() {
             closeHandler={closeModal}
             closeByOverlayClickHandler={closeByOverlayClickHandler}
         >
-            <OrderSuccess orderId={orderId + ""}/>
+            <OrderSuccess orderId={orderId + ''}/>
         </Modal>
     );
 
     return (
-        <section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
-            <BurgerConstructorList/>
-            <div className={styles["burger-constructor__info"]}>
-                <p className="text text_type_digits-medium">
-                    {(bun.price || 0) * 2 +
-                    burgerConstructorItems.reduce(
-                        (acc, curr) => acc + parseInt(curr.price),
-                        0
-                    ) || 0}
-                </p>
-                <CurrencyIcon type="default"/>
-                <Button type="primary" size="medium" onClick={openModal}>
-                    Оформить заказ
-                </Button>
-                {visible && modal}
-            </div>
-        </section>
-    );
+
+        (<section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
+            {!orderRequest && (
+                <>
+                    <BurgerConstructorList/>
+                    <div className={styles["burger-constructor__info"]}>
+                        <p className="text text_type_digits-medium">
+                            {(bun.price || 0) * 2 +
+                            burgerConstructorItems.reduce(
+                                (acc, curr) => acc + parseInt(curr.price),
+                                0
+                            ) || 0}
+                        </p>
+                        <CurrencyIcon type="default"/>
+                        <Button type="primary" size="medium" onClick={openModal}>
+                            Оформить заказ
+                        </Button>
+
+                        {visible && modal}
+                    </div>
+                </>)}
+        </section>)
+    )
 }
+
 
 export default BurgerConstructor;

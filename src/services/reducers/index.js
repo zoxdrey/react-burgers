@@ -7,10 +7,12 @@ import currentIngredientReducer from "./currentIngredientReducer";
 import {refreshTokenReducer} from "./refreshTokenReducer";
 import {resetPassReducer} from "./resetPassReducer";
 import userReducer from "./userReducer";
+import {wsReducer} from "./wsReducer";
 
 const rootReducer = combineReducers({
     ingredientsListReducer,
     orderReducer,
+    wsReducer,
     constructorItemsListReducer,
     currentIngredientReducer,
     refreshTokenReducer,

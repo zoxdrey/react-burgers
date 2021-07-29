@@ -1,7 +1,15 @@
 import React from "react";
 import styles from './order-summary.module.css';
 
-function OrderSummary() {
+function OrderSummary({ordersFeed, total, totalToday}) {
+
+    const doneOrders = ordersFeed.filter((item) => {
+        return item.status === 'done'
+    })
+
+    const pendingOrders = ordersFeed.filter((item) => {
+        return item.status === 'pending'
+    })
 
     return (
         <div className={`${styles['order-summary']} ml-15`}>
@@ -13,22 +21,11 @@ function OrderSummary() {
                         </p>
                     </div>
                     <div className={`${styles['order-summary__section-complete-list']}`}>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-
+                        {doneOrders.map((item) => {
+                            return (<p className="text text_type_digits-default" key={item._id}>
+                                {item.number}
+                            </p>)
+                        })}
                     </div>
                 </div>
                 <div className={`${styles['order-summary__section-in-work']}`}>
@@ -38,21 +35,11 @@ function OrderSummary() {
                         </p>
                     </div>
                     <div className={`${styles['order-summary__section-in-work-list']}`}>
-                        <p className="text text_type_digits-default">
-                            034538
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
-                        <p className="text text_type_digits-default">
-                            034533
-                        </p>
+                        {pendingOrders.map((item) => {
+                            return (<p className="text text_type_digits-default" key={item._id}>
+                                {item.number}
+                            </p>)
+                        })}
                     </div>
                 </div>
             </div>
@@ -63,7 +50,7 @@ function OrderSummary() {
                     </p>
                 </div>
                 <div className={`${styles['order-summary__section-main']}`}>
-                    <p className="text text_type_digits-large">1234567890</p>
+                    <p className="text text_type_digits-large">{total}</p>
                 </div>
             </div>
             <div className={`${styles['order-summary__section']}`}>
@@ -73,7 +60,7 @@ function OrderSummary() {
                     </p>
                 </div>
                 <div className={`${styles['order-summary__section-main']}`}>
-                    <p className="text text_type_digits-large">1234567890</p>
+                    <p className="text text_type_digits-large">{totalToday}</p>
                 </div>
             </div>
         </div>
