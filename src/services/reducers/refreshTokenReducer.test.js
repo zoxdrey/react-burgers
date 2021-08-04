@@ -2,7 +2,7 @@ import {REFRESH_TOKEN_ERROR, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS} from 
 import {initialUserState} from "./initialUserState";
 import {refreshTokenReducer} from "./refreshTokenReducer";
 
-describe('userReducer', () => {
+describe('refreshTokenReducer', () => {
 
     it('should return the initial state', () => {
         expect(refreshTokenReducer(undefined, {})).toEqual(

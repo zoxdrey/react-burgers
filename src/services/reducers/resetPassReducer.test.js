@@ -2,7 +2,7 @@ import {RESET_PASS_ERROR, RESET_PASS_REQUEST, RESET_PASS_SUCCESS} from "../actio
 import {initialUserState} from "./initialUserState";
 import {resetPassReducer} from "./resetPassReducer";
 
-describe('userReducer', () => {
+describe('resetPassReducer', () => {
 
     it('should return the initial state', () => {
         expect(resetPassReducer(undefined, {})).toEqual(
