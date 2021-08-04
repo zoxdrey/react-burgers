@@ -17,8 +17,6 @@ describe('wsReducer', () => {
     it('should handle WS_CONNECTION_SUCCESS', () => {
         expect(wsReducer(initialState, {
             type: WS_CONNECTION_SUCCESS,
-            wsConnected: true,
-            error: null,
         })).toEqual(
             {
                 wsConnected: true,
@@ -33,8 +31,7 @@ describe('wsReducer', () => {
     it('should handle WS_CONNECTION_ERROR', () => {
         expect(wsReducer(initialState, {
             type: WS_CONNECTION_ERROR,
-            wsConnected: false,
-            payload: 'error',
+            error: 'error',
         })).toEqual(
             {
                 wsConnected: false,
@@ -49,8 +46,6 @@ describe('wsReducer', () => {
     it('should handle WS_CONNECTION_CLOSED', () => {
         expect(wsReducer(initialState, {
             type: WS_CONNECTION_CLOSED,
-            wsConnected: false,
-            error: null,
         })).toEqual(
             {
                 wsConnected: false,

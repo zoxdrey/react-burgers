@@ -38,6 +38,7 @@ export const userReducer = (state = initialUserState, action) => {
                     user: action.user,
                     loginRequest: false,
                     loginError: false,
+                    loginSuccess: true,
                 };
             }
             case LOGIN_ERROR: {

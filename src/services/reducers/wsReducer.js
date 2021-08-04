@@ -25,7 +25,7 @@ export const wsReducer = (state = initialState, action) => {
         case WS_CONNECTION_ERROR:
             return {
                 ...state,
-                error: action.payload,
+                error: action.error,
                 wsConnected: false
             };
 
