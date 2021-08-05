@@ -16,7 +16,7 @@ function ProfilePage() {
     }, [dispatch]);
 
     const {error, orders, wsConnected, total, totalToday} = useSelector(state => state.wsReducer)
-    let {path, url} = useRouteMatch();
+    const {path, url} = useRouteMatch();
 
     const user = useSelector(state => state.userReducer.user)
     useEffect(() => {

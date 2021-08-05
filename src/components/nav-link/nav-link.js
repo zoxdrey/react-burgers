@@ -15,6 +15,7 @@ function NavBurgerLink(props) {
 }
 
 NavLink.propTypes = {
-    children: PropTypes.array,
+    target: PropTypes.string,
+    children: PropTypes.node,
 };
 export default NavBurgerLink;

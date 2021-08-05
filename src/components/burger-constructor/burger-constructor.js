@@ -1,9 +1,8 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Button, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
 import Modal from "../modal/modal.js";
-import {ESC_KEY_CODE} from "../../utils/constants";
 import {createOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import OrderSuccess from "../order-success/order-success";
@@ -21,19 +20,10 @@ function BurgerConstructor() {
     const bun = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
-    const orderId = useSelector((store) => store.orderReducer.orderId);
+    const {orderId, orderIdRequest} = useSelector((store) => store.orderReducer);
     const orderRequest = useSelector((store) => store.orderReducer.orderRequest);
     const dispatch = useDispatch();
-    useEffect(() => {
-        const escHandler = (event) => {
-            if (event.keyCode === ESC_KEY_CODE) {
-                closeModal();
-            }
-        };
-        document.addEventListener("keydown", escHandler);
-        return () => document.removeEventListener("keydown", escHandler);
-    }, []);
-
+    
     const openModal = () => {
         if (!userName) {
             history.replace({pathname: '/login', state: {target: location}});
@@ -70,7 +60,10 @@ function BurgerConstructor() {
             <OrderSuccess orderId={orderId + ''}/>
         </Modal>
     );
-
+    if (orderIdRequest) return (
+        <section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
+            <p className="text text_type_main-medium">Загрузка...</p>
+        </section>)
     return (
 
         (<section className={`${styles["burger-constructor"]} mt-25 ml-10`}>
@@ -86,9 +79,9 @@ function BurgerConstructor() {
                             ) || 0}
                         </p>
                         <CurrencyIcon type="default"/>
-                        <Button type="primary" size="medium" onClick={openModal}>
+                        {!orderIdRequest ? (<Button type="primary" size="medium" onClick={openModal}>
                             Оформить заказ
-                        </Button>
+                        </Button>) : null}
 
                         {visible && modal}
                     </div>
