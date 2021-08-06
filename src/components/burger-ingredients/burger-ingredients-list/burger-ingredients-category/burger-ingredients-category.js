@@ -1,7 +1,7 @@
-import BurgerIngredientsCard from "../burger-ingredients-card/burger-ingredients-card.js";
+import BurgerIngredientsCard from "./burger-ingredients-card/burger-ingredients-card.js";
 import styles from "./burger-ingredients-category.module.css";
 import PropTypes from "prop-types";
-import {burgerType} from "../../utils/burgerType";
+import {burgerType} from "../../../../utils/burgerElement";
 import React from "react";
 
 const BurgerIngredientsCategory = React.forwardRef((props, ref) => {

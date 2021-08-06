@@ -1,6 +1,6 @@
 import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
-import {burgerType} from "../../utils/burgerType";
+import {burgerType} from "../../utils/burgerElement";
 import React from "react";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";

@@ -1,12 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from "./app-header.module.css";
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import NavBurgerLink from "../nav-link/nav-link.js";
+import NavBurgerLink from "../nav-link/nav-link.tsx";
 import {NavLink} from "react-router-dom";
 
-function AppHeader() {
+export const AppHeader: FC = () => {
 
-    const userName = localStorage.getItem('userName');
+    const userName: string = localStorage.getItem('userName');
 
     return (
         <header className={`${styles.header} + p-4`}>
@@ -30,4 +30,3 @@ function AppHeader() {
     );
 }
 
-export default AppHeader;

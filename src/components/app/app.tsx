@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import AppHeader from "../app-header/app-header";
+import {AppHeader} from "../app-header/app-header";
 import styles from "./app.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredientsList, WS_CONNECTION_START} from "../../services/actions/ingredients";

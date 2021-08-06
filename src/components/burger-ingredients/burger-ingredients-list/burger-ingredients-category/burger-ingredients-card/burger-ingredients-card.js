@@ -2,7 +2,7 @@ import styles from "./burger-ingredients-card.module.css";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Counter, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
-import {burgerType} from "../../utils/burgerType";
+import {burgerType} from "../../../../../utils/burgerElement";
 import PropTypes from "prop-types";
 import React from "react";
 import {Link, useLocation} from "react-router-dom";

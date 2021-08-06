@@ -1,11 +1,11 @@
 import styles from "./burger-constructor-list.module.css";
-import BurgerConstructorElem from "../burger-constructor-elem/burger-constructor-elem.js";
+import {BurgerConstructorElem} from "./burger-constructor-elem/burger-constructor-elem";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_BUN_CONSTRUCTOR_ITEM, ADD_CONSTRUCTOR_ITEM,} from "../../services/actions/ingredients";
+import {ADD_BUN_CONSTRUCTOR_ITEM, ADD_CONSTRUCTOR_ITEM,} from "../../../services/actions/ingredients";
 import {v4 as uuidv4} from "uuid";
 
-function BurgerConstructorList() {
+export const BurgerConstructorList = () => {
     const items = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
     );
@@ -77,4 +77,3 @@ function BurgerConstructorList() {
     );
 }
 
-export default BurgerConstructorList;

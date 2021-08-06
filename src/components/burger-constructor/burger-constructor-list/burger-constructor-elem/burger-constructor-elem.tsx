@@ -1,14 +1,25 @@
 import {ConstructorElement, DragIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor-elem.module.css";
-import PropTypes from "prop-types";
-import {burgerType} from "../../utils/burgerType";
-import {MOVE_CONSTRUCTOR_ITEM, REMOVE_CONSTRUCTOR_ITEM} from "../../services/actions/ingredients";
+import {MOVE_CONSTRUCTOR_ITEM, REMOVE_CONSTRUCTOR_ITEM} from "../../../../services/actions/ingredients";
 import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {useRef} from "react";
+import {IBurgerElement} from "../../../../utils/burgerElement";
 
-function BurgerConstructorElem(props) {
-    const {type, burgerConstructorElemData, index} = props;
+interface IConstructorElement extends IBurgerElement {
+
+}
+
+interface IBurgerConstructorElem {
+    burgerConstructorElemData: IConstructorElement,
+    type?: 'top' | 'bottom',
+    index?: number,
+    postfix?: string,
+    locked?: boolean
+}
+
+export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
+    const {type, burgerConstructorElemData, index, postfix, locked} = props;
     const dispatch = useDispatch();
 
     function handleClose() {
@@ -83,38 +94,13 @@ function BurgerConstructorElem(props) {
             ) : null}
 
             <ConstructorElement
-                text={`${burgerConstructorElemData?.name}${props.postfix}`}
+                text={`${burgerConstructorElemData?.name}${postfix}`}
                 price={burgerConstructorElemData?.price}
                 thumbnail={burgerConstructorElemData?.image}
                 type={type}
-                isLocked={props.locked}
+                isLocked={locked}
                 handleClose={handleClose}
             />
         </div>
     );
 }
-
-BurgerConstructorElem.propTypes = {
-    burgerConstructorElemData: PropTypes.shape(burgerType),
-    type: PropTypes.string,
-};
-
-BurgerConstructorElem.defaultProps = {
-    burgerConstructorElemData: {
-        calories: 0,
-        carbohydrates: 0,
-        fat: 0,
-        image: "",
-        image_large: "",
-        image_mobile: "",
-        name: "Placeholder",
-        price: 0,
-        proteins: 0,
-        type: "",
-        __v: 0,
-        _id: 0,
-    },
-    postfix: ''
-};
-
-export default BurgerConstructorElem;

@@ -1,4 +1,4 @@
-import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category.js";
+import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category.js";
 import styles from "./burger-ingredients-list.module.css";
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";

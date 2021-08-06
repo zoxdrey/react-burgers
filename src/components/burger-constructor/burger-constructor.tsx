@@ -1,17 +1,17 @@
-import {useState} from "react";
+import {FC, useState} from "react";
 import {Button, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list.js";
+import {BurgerConstructorList} from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal.js";
 import {createOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import OrderSuccess from "../order-success/order-success";
 import {useHistory, useLocation} from "react-router-dom";
 
-function BurgerConstructor() {
+export const BurgerConstructor: FC = () => {
     const [visible, setVisible] = useState(false);
 
-    const userName = localStorage.getItem('userName');
+    const userName: string | null = localStorage.getItem('userName');
     const history = useHistory();
     const location = useLocation();
     const burgerConstructorItems = useSelector(
@@ -23,7 +23,7 @@ function BurgerConstructor() {
     const {orderId, orderIdRequest} = useSelector((store) => store.orderReducer);
     const orderRequest = useSelector((store) => store.orderReducer.orderRequest);
     const dispatch = useDispatch();
-    
+
     const openModal = () => {
         if (!userName) {
             history.replace({pathname: '/login', state: {target: location}});
@@ -41,7 +41,7 @@ function BurgerConstructor() {
         }
     };
 
-    const closeModal = (e) => {
+    const closeModal = () => {
         setVisible(false);
     };
 
@@ -78,7 +78,7 @@ function BurgerConstructor() {
                                 0
                             ) || 0}
                         </p>
-                        <CurrencyIcon type="default"/>
+                        <CurrencyIcon type="primary"/>
                         {!orderIdRequest ? (<Button type="primary" size="medium" onClick={openModal}>
                             Оформить заказ
                         </Button>) : null}
@@ -89,6 +89,3 @@ function BurgerConstructor() {
         </section>)
     )
 }
-
-
-export default BurgerConstructor;
