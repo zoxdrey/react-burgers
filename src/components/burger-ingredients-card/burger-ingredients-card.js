@@ -1,6 +1,5 @@
 import styles from "./burger-ingredients-card.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {ADD_CURRENT_INGREDIENT} from "../../services/actions/ingredients";
+import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Counter, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import {burgerType} from "../../utils/burgerType";
@@ -10,7 +9,6 @@ import {Link, useLocation} from "react-router-dom";
 
 function BurgerIngredientsCard(props) {
     let location = useLocation();
-    const dispatch = useDispatch();
     const {cardData} = props;
     const items = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
@@ -35,13 +33,6 @@ function BurgerIngredientsCard(props) {
         }),
     });
 
-    const clickCardHandler = () => {
-
-        dispatch({
-            type: ADD_CURRENT_INGREDIENT,
-            item: cardData,
-        });
-    };
 
     return (
         <Link className={`${styles["link"]}`} key={cardData._id}

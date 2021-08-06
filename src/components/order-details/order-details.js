@@ -20,7 +20,6 @@ function OrderDetails() {
     const order = useSelector(
         (store) => store.orderReducer.order
     );
-    console.log(order)
     const {ingredientsList} = useSelector(
         (store) => store.ingredientsListReducer
     );
@@ -76,7 +75,6 @@ function OrderDetails() {
                         <div className={`${styles["order-detail-card__main-list"]} `}>
 
                             {order && getOrderIngredientList(order).map((item) => {
-                                console.log(item)
                                 return (<div className={`${styles["order-detail-card__main-row"]} mb-4 mr-6`}>
                                     <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
                                          src={item.image} alt=""/>

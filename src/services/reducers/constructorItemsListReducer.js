@@ -1,11 +1,11 @@
 import {
-  ADD_CONSTRUCTOR_ITEM,
-  REMOVE_CONSTRUCTOR_ITEM,
-  MOVE_CONSTRUCTOR_ITEM,
-  ADD_BUN_CONSTRUCTOR_ITEM,
-  RESET_CONSTRUCTOR,
+    ADD_BUN_CONSTRUCTOR_ITEM,
+    ADD_CONSTRUCTOR_ITEM,
+    MOVE_CONSTRUCTOR_ITEM,
+    REMOVE_CONSTRUCTOR_ITEM,
+    RESET_CONSTRUCTOR,
 } from "../actions/ingredients";
-import { initialState } from "./initialState";
+import {initialState} from "./initialState";
 
 export const constructorItemsListReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -9,7 +9,6 @@ import {useRef} from "react";
 
 function BurgerConstructorElem(props) {
     const {type, burgerConstructorElemData, index} = props;
-    console.log(burgerConstructorElemData)
     const dispatch = useDispatch();
 
     function handleClose() {

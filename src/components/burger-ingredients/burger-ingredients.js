@@ -3,9 +3,8 @@ import BurgerIngredientsList from "../burger-ingredients-list/burger-ingredients
 import styles from "./burger-ingredients.module.css";
 import Modal from "../modal/modal.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.js";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {BurgersDataContext} from "../../services/burgersDataContext.js";
-import {REMOVE_CURRENT_INGREDIENT} from "../../services/actions/ingredients";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 
@@ -17,17 +16,6 @@ function BurgerIngredients() {
     const burgersData = useContext(BurgersDataContext);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const escHandler = (event) => {
-            if (event.keyCode === 27) {
-                closeModal();
-            }
-        };
-        document.addEventListener("keydown", escHandler);
-        return () => {
-            document.removeEventListener("keydown", escHandler);
-        };
-    }, []);
 
     const openModal = (data) => {
         if (data) setCurrentIngredient(data);
@@ -41,9 +29,6 @@ function BurgerIngredients() {
     const closeModal = () => {
         setVisible(false);
         back();
-        dispatch({
-            type: REMOVE_CURRENT_INGREDIENT,
-        });
     };
 
     const closeByOverlayClickHandler = (e) => {
@@ -93,7 +78,7 @@ function BurgerIngredients() {
             {visible && modal}
             <BurgerIngredientsList
                 setCurrentTab={setCurrent}
-            
+
             />
         </div>
     );
