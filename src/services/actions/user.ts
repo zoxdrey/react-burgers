@@ -26,6 +26,7 @@ import {
     UPDATE_USER_INFO_REQUEST,
     UPDATE_USER_INFO_SUCCESS
 } from "../constants/user";
+import {TUser} from "../reducers/initialUserState";
 
 export interface IForgotPasswordErrorAction {
     readonly type: typeof FORGOT_PASS_ERROR
@@ -98,6 +99,9 @@ export interface IRefreshTokenRequestAction {
 }
 
 export interface IRefreshTokenSuccessAction {
+    user: TUser;
+    refreshToken: null;
+    accessToken: null;
     readonly type: typeof REFRESH_TOKEN_SUCCESS
 }
 
@@ -128,6 +132,9 @@ export interface IResetPassRequestAction {
 }
 
 export interface IResetPassSuccessAction {
+    user: TUser;
+    refreshToken: null;
+    accessToken: null;
     readonly type: typeof RESET_PASS_SUCCESS
 }
 
@@ -228,7 +235,7 @@ export const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
 })
 
 
-export const refreshTokenSuccessAction = (): IRefreshTokenSuccessAction => ({
+export const refreshTokenSuccessAction = (): IRefreshTokenSuccessAction => <IRefreshTokenSuccessAction>({
     type: REFRESH_TOKEN_SUCCESS
 })
 
@@ -256,7 +263,7 @@ export const resetPassRequestAction = (): IResetPassRequestAction => ({
 })
 
 
-export const resetPassSuccessAction = (): IResetPassSuccessAction => ({
+export const resetPassSuccessAction = (): IResetPassSuccessAction => <IResetPassSuccessAction>({
     type: RESET_PASS_SUCCESS
 })
 

@@ -18,7 +18,7 @@ import {
     UPDATE_USER_INFO_ERROR,
     UPDATE_USER_INFO_REQUEST,
     UPDATE_USER_INFO_SUCCESS
-} from "../actions/user";
+} from "../constants/user";
 
 export const userReducer = (state = initialUserState, action) => {
         switch (action.type) {

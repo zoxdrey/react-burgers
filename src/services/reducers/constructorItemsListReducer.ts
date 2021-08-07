@@ -4,10 +4,11 @@ import {
     MOVE_CONSTRUCTOR_ITEM,
     REMOVE_CONSTRUCTOR_ITEM,
     RESET_CONSTRUCTOR,
-} from "../actions/ingredients";
+} from "../constants/ingredients";
 import {initialState} from "./initialState";
+import {TIngredientsActions} from "../actions/ingredients";
 
-export const constructorItemsListReducer = (state = initialState, action) => {
+export const constructorItemsListReducer = (state = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case ADD_BUN_CONSTRUCTOR_ITEM: {
       return {

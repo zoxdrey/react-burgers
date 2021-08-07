@@ -5,10 +5,11 @@ import {
     GET_ORDER_ERROR,
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
-} from "../actions/ingredients";
+} from "../constants/ingredients";
 import {initialState} from "./initialState";
+import {TIngredientsActions} from "../actions/ingredients";
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TIngredientsActions) => {
     switch (action.type) {
         case GET_ORDER_REQUEST: {
             return {

@@ -1,4 +1,4 @@
-export type TinitialState = {
+export type TInitialState = {
     ingredientsList: Array<Object>,
     ingredientsRequest: boolean,
     ingredientsError: boolean,
@@ -15,7 +15,7 @@ export type TinitialState = {
     orderIdRequest: boolean,
 };
 
-export const initialState: TinitialState = {
+export const initialState: TInitialState = {
     ingredientsList: [],
     ingredientsRequest: false,
     ingredientsError: false,

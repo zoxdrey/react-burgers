@@ -4,7 +4,7 @@ import {
     MOVE_CONSTRUCTOR_ITEM,
     REMOVE_CONSTRUCTOR_ITEM,
     RESET_CONSTRUCTOR,
-} from "../actions/ingredients";
+} from "../constants/ingredients";
 import {initialState} from "./initialState";
 import constructorItemsListReducer from "./constructorItemsListReducer";
 
