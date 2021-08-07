@@ -1,5 +1,5 @@
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list.js";
+import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list.tsx";
 import styles from "./burger-ingredients.module.css";
 import Modal from "../modal/modal.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.js";

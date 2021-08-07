@@ -13,4 +13,7 @@ export type IBurgerElement = {
     _id: string,
 }
 
-
+export type TLoginRequest = {
+    name: string
+    password: string
+}

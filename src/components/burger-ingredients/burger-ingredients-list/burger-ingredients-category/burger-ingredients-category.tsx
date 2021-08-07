@@ -1,4 +1,4 @@
-import BurgerIngredientsCard from "./burger-ingredients-card/burger-ingredients-card.js";
+import BurgerIngredientsCard from "./burger-ingredients-card/burger-ingredients-card.tsx";
 import styles from "./burger-ingredients-category.module.css";
 import PropTypes from "prop-types";
 import {burgerType} from "../../../../utils/burgerElement";

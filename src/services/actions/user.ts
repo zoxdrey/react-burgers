@@ -274,7 +274,7 @@ export const updateUserInfoSuccessAction = (): IUpdateUserInfoSuccessAction => (
     type: UPDATE_USER_INFO_SUCCESS
 })
 
-export function loginUser(email, password, history) {
+export function loginUser(email: string, password: string, history) {
     return function (dispatch) {
         dispatch(loginRequestAction());
         fetch(`${baseUrl}api/auth/login`, {
