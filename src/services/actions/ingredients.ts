@@ -25,8 +25,7 @@ import {
     WS_GET_MESSAGE,
     WS_SEND_MESSAGE
 } from "../constants/ingredients";
-import {REFRESH_TOKEN_REQUEST} from "../constants/user";
-import {IRefreshTokenRequestAction} from "./user";
+import {AppDispatch, AppThunk} from "../types";
 
 
 export interface IAddOrderErrorAction {
@@ -277,39 +276,28 @@ export const wsSendMessageAction = (): IWSSendMessageAction => ({
 })
 
 
-export function getIngredientsList() {
-    return function (dispatch) {
-        dispatch({
-            type: GET_BURGER_INGREDIENTS_REQUEST,
-        });
+export const getIngredientsList: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
+        dispatch(getBurgerIngredientsRequestAction());
         fetch(`${baseUrl}api/ingredients`)
             .then((res) => (res.ok ? res : Promise.reject(res)))
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
-                    dispatch({
-                        type: GET_BURGER_INGREDIENTS_SUCCESS,
-                        ingredientsList: res.data,
-                    });
+                    dispatch(getBurgerIngredientsSuccessAction(res.data));
                 } else {
-                    dispatch({
-                        type: GET_BURGER_INGREDIENTS_ERROR,
-                    });
+                    dispatch(getBurgerIngredientsErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: GET_BURGER_INGREDIENTS_ERROR,
-                });
+                dispatch(getBurgerIngredientsErrorAction());
             });
     };
 }
 
-export function createOrder(orderIds, openModalFunc) {
-    return function (dispatch) {
-        dispatch({
-            type: ADD_ORDER_REQUEST,
-        });
+export const createOrder: AppThunk = (orderIds, openModalFunc) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(addOrderRequestAction());
         fetch(`${baseUrl}api/orders`, {
             method: "POST",
             headers: {
@@ -322,30 +310,21 @@ export function createOrder(orderIds, openModalFunc) {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
-                    dispatch({
-                        type: ADD_ORDER_SUCCESS,
-                        orderId: res.order,
-                    });
-                    openModalFunc(true);
+                    dispatch(addOrderSuccessAction(res.order));
+                    openModalFunc(true)
                 } else {
-                    dispatch({
-                        type: ADD_ORDER_ERROR,
-                    });
+                    dispatch(addOrderErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: ADD_ORDER_ERROR,
-                });
+                dispatch(addOrderErrorAction());
             });
     };
 }
 
-export function getOrderById(id) {
-    return function (dispatch) {
-        dispatch({
-            type: GET_ORDER_REQUEST,
-        });
+export const getOrderById: AppThunk = (id) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(getOrderRequestAction());
         fetch(`${baseUrl}api/orders/${id}`, {
             method: "GET",
             headers: {
@@ -356,20 +335,14 @@ export function getOrderById(id) {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
-                    dispatch({
-                        type: GET_ORDER_SUCCESS,
-                        order: res,
-                    });
+                    console.log(res)
+                    dispatch(getOrderSuccessAction(res));
                 } else {
-                    dispatch({
-                        type: GET_ORDER_ERROR,
-                    });
+                    dispatch(getOrderErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: GET_ORDER_ERROR,
-                });
+                dispatch(getOrderErrorAction());
             });
     };
 }

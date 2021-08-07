@@ -1,4 +1,4 @@
-import {REFRESH_TOKEN_ERROR, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS} from "../actions/user";
+import {REFRESH_TOKEN_ERROR, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS} from "../constants/user";
 import {initialUserState} from "./initialUserState";
 import {refreshTokenReducer} from "./refreshTokenReducer";
 

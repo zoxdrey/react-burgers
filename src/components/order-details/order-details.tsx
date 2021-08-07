@@ -1,15 +1,17 @@
 import styles from "./order-details.module.css";
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useParams} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
+
 import {getIngredientsList, getOrderById} from "../../services/actions/ingredients";
 import {getStatusName} from "../../utils/getStatusName";
+import {ParamTypes, useDispatch, useSelector} from "../../services/types/hooks";
+import {IBurgerElement, TOrderData} from "../../services/types/data";
 
-function OrderDetails() {
+export const OrderDetails: FC = () => {
 
 
-    const {id} = useParams();
+    const {id} = useParams<ParamTypes>();
     const dispatch = useDispatch();
     let totalCost;
     useEffect(() => {
@@ -17,7 +19,7 @@ function OrderDetails() {
         dispatch(getIngredientsList())
     }, []);
 
-    const order = useSelector(
+    const order: TOrderData | null = useSelector(
         (store) => store.orderReducer.order
     );
     const {ingredientsList} = useSelector(
@@ -25,9 +27,9 @@ function OrderDetails() {
     );
 
     function getOrderIngredientList(order) {
-        let ingrList = []
+        let ingrList: IBurgerElement[] = []
 
-        order.ingredients.forEach(orderIngredient => {
+        order.ingredients.forEach((orderIngredient) => {
             ingrList = [...ingrList, ...ingredientsList.filter(item => item._id === orderIngredient)]
         })
         totalCost = getTotalCost(ingrList);
@@ -74,20 +76,21 @@ function OrderDetails() {
                         </div>
                         <div className={`${styles["order-detail-card__main-list"]} `}>
 
-                            {order && getOrderIngredientList(order).map((item) => {
-                                return (<div className={`${styles["order-detail-card__main-row"]} mb-4 mr-6`}>
-                                    <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
-                                         src={item.image} alt=""/>
-                                    <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
-                                        <p className="text text_type_main-default">
-                                            {item.name}
-                                        </p>
-                                    </div>
-                                    <div className={`${styles["order-detail-card__main-row-price"]} `}>
-                                        <p className="text text_type_digits-default">1 x {item.price}</p>
-                                        <CurrencyIcon type="primary"/>
-                                    </div>
-                                </div>)
+                            {order && getOrderIngredientList(order).map((item: IBurgerElement, index: number) => {
+                                return (
+                                    <div key={index} className={`${styles["order-detail-card__main-row"]} mb-4 mr-6`}>
+                                        <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}
+                                             src={item.image} alt=""/>
+                                        <div className={`${styles["order-detail-card__main-row-title"]} mr-4`}>
+                                            <p className="text text_type_main-default">
+                                                {item.name}
+                                            </p>
+                                        </div>
+                                        <div className={`${styles["order-detail-card__main-row-price"]} `}>
+                                            <p className="text text_type_digits-default">1 x {item.price}</p>
+                                            <CurrencyIcon type="primary"/>
+                                        </div>
+                                    </div>)
                             })}
                         </div>
                     </div>
@@ -108,6 +111,3 @@ function OrderDetails() {
         </div>
     );
 }
-
-
-export default OrderDetails;

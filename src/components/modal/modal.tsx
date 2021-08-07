@@ -1,11 +1,21 @@
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import ReactDOM from "react-dom";
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import {ESC_KEY_CODE} from "../../utils/constants";
+import {IBurgerElement} from "../../services/types/data";
 
-function Modal(props) {
-    const modalRoot = document.getElementById("modals");
+interface IModalProps {
+    burgersData?: IBurgerElement[],
+    closeHandler: () => void,
+    closeByOverlayClickHandler: (e: any) => void,
+    title?: boolean,
+    titleValue?: string
+    children?: React.ReactNode
+}
+
+export const Modal: FC<IModalProps> = (props) => {
+    const modalRoot: Element | null = document.getElementById("modals");
 
     useEffect(() => {
         const escHandler = (event) => {
@@ -23,10 +33,12 @@ function Modal(props) {
                 className={styles["modal"]}
                 onClick={props.closeByOverlayClickHandler}
             >
-                <ModalOverlay {...props}>{props.children}</ModalOverlay>
+                <ModalOverlay {...props}>
+                    <div>{props.children}</div>
+                </ModalOverlay>
             </div>
         </>,
-        modalRoot
+        modalRoot as Element
     );
 }
 

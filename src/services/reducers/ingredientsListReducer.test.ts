@@ -2,9 +2,9 @@ import {
     GET_BURGER_INGREDIENTS_ERROR,
     GET_BURGER_INGREDIENTS_REQUEST,
     GET_BURGER_INGREDIENTS_SUCCESS,
-} from "../actions/ingredients";
+} from "../constants/ingredients";
 import {initialState} from "./initialState";
-import ingredientsListReducer from "./ingredientsListReducer";
+import {ingredientsListReducer} from "./ingredientsListReducer";
 
 describe('ingredientsListReducer', () => {
 

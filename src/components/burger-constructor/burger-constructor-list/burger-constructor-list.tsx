@@ -1,9 +1,10 @@
 import styles from "./burger-constructor-list.module.css";
 import {BurgerConstructorElem} from "./burger-constructor-elem/burger-constructor-elem";
-import {useDispatch, useSelector} from "react-redux";
+
 import {useDrop} from "react-dnd";
-import {ADD_BUN_CONSTRUCTOR_ITEM, ADD_CONSTRUCTOR_ITEM,} from "../../../services/actions/ingredients";
+import {addBunConstructorItemAction, addConstructorItemAction,} from "../../../services/actions/ingredients";
 import {v4 as uuidv4} from "uuid";
+import {useDispatch, useSelector} from "../../../services/types/hooks";
 
 export const BurgerConstructorList = () => {
     const items = useSelector(
@@ -22,15 +23,9 @@ export const BurgerConstructorList = () => {
 
     function onDropHandler(item) {
         if (item.type === "bun") {
-            dispatch({
-                type: ADD_BUN_CONSTRUCTOR_ITEM,
-                item: item,
-            });
+            dispatch(addBunConstructorItemAction(item));
         } else {
-            dispatch({
-                type: ADD_CONSTRUCTOR_ITEM,
-                item: {...item, key: uuidv4()},
-            });
+            dispatch(addConstructorItemAction({...item, key: uuidv4()}));
         }
     }
 

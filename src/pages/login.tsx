@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
 import {Link, useHistory} from 'react-router-dom'
 import {useDispatch} from "react-redux";
 import {loginUser} from "../services/actions/user";
 
-function LoginPage() {
+export const LoginPage: FC = () => {
     const dispatch = useDispatch();
     let history = useHistory();
     const [email, setEmail] = useState('');
@@ -24,12 +24,12 @@ function LoginPage() {
                 <div className={`${styles['login-form-title']} text text_type_main-default  mb-6`}>Вход</div>
                 <form className={`${styles['login-form']}`} name='login-form' onSubmit={handleSubmit}>
                     <div className={`${styles['input']} mb-6`}>
-                        <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
+                        <EmailInput onChange={(e) => setEmail(e.target.value)} name={email}
                                     value={email}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
-                        <PasswordInput placeholder={'Пароль'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={'ShowIcon'} name={password} value={password}/>
+                        <PasswordInput onChange={(e) => setPassword(e.target.value)}
+                                       name={password} value={password}/>
                     </div>
                     <div className={`${styles['button']} mb-20`}>
                         <Button type="primary" size="medium">
@@ -62,4 +62,3 @@ function LoginPage() {
     )
 }
 
-export default LoginPage;

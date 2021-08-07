@@ -38,8 +38,8 @@ export type TInitialUserState = {
 };
 
 export type TUser = {
-    email: string,
-    name: string
+    name: string,
+    email: string
 }
 
 export const initialUserState: TInitialUserState = {

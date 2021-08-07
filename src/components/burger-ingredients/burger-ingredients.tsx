@@ -1,26 +1,18 @@
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list.tsx";
+import {BurgerIngredientsList} from "./burger-ingredients-list/burger-ingredients-list";
 import styles from "./burger-ingredients.module.css";
-import Modal from "../modal/modal.js";
-import IngredientDetails from "../ingredient-details/ingredient-details.js";
-import React, {useContext, useState} from "react";
+import {Modal} from "../modal/modal";
+import {IngredientDetails} from "../ingredient-details/ingredient-details";
+import React, {FC, useContext, useState} from "react";
 import {BurgersDataContext} from "../../services/burgersDataContext.js";
-import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 
-function BurgerIngredients() {
+export const BurgerIngredients: FC = () => {
     const [current, setCurrent] = useState("Булки");
     let history = useHistory();
     const [visible, setVisible] = useState(false);
-    const [currentIngredient, setCurrentIngredient] = useState(null);
     const burgersData = useContext(BurgersDataContext);
-    const dispatch = useDispatch();
 
-
-    const openModal = (data) => {
-        if (data) setCurrentIngredient(data);
-        setVisible(true);
-    };
 
     let back = () => {
         history.goBack();
@@ -46,7 +38,7 @@ function BurgerIngredients() {
             closeHandler={closeModal}
             closeByOverlayClickHandler={closeByOverlayClickHandler}
         >
-            <IngredientDetails burgersData={currentIngredient}/>
+            <IngredientDetails/>
         </Modal>
     );
     return (
@@ -78,10 +70,7 @@ function BurgerIngredients() {
             {visible && modal}
             <BurgerIngredientsList
                 setCurrentTab={setCurrent}
-
             />
         </div>
     );
 }
-
-export default BurgerIngredients;

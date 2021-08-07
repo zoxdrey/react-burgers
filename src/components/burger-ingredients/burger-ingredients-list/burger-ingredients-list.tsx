@@ -1,11 +1,16 @@
-import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category.tsx";
+import {BurgerIngredientsCategory} from "./burger-ingredients-category/burger-ingredients-category";
 import styles from "./burger-ingredients-list.module.css";
-import React, {useEffect} from "react";
-import {useSelector} from "react-redux";
+import React, {Dispatch, FC, SetStateAction, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
+import {useSelector} from "../../../services/types/hooks";
 
-function BurgerIngridientsList(props) {
-    const burgerdata = useSelector(
+interface IBurgerIngredientsListProps {
+    setCurrentTab: Dispatch<SetStateAction<string>>
+    openCardHandler?: () => void
+}
+
+export const BurgerIngredientsList: FC<IBurgerIngredientsListProps> = (props) => {
+    const burgerData = useSelector(
         (store) => store.ingredientsListReducer.ingredientsList
     );
 
@@ -23,7 +28,9 @@ function BurgerIngridientsList(props) {
     }, [props, inViewBuns, inViewMains, inViewSauces]);
 
     const getBurgerDataByType = (type) => {
-        return burgerdata.filter((item) => item.type === type);
+        return burgerData.filter((item) => {
+            return item.type === type;
+        });
     };
 
     return (
@@ -52,5 +59,3 @@ function BurgerIngridientsList(props) {
         </div>
     );
 }
-
-export default BurgerIngridientsList;

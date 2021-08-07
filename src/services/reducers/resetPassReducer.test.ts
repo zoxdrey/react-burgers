@@ -1,4 +1,4 @@
-import {RESET_PASS_ERROR, RESET_PASS_REQUEST, RESET_PASS_SUCCESS} from "../actions/user";
+import {RESET_PASS_ERROR, RESET_PASS_REQUEST, RESET_PASS_SUCCESS} from "../constants/user";
 import {initialUserState} from "./initialUserState";
 import {resetPassReducer} from "./resetPassReducer";
 

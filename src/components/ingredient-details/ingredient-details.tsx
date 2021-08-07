@@ -1,15 +1,14 @@
 import styles from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
-import {burgerType} from "../../utils/burgerElement";
-import React from "react";
+import React, {FC} from "react";
 import {useParams} from "react-router";
-import {useSelector} from "react-redux";
+import {ParamTypes, useSelector} from "../../services/types/hooks";
 
-function IngredientDetails() {
 
-    const {id} = useParams();
+export const IngredientDetails: FC = () => {
+
+    const {id} = useParams<ParamTypes>();
     const ingredient = useSelector((state) => state.ingredientsListReducer);
-    const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id)[0];
+    const currIngredient = ingredient.ingredientsList.filter((item: any) => item._id === id)[0];
 
     function renderIngredient(data) {
         return (
@@ -54,7 +53,7 @@ function IngredientDetails() {
                     </li>
                 </ul>
             </div>)
-    };
+    }
 
     return (
         renderIngredient(currIngredient)
@@ -62,9 +61,3 @@ function IngredientDetails() {
 
 
 }
-
-IngredientDetails.propTypes = {
-    burgersData: PropTypes.shape(burgerType),
-};
-
-export default IngredientDetails;

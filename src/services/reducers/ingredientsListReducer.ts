@@ -3,10 +3,10 @@ import {
     GET_BURGER_INGREDIENTS_REQUEST,
     GET_BURGER_INGREDIENTS_SUCCESS,
 } from "../constants/ingredients";
-import {initialState} from "./initialState";
+import {initialState, TInitialState} from "./initialState";
 import {TIngredientsActions} from "../actions/ingredients";
 
-export const ingredientsListReducer = (state = initialState, action: TIngredientsActions) => {
+export const ingredientsListReducer = (state = initialState, action: TIngredientsActions): TInitialState => {
     switch (action.type) {
         case GET_BURGER_INGREDIENTS_REQUEST: {
             return {
@@ -34,5 +34,3 @@ export const ingredientsListReducer = (state = initialState, action: TIngredient
         }
     }
 };
-
-export default ingredientsListReducer;

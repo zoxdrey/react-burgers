@@ -27,6 +27,7 @@ import {
     UPDATE_USER_INFO_SUCCESS
 } from "../constants/user";
 import {TUser} from "../reducers/initialUserState";
+import {AppDispatch, AppThunk} from "../types";
 
 export interface IForgotPasswordErrorAction {
     readonly type: typeof FORGOT_PASS_ERROR
@@ -54,6 +55,7 @@ export interface IGetUserInfoRequestAction {
 }
 
 export interface IGetUserInfoSuccessAction {
+    user: TUser
     readonly type: typeof GET_USER_INFO_SUCCESS
 }
 
@@ -69,6 +71,9 @@ export interface ILoginRequestAction {
 }
 
 export interface ILoginSuccessAction {
+    user: TUser;
+    refreshToken: null;
+    accessToken: null;
     readonly type: typeof LOGIN_SUCCESS
 }
 
@@ -99,8 +104,6 @@ export interface IRefreshTokenRequestAction {
 }
 
 export interface IRefreshTokenSuccessAction {
-    user: TUser;
-    refreshToken: null;
     accessToken: null;
     readonly type: typeof REFRESH_TOKEN_SUCCESS
 }
@@ -117,6 +120,9 @@ export interface IRegisterRequestAction {
 }
 
 export interface IRegisterSuccessAction {
+    user: TUser;
+    refreshToken: null;
+    accessToken: null;
     readonly type: typeof REGISTER_SUCCESS
 }
 
@@ -150,6 +156,7 @@ export interface IUpdateUserInfoRequestAction {
 }
 
 export interface IUpdateUserInfoSuccessAction {
+    user: TUser
     readonly type: typeof UPDATE_USER_INFO_SUCCESS
 }
 
@@ -193,7 +200,8 @@ export const getUserInfoRequestAction = (): IGetUserInfoRequestAction => ({
 })
 
 
-export const getUserInfoSuccessAction = (): IGetUserInfoSuccessAction => ({
+export const getUserInfoSuccessAction = (user): IGetUserInfoSuccessAction => ({
+    user,
     type: GET_USER_INFO_SUCCESS
 })
 
@@ -207,7 +215,10 @@ export const loginRequestAction = (): ILoginRequestAction => ({
 })
 
 
-export const loginSuccessAction = (): ILoginSuccessAction => ({
+export const loginSuccessAction = (accessToken, refreshToken, user): ILoginSuccessAction => ({
+    accessToken,
+    refreshToken,
+    user,
     type: LOGIN_SUCCESS
 })
 
@@ -235,7 +246,8 @@ export const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
 })
 
 
-export const refreshTokenSuccessAction = (): IRefreshTokenSuccessAction => <IRefreshTokenSuccessAction>({
+export const refreshTokenSuccessAction = (accessToken): IRefreshTokenSuccessAction => <IRefreshTokenSuccessAction>({
+    accessToken,
     type: REFRESH_TOKEN_SUCCESS
 })
 
@@ -249,7 +261,10 @@ export const registerRequestAction = (): IRegisterRequestAction => ({
 })
 
 
-export const registerSuccessAction = (): IRegisterSuccessAction => ({
+export const registerSuccessAction = (accessToken, refreshToken, user): IRegisterSuccessAction => ({
+    accessToken,
+    refreshToken,
+    user,
     type: REGISTER_SUCCESS
 })
 
@@ -277,12 +292,14 @@ export const updateUserInfoRequestAction = (): IUpdateUserInfoRequestAction => (
 })
 
 
-export const updateUserInfoSuccessAction = (): IUpdateUserInfoSuccessAction => ({
+export const updateUserInfoSuccessAction = (user): IUpdateUserInfoSuccessAction => ({
+    user,
     type: UPDATE_USER_INFO_SUCCESS
 })
 
-export function loginUser(email: string, password: string, history) {
-    return function (dispatch) {
+
+export const loginUser: AppThunk = (email: string, password: string, history) => {
+    return function (dispatch: AppDispatch) {
         dispatch(loginRequestAction());
         fetch(`${baseUrl}api/auth/login`, {
             method: 'POST',
@@ -302,31 +319,21 @@ export function loginUser(email: string, password: string, history) {
                     localStorage.setItem('token', res.refreshToken);
                     localStorage.setItem('userName', res.user.name);
                     history.goBack();
-                    dispatch({
-                        type: LOGIN_SUCCESS,
-                        accessToken: res.accessToken,
-                        refreshToken: res.refreshToken,
-                        user: res.user
-                    });
+                    dispatch(
+                        loginSuccessAction(res.accessToken, res.refreshToken, res.user));
                 } else {
-                    dispatch({
-                        type: LOGIN_ERROR,
-                    });
+                    dispatch(loginErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: LOGIN_ERROR,
-                });
+                dispatch(loginErrorAction());
             });
     };
 }
 
-export function registerUser(name, email, password, history) {
-    return function (dispatch) {
-        dispatch({
-            type: REGISTER_REQUEST,
-        });
+export const registerUser: AppThunk = (name, email, password, history) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(registerRequestAction());
         fetch(`${baseUrl}api/auth/register`, {
             method: 'POST',
             headers: {
@@ -346,32 +353,22 @@ export function registerUser(name, email, password, history) {
                     localStorage.setItem('token', res.refreshToken);
                     localStorage.setItem('userName', res.user.name);
                     history.push('/');
-                    dispatch({
-                        type: REGISTER_SUCCESS,
-                        accessToken: res.accessToken,
-                        refreshToken: res.refreshToken,
-                        user: res.user
-                    });
+                    dispatch(registerSuccessAction(res.accessToken, res.refreshToken, res.user)
+                    );
                 } else {
-                    dispatch({
-                        type: REGISTER_ERROR,
-                    });
+                    dispatch(registerErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: REGISTER_ERROR,
-                });
+                dispatch(registerErrorAction());
             });
     };
 }
 
 
-export function logoutUser(token, history) {
-    return function (dispatch) {
-        dispatch({
-            type: LOGOUT_REQUEST,
-        });
+export const logoutUser: AppThunk = (token, history) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(logoutRequestAction());
         fetch(`${baseUrl}api/auth/logout`, {
             method: 'POST',
             headers: {
@@ -389,28 +386,20 @@ export function logoutUser(token, history) {
                     localStorage.removeItem('token');
                     localStorage.removeItem('userName');
                     history.push('/');
-                    dispatch({
-                        type: LOGOUT_SUCCESS,
-                    });
+                    dispatch(logoutSuccessAction());
                 } else {
-                    dispatch({
-                        type: LOGOUT_ERROR,
-                    });
+                    dispatch(logoutErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: LOGOUT_ERROR,
-                });
+                dispatch(logoutErrorAction());
             });
     };
 }
 
-export function forgotPassword(email, history) {
-    return function (dispatch) {
-        dispatch({
-            type: FORGOT_PASS_REQUEST,
-        });
+export const forgotPassword: AppThunk = (email, history) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(forgotPassRequestAction());
         fetch(`${baseUrl}api/password-reset`, {
             method: 'POST',
             headers: {
@@ -425,28 +414,20 @@ export function forgotPassword(email, history) {
             .then((res) => {
                 if (res && res.success) {
                     history.push('/reset-password');
-                    dispatch({
-                        type: FORGOT_PASS_SUCCESS,
-                    });
+                    dispatch(forgotPassSuccessAction());
                 } else {
-                    dispatch({
-                        type: FORGOT_PASS_ERROR,
-                    });
+                    dispatch(forgotPassErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: FORGOT_PASS_ERROR,
-                });
+                dispatch(forgotPassErrorAction());
             });
     };
 }
 
-export function resetPassword(password, token, history) {
-    return function (dispatch) {
-        dispatch({
-            type: RESET_PASS_REQUEST,
-        });
+export const resetPassword: AppThunk = (password, token, history) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(resetPassRequestAction());
         fetch(`${baseUrl}api/password-reset/reset`, {
             method: 'POST',
             headers: {
@@ -462,29 +443,20 @@ export function resetPassword(password, token, history) {
             .then((res) => {
                 if (res && res.success) {
                     history.push('/profile');
-                    dispatch({
-                        type: RESET_PASS_SUCCESS,
-
-                    });
+                    dispatch(resetPassSuccessAction());
                 } else {
-                    dispatch({
-                        type: RESET_PASS_ERROR
-                    });
+                    dispatch(resetPassErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: RESET_PASS_ERROR,
-                });
+                dispatch(resetPassErrorAction());
             });
     };
 }
 
-export function refreshToken(token, cb?) {
-    return function (dispatch) {
-        dispatch({
-            type: REFRESH_TOKEN_REQUEST,
-        });
+export const refreshToken: AppThunk = (token, cb?) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(refreshTokenRequestAction());
         fetch(`${baseUrl}api/auth/token`, {
             method: 'POST',
             headers: {
@@ -501,29 +473,23 @@ export function refreshToken(token, cb?) {
                     localStorage.setItem('token', res.data.refreshToken)
                     setCookie('token', res.data.accessToken)
                     cb();
-                    dispatch({
-                        type: REFRESH_TOKEN_SUCCESS,
-                        token: res.data,
-                    });
+                    dispatch(
+                        refreshTokenSuccessAction(res.data)
+                    )
+                    ;
                 } else {
-                    dispatch({
-                        type: REFRESH_TOKEN_ERROR,
-                    });
+                    dispatch(refreshTokenErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: REFRESH_TOKEN_ERROR,
-                });
+                dispatch(refreshTokenErrorAction());
             });
     };
 }
 
-export function getUserInfo() {
-    return function (dispatch) {
-        dispatch({
-            type: GET_USER_INFO_REQUEST,
-        });
+export const getUserInfo: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
+        dispatch(getUserInfoRequestAction());
         fetch(`${baseUrl}api/auth/user`, {
                 method: 'GET',
                 headers: {
@@ -536,32 +502,23 @@ export function getUserInfo() {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
-                    dispatch({
-                        type: GET_USER_INFO_SUCCESS,
-                        user: res.user,
-                    });
+                    dispatch(getUserInfoSuccessAction(res.user));
                 } else {
-                    dispatch({
-                        type: GET_USER_INFO_ERROR,
-                    });
+                    dispatch(getUserInfoErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: GET_USER_INFO_ERROR,
-                });
+                dispatch(getUserInfoErrorAction());
                 if (err) {
-                    dispatch(refreshToken(localStorage.getItem('token')), getUserInfo);
+                    refreshToken(localStorage.getItem('token'));
                 }
             });
     };
 }
 
-export function updateUserInfo(name, email, password) {
-    return function (dispatch) {
-        dispatch({
-            type: UPDATE_USER_INFO_REQUEST,
-        });
+export const updateUserInfo: AppThunk = (name, email, password) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(updateUserInfoRequestAction());
         fetch(`${baseUrl}api/auth/user`, {
             method: 'PATCH',
             headers: {
@@ -578,20 +535,13 @@ export function updateUserInfo(name, email, password) {
             .then((res) => res.json())
             .then((res) => {
                 if (res && res.success) {
-                    dispatch({
-                        type: UPDATE_USER_INFO_SUCCESS,
-                        user: res.user,
-                    });
+                    dispatch(updateUserInfoSuccessAction(res.user));
                 } else {
-                    dispatch({
-                        type: UPDATE_USER_INFO_ERROR,
-                    });
+                    dispatch(updateUserInfoErrorAction());
                 }
             })
             .catch((err) => {
-                dispatch({
-                    type: UPDATE_USER_INFO_ERROR,
-                });
+                dispatch(updateUserInfoErrorAction());
             });
     };
 

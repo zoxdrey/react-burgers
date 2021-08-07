@@ -1,11 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './ingredient-details-full.module.css';
-import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import {ParamTypes, useSelector} from "../services/types/hooks";
 
 
-function IngredientDetailsFull(props) {
-    const {id} = useParams();
+export const IngredientDetailsFull: FC = () => {
+    const {id} = useParams<ParamTypes>();
     const ingredient = useSelector(state => state.ingredientsListReducer);
     const currIngredient = ingredient.ingredientsList.filter((item) => item._id === id);
 
@@ -57,5 +57,3 @@ function IngredientDetailsFull(props) {
         renderIngredient(currIngredient[0])
     );
 }
-
-export default IngredientDetailsFull;

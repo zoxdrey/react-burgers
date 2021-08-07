@@ -6,10 +6,10 @@ import {
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
 } from "../constants/ingredients";
-import {initialState} from "./initialState";
+import {initialState, TInitialState} from "./initialState";
 import {TIngredientsActions} from "../actions/ingredients";
 
-export const orderReducer = (state = initialState, action: TIngredientsActions) => {
+export const orderReducer = (state = initialState, action: TIngredientsActions): TInitialState => {
     switch (action.type) {
         case GET_ORDER_REQUEST: {
             return {
@@ -62,5 +62,3 @@ export const orderReducer = (state = initialState, action: TIngredientsActions) 
         }
     }
 };
-
-export default orderReducer;

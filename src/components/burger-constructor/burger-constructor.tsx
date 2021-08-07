@@ -2,11 +2,12 @@ import {FC, useState} from "react";
 import {Button, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import {BurgerConstructorList} from "./burger-constructor-list/burger-constructor-list";
-import Modal from "../modal/modal.js";
-import {createOrder, RESET_CONSTRUCTOR} from "../../services/actions/ingredients";
-import {useDispatch, useSelector} from "react-redux";
+import {Modal} from "../modal/modal";
+import {createOrder, resetConstructorAction} from "../../services/actions/ingredients";
 import OrderSuccess from "../order-success/order-success";
 import {useHistory, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "../../services/types/hooks";
+import {IBurgerElement} from "../../services/types/data";
 
 export const BurgerConstructor: FC = () => {
     const [visible, setVisible] = useState(false);
@@ -14,10 +15,10 @@ export const BurgerConstructor: FC = () => {
     const userName: string | null = localStorage.getItem('userName');
     const history = useHistory();
     const location = useLocation();
-    const burgerConstructorItems = useSelector(
+    const burgerConstructorItems: IBurgerElement[] = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
     );
-    const bun = useSelector(
+    const bun: IBurgerElement = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
     const {orderId, orderIdRequest} = useSelector((store) => store.orderReducer);
@@ -35,11 +36,10 @@ export const BurgerConstructor: FC = () => {
                 bun._id,
             ];
             dispatch(createOrder(ingredientsIds, setVisible));
-            dispatch({
-                type: RESET_CONSTRUCTOR,
-            });
+            dispatch(resetConstructorAction());
         }
     };
+
 
     const closeModal = () => {
         setVisible(false);
@@ -72,9 +72,9 @@ export const BurgerConstructor: FC = () => {
                     <BurgerConstructorList/>
                     <div className={styles["burger-constructor__info"]}>
                         <p className="text text_type_digits-medium">
-                            {(bun.price || 0) * 2 +
+                            {(bun?.price || 0) * 2 +
                             burgerConstructorItems.reduce(
-                                (acc, curr) => acc + parseInt(curr.price),
+                                (acc: number, curr) => acc + parseInt(String(curr.price)),
                                 0
                             ) || 0}
                         </p>

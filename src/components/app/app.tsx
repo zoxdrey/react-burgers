@@ -1,28 +1,28 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import {AppHeader} from "../app-header/app-header";
 import styles from "./app.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {getIngredientsList, WS_CONNECTION_START} from "../../services/actions/ingredients";
+import {getIngredientsList, wsConnectionStartAction} from "../../services/actions/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {Route, Switch, useHistory, useLocation} from "react-router-dom";
-import OrderDetails from "../order-details/order-details";
-import FeedPage from "../../pages/feed";
-import HomePage from "../../pages/home";
-import LoginPage from "../../pages/login";
-import RegisterPage from "../../pages/register";
-import ResetPasswordPage from "../../pages/reset-password";
-import ForgotPasswordPage from "../../pages/forgot-password";
-import ProfilePage from "../../pages/profile";
-import NotFoundPage from "../../pages/not-found";
-import IngredientDetailsFull from "../../pages/ingredient-details-full";
-import Modal from "../modal/modal";
-import DefaultRoute from "../default-route/default-route";
-import ProtectedRoute from "../protected-route/protected-route";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import {OrderDetails} from "../order-details/order-details";
+import {FeedPage} from "../../pages/feed";
+import {HomePage} from "../../pages/home";
+import {LoginPage} from "../../pages/login";
+import {RegisterPage} from "../../pages/register";
+import {ResetPasswordPage} from "../../pages/reset-password";
+import {ForgotPasswordPage} from "../../pages/forgot-password";
+import {ProfilePage} from "../../pages/profile";
+import {NotFoundPage} from "../../pages/not-found";
+import {IngredientDetailsFull} from "../../pages/ingredient-details-full";
+import {Modal} from "../modal/modal";
+import {DefaultRoute} from "../default-route/default-route";
+import {ProtectedRoute} from "../protected-route/protected-route";
+import {IngredientDetails} from "../ingredient-details/ingredient-details";
 
 
-function App() {
+export const App: FC = () => {
     let location = useLocation();
     const history = useHistory();
     let background = history.action === 'PUSH' && location.state && location.state.background;
@@ -35,11 +35,9 @@ function App() {
 
 
     useEffect(() => {
-        dispatch({type: WS_CONNECTION_START});
+        dispatch(wsConnectionStartAction());
     }, []);
-    // @ts-ignore
 
-    const {error, orders, wsConnected, total, totalToday} = useSelector(state => state.wsReducer)
     const back = () => {
         history.goBack();
     }
@@ -90,7 +88,7 @@ function App() {
                         </Route>
                     </Switch>
                     {background && (<Route path='/ingredients/:id'>
-                        <Modal title={true} closeHandler={back} closeByOverlayClickHandler={closeByOverlayClickHandler}>
+                        <Modal titleValue='Детали ингредиента' title={true} closeHandler={back} closeByOverlayClickHandler={closeByOverlayClickHandler}>
                             <IngredientDetails/>
                         </Modal>
                     </Route>)}
@@ -111,5 +109,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

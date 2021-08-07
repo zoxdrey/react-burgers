@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import styles from "../../pages/profile.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+
 import {updateUserInfo} from "../../services/actions/user";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 
 
 function ProfileUserInfo() {
@@ -29,11 +30,11 @@ function ProfileUserInfo() {
                            size={"default"}/>
                 </div>
                 <div className={`${styles['profile-input']} + mb-6`}>
-                    <EmailInput placeholder={'Логин'} value={email}
+                    <EmailInput value={email}
                                 onChange={(e) => setEmail(e.target.value)} name={email}/>
                 </div>
                 <div className={`${styles['profile-input']} + mb-6`}>
-                    <PasswordInput placeholder={'Пароль'} value={'******'}
+                    <PasswordInput value={'******'}
                                    onChange={(e) => setPassword(e.target.value)} name={password}/>
                 </div>
 

@@ -8,7 +8,7 @@ function ModalOverlay(props) {
         <div className={styles["modal-overlay"]}>
             <div className={styles["modal-overlay__header"]}>
                 <p className="text text_type_main-large ml-10 mt-10">
-                    {props.title && "Детали ингредиента"}
+                    {props.title && props.titleValue}
                 </p>
                 <div className={`${styles["modal-overlay__close-icon"]} mt-10 mr-10`}>
                     <CloseIcon type="primary" onClick={props.closeHandler}/>

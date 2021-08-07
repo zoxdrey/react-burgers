@@ -1,8 +1,8 @@
 import {RESET_PASS_ERROR, RESET_PASS_REQUEST, RESET_PASS_SUCCESS} from "../constants/user";
-import {initialUserState} from "./initialUserState";
+import {initialUserState, TInitialUserState} from "./initialUserState";
 import {TUserActions} from "../actions/user";
 
-export const resetPassReducer = (state = initialUserState, action: TUserActions) => {
+export const resetPassReducer = (state = initialUserState, action: TUserActions): TInitialUserState => {
     switch (action.type) {
         case RESET_PASS_REQUEST: {
             return {
@@ -38,5 +38,3 @@ export const resetPassReducer = (state = initialUserState, action: TUserActions)
         }
     }
 };
-
-export default resetPassReducer;

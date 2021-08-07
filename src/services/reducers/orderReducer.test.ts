@@ -5,7 +5,7 @@ import {
     GET_ORDER_ERROR,
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
-} from "../actions/ingredients";
+} from "../constants/ingredients";
 import {initialState} from "./initialState";
 import {orderReducer} from "./orderReducer";
 

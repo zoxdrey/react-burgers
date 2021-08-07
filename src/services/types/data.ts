@@ -1,4 +1,5 @@
 export type IBurgerElement = {
+    key?: string;
     calories: number,
     carbohydrates: number,
     fat: number,
@@ -17,3 +18,14 @@ export type TLoginRequest = {
     name: string
     password: string
 }
+
+export type TOrderData = {
+    _id: string;
+    ingredients: Array<string>;
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+};
+

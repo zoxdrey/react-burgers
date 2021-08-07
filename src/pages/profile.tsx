@@ -1,21 +1,21 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import styles from './profile.module.css';
 import OrderList from "../components/order-list/order-list";
 import {Route, Switch, useRouteMatch} from "react-router-dom";
 import ProfileNav from "../components/profile-nav/profile-nav";
 import ProfileUserInfo from "../components/profile-user-info/profile-user-info";
-import {useDispatch, useSelector} from "react-redux";
 import {getUserInfo} from "../services/actions/user";
-import {WS_CONNECTION_START} from "../services/actions/ingredients";
+import {wsConnectionStartAction} from "../services/actions/ingredients";
+import {useDispatch, useSelector} from "../services/types/hooks";
 
-function ProfilePage() {
+export const ProfilePage: FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({type: WS_CONNECTION_START});
+        dispatch(wsConnectionStartAction());
     }, [dispatch]);
 
-    const {error, orders, wsConnected, total, totalToday} = useSelector(state => state.wsReducer)
+    const {orders} = useSelector(state => state.wsReducer)
     const {path, url} = useRouteMatch();
 
     const user = useSelector(state => state.userReducer.user)
@@ -37,4 +37,3 @@ function ProfilePage() {
     )
 }
 
-export default ProfilePage;

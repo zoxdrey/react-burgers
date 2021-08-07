@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {resetPassword} from "../services/actions/user";
 import {Link, useHistory} from "react-router-dom";
 
-function ResetPasswordPage() {
+export const ResetPasswordPage = () => {
     let history = useHistory();
     const dispatch = useDispatch();
 
@@ -23,8 +23,8 @@ function ResetPasswordPage() {
                 <div className={`${styles['reset-password-form-title']} mb-6`}>Восстановление пароля</div>
                 <form className={`${styles['reset-password-form']}`} name='login-form' onSubmit={handleSubmit}>
                     <div className={`${styles['input']} mb-6`}>
-                        <PasswordInput placeholder={'Укажите e-mail'} onChange={(e) => setPassword(e.target.value)}
-                                       icon={"ShowIcon"} name={password} value={password}/>
+                        <PasswordInput onChange={(e) => setPassword(e.target.value)}
+                                       name={password} value={password}/>
                     </div>
                     <div className={`${styles['input']} mb-6`}>
                         <Input placeholder={'Введите код из письма'} onChange={(e) => setMailCode(e.target.value)}
@@ -53,5 +53,3 @@ function ResetPasswordPage() {
         </div>
     )
 }
-
-export default ResetPasswordPage;

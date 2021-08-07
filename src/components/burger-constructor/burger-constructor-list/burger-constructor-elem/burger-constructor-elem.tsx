@@ -1,10 +1,11 @@
 import {ConstructorElement, DragIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor-elem.module.css";
-import {MOVE_CONSTRUCTOR_ITEM, REMOVE_CONSTRUCTOR_ITEM} from "../../../../services/actions/ingredients";
+import {moveConstructorItemAction, removeConstructorItemAction} from "../../../../services/actions/ingredients";
 import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {useRef} from "react";
-import {IBurgerElement} from "../../../../utils/burgerElement";
+import {IBurgerElement} from "../../../../services/types/data";
+
 
 interface IConstructorElement extends IBurgerElement {
 
@@ -23,13 +24,10 @@ export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
     const dispatch = useDispatch();
 
     function handleClose() {
-        dispatch({
-            type: REMOVE_CONSTRUCTOR_ITEM,
-            index: index,
-        });
+        dispatch(removeConstructorItemAction(index));
     }
 
-    const ref = useRef(null);
+    const ref: any = useRef(null);
 
     const [{handlerId}, drop] = useDrop({
         accept: "card-list",
@@ -38,7 +36,7 @@ export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
             if (!ref.current) {
                 return;
             }
@@ -59,10 +57,7 @@ export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
                 return;
             }
 
-            dispatch({
-                type: MOVE_CONSTRUCTOR_ITEM,
-                payload: {dragIndex, hoverIndex},
-            });
+            dispatch(moveConstructorItemAction({dragIndex, hoverIndex}));
 
             item.index = hoverIndex;
         },

@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css';
 import {useDispatch} from "react-redux";
 import {forgotPassword} from "../services/actions/user";
 import {Link, useHistory} from "react-router-dom";
 
-function ForgotPasswordPage() {
+export const ForgotPasswordPage: FC = () => {
     let history = useHistory();
     const dispatch = useDispatch();
 
@@ -26,8 +26,8 @@ function ForgotPasswordPage() {
 
                 <form className={`${styles['forgot-password-form']}`} name='login-form' onSubmit={handleSubmit}>
                     <div className={`${styles['input']} mb-6`}>
-                        <EmailInput placeholder={'E-mail'} onChange={(e) => setEmail(e.target.value)} name={email}
-                         value={email}/>
+                        <EmailInput onChange={(e) => setEmail(e.target.value)} name={email}
+                                    value={email}/>
                     </div>
                     <div className={`${styles['button']} mb-20`}>
                         <Button type="primary" size="medium">
@@ -52,4 +52,3 @@ function ForgotPasswordPage() {
     )
 }
 
-export default ForgotPasswordPage;

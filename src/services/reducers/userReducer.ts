@@ -1,4 +1,4 @@
-import {initialUserState} from "./initialUserState";
+import {initialUserState, TInitialUserState} from "./initialUserState";
 import {
     FORGOT_PASS_ERROR,
     FORGOT_PASS_REQUEST,
@@ -20,7 +20,7 @@ import {
     UPDATE_USER_INFO_SUCCESS
 } from "../constants/user";
 
-export const userReducer = (state = initialUserState, action) => {
+export const userReducer = (state = initialUserState, action): TInitialUserState => {
         switch (action.type) {
             case LOGIN_REQUEST: {
                 return {
@@ -64,7 +64,7 @@ export const userReducer = (state = initialUserState, action) => {
                     ...state,
                     accessToken: null,
                     refreshToken: null,
-                    user: null,
+                    user: {name: '', email: ''},
                     logoutRequest: false,
                     logoutError: false,
                 };
@@ -90,7 +90,7 @@ export const userReducer = (state = initialUserState, action) => {
                     ...state,
                     accessToken: null,
                     refreshToken: null,
-                    user: null,
+                    user: {name: '', email: ''},
                     forgotPassRequest: false,
                     forgotPassError: false,
                     forgotPassSuccess: true,
@@ -193,5 +193,3 @@ export const userReducer = (state = initialUserState, action) => {
         }
     }
 ;
-
-export default userReducer;

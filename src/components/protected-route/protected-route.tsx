@@ -1,6 +1,13 @@
 import {Redirect, Route} from "react-router-dom";
+import React, {FC} from "react";
 
-function ProtectedRoute({children, ...rest}) {
+interface IProtectedRouteProps {
+    children: React.ReactNode,
+    exact?: boolean,
+    path: string
+}
+
+export const ProtectedRoute: FC<IProtectedRouteProps> = ({children, ...rest}) => {
     const isAuth = localStorage.getItem('token');
     const userName = localStorage.getItem('userName');
 
@@ -23,5 +30,3 @@ function ProtectedRoute({children, ...rest}) {
         <Route {...rest} render={() => children}/>
     )
 }
-
-export default ProtectedRoute;

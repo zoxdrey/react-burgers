@@ -1,5 +1,5 @@
 import {initialState, wsReducer} from './wsReducer'
-import {WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS} from "../actions/ingredients";
+import {WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS} from "../constants/ingredients";
 
 describe('wsReducer', () => {
     it('should return the initial state', () => {

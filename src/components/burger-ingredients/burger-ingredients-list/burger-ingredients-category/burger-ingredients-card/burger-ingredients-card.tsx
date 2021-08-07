@@ -1,27 +1,30 @@
 import styles from "./burger-ingredients-card.module.css";
-import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Counter, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
-import {burgerType} from "../../../../../utils/burgerElement";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 import {Link, useLocation} from "react-router-dom";
+import {useSelector} from "../../../../../services/types/hooks";
+import {IBurgerElement} from "../../../../../services/types/data";
 
-function BurgerIngredientsCard(props) {
+interface IBurgerIngredientsCard {
+    cardData: IBurgerElement
+}
+
+export const BurgerIngredientsCard: FC<IBurgerIngredientsCard> = (props) => {
     let location = useLocation();
     const {cardData} = props;
     const items = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
     );
-    const bun = useSelector(
+    const bun: IBurgerElement = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
 
     function countItems() {
         if (cardData.type === "bun") {
-            return bun._id === cardData._id ? 2 : 0;
+            return bun?._id === cardData._id ? 2 : 0;
         } else {
-            return items.filter((item) => item._id === cardData._id).length;
+            return items.filter((item: any) => item._id === cardData._id).length;
         }
     }
 
@@ -60,9 +63,3 @@ function BurgerIngredientsCard(props) {
         </Link>
     );
 }
-
-BurgerIngredientsCard.propTypes = {
-    cardData: PropTypes.shape(burgerType).isRequired,
-};
-
-export default BurgerIngredientsCard;

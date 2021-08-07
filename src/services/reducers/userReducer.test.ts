@@ -52,7 +52,7 @@ describe('userReducer', () => {
                 ...initialUserState,
                 accessToken: null,
                 refreshToken: null,
-                user: null,
+                user: {email: "", name: ""},
                 forgotPassRequest: false,
                 forgotPassError: false,
                 forgotPassSuccess: true,
@@ -255,7 +255,7 @@ describe('userReducer', () => {
                 ...initialUserState,
                 accessToken: null,
                 refreshToken: null,
-                user: null,
+                user: {email: "", name: ""},
                 logoutRequest: false,
                 logoutError: false,
             }

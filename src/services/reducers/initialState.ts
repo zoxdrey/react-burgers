@@ -1,13 +1,15 @@
+import {IBurgerElement, TOrderData} from "../types/data";
+
 export type TInitialState = {
-    ingredientsList: Array<Object>,
+    ingredientsList: Array<IBurgerElement>,
     ingredientsRequest: boolean,
     ingredientsError: boolean,
 
-    constructorItemsList: Array<Object>,
-    constructorBun: Object,
+    constructorItemsList: Array<IBurgerElement>,
+    constructorBun: IBurgerElement,
     currentIngredient: Object,
     orders: Array<Object>,
-    order: null,
+    order: TOrderData,
     orderId: number,
     orderRequest: boolean,
     orderError: boolean,
@@ -21,7 +23,7 @@ export const initialState: TInitialState = {
     ingredientsError: false,
 
     constructorItemsList: [],
-    constructorBun: {},
+    constructorBun: undefined,
     currentIngredient: {},
     orders: [],
     order: null,
