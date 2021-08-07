@@ -1,45 +1,282 @@
 import {baseUrl} from '../../utils/constants'
 import {getCookie, setCookie} from "../../utils/cookie";
-import React from "react";
+import {
+    FORGOT_PASS_ERROR,
+    FORGOT_PASS_REQUEST,
+    FORGOT_PASS_SUCCESS,
+    GET_USER_INFO_ERROR,
+    GET_USER_INFO_REQUEST,
+    GET_USER_INFO_SUCCESS,
+    LOGIN_ERROR,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGOUT_ERROR,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    REFRESH_TOKEN_ERROR,
+    REFRESH_TOKEN_REQUEST,
+    REFRESH_TOKEN_SUCCESS,
+    REGISTER_ERROR,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    RESET_PASS_ERROR,
+    RESET_PASS_REQUEST,
+    RESET_PASS_SUCCESS,
+    UPDATE_USER_INFO_ERROR,
+    UPDATE_USER_INFO_REQUEST,
+    UPDATE_USER_INFO_SUCCESS
+} from "../constants/user";
 
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_ERROR = "LOGIN_ERROR";
+export interface IForgotPasswordErrorAction {
+    readonly type: typeof FORGOT_PASS_ERROR
+}
 
-export const REGISTER_REQUEST = "REGISTER_REQUEST";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_ERROR = "REGISTER_ERROR";
+export interface IForgotPasswordRequestAction {
+    readonly type: typeof FORGOT_PASS_REQUEST
+}
 
-export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-export const LOGOUT_ERROR = "LOGOUT_ERROR";
+export interface IForgotPasswordSuccessAction {
+    readonly type: typeof FORGOT_PASS_SUCCESS
+}
 
-export const FORGOT_PASS_REQUEST = "FORGOT_PASS_REQUEST";
-export const FORGOT_PASS_SUCCESS = "FORGOT_PASS_SUCCESS";
-export const FORGOT_PASS_ERROR = "FORGOT_PASS_ERROR";
+export type TForgotPassActions =
+    IForgotPasswordErrorAction
+    | IForgotPasswordRequestAction
+    | IForgotPasswordSuccessAction
 
-export const RESET_PASS_REQUEST = "RESET_PASS_REQUEST";
-export const RESET_PASS_SUCCESS = "RESET_PASS_SUCCESS";
-export const RESET_PASS_ERROR = "RESET_PASS_ERROR";
+export interface IGetUserInfoErrorAction {
+    readonly type: typeof GET_USER_INFO_ERROR
+}
 
-export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
-export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
-export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
+export interface IGetUserInfoRequestAction {
+    readonly type: typeof GET_USER_INFO_REQUEST
+}
 
-export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
-export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR";
+export interface IGetUserInfoSuccessAction {
+    readonly type: typeof GET_USER_INFO_SUCCESS
+}
 
-export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
-export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
-export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
+export type TGetUserInfoActions = IGetUserInfoErrorAction | IGetUserInfoRequestAction | IGetUserInfoSuccessAction
 
+
+export interface ILoginErrorAction {
+    readonly type: typeof LOGIN_ERROR
+}
+
+export interface ILoginRequestAction {
+    readonly type: typeof LOGIN_REQUEST
+}
+
+export interface ILoginSuccessAction {
+    readonly type: typeof LOGIN_SUCCESS
+}
+
+export type TLoginActions = ILoginErrorAction | ILoginRequestAction | ILoginSuccessAction
+
+
+export interface ILogoutErrorAction {
+    readonly type: typeof LOGOUT_ERROR
+}
+
+export interface ILogoutRequestAction {
+    readonly type: typeof LOGOUT_REQUEST
+}
+
+export interface ILogoutSuccessAction {
+    readonly type: typeof LOGOUT_SUCCESS
+}
+
+export type TLogoutActions = ILogoutErrorAction | ILogoutRequestAction | ILogoutSuccessAction
+
+
+export interface IRefreshTokenErrorAction {
+    readonly type: typeof REFRESH_TOKEN_ERROR
+}
+
+export interface IRefreshTokenRequestAction {
+    readonly type: typeof REFRESH_TOKEN_REQUEST
+}
+
+export interface IRefreshTokenSuccessAction {
+    readonly type: typeof REFRESH_TOKEN_SUCCESS
+}
+
+export type TRefreshTokenActions = IRefreshTokenErrorAction | IRefreshTokenRequestAction | IRefreshTokenSuccessAction
+
+
+export interface IRegisterErrorAction {
+    readonly type: typeof REGISTER_ERROR
+}
+
+export interface IRegisterRequestAction {
+    readonly type: typeof REGISTER_REQUEST
+}
+
+export interface IRegisterSuccessAction {
+    readonly type: typeof REGISTER_SUCCESS
+}
+
+export type TRegisterActions = IRegisterErrorAction | IRegisterRequestAction | IRegisterSuccessAction
+
+
+export interface IResetPassErrorAction {
+    readonly type: typeof RESET_PASS_ERROR
+}
+
+export interface IResetPassRequestAction {
+    readonly type: typeof RESET_PASS_REQUEST
+}
+
+export interface IResetPassSuccessAction {
+    readonly type: typeof RESET_PASS_SUCCESS
+}
+
+export type TResetPassActions = IResetPassErrorAction | IResetPassRequestAction | IResetPassSuccessAction
+
+
+export interface IUpdateUserInfoErrorAction {
+    readonly type: typeof UPDATE_USER_INFO_ERROR
+}
+
+export interface IUpdateUserInfoRequestAction {
+    readonly type: typeof UPDATE_USER_INFO_REQUEST
+}
+
+export interface IUpdateUserInfoSuccessAction {
+    readonly type: typeof UPDATE_USER_INFO_SUCCESS
+}
+
+export type TUpdateUSerInfoActions =
+    IUpdateUserInfoErrorAction
+    | IUpdateUserInfoRequestAction
+    | IUpdateUserInfoSuccessAction
+
+export type TUserActions =
+    TForgotPassActions
+    | TGetUserInfoActions
+    | TLoginActions
+    | TLogoutActions
+    | TRefreshTokenActions
+    | TRegisterActions
+    | TResetPassActions
+    | TUpdateUSerInfoActions
+
+export const forgotPassErrorAction = (): IForgotPasswordErrorAction => ({
+    type: FORGOT_PASS_ERROR
+})
+
+
+export const forgotPassRequestAction = (): IForgotPasswordRequestAction => ({
+    type: FORGOT_PASS_REQUEST
+})
+
+
+export const forgotPassSuccessAction = (): IForgotPasswordSuccessAction => ({
+    type: FORGOT_PASS_SUCCESS
+})
+
+
+export const getUserInfoErrorAction = (): IGetUserInfoErrorAction => ({
+    type: GET_USER_INFO_ERROR
+})
+
+
+export const getUserInfoRequestAction = (): IGetUserInfoRequestAction => ({
+    type: GET_USER_INFO_REQUEST
+})
+
+
+export const getUserInfoSuccessAction = (): IGetUserInfoSuccessAction => ({
+    type: GET_USER_INFO_SUCCESS
+})
+
+export const loginErrorAction = (): ILoginErrorAction => ({
+    type: LOGIN_ERROR
+})
+
+
+export const loginRequestAction = (): ILoginRequestAction => ({
+    type: LOGIN_REQUEST
+})
+
+
+export const loginSuccessAction = (): ILoginSuccessAction => ({
+    type: LOGIN_SUCCESS
+})
+
+export const logoutErrorAction = (): ILogoutErrorAction => ({
+    type: LOGOUT_ERROR
+})
+
+
+export const logoutRequestAction = (): ILogoutRequestAction => ({
+    type: LOGOUT_REQUEST
+})
+
+
+export const logoutSuccessAction = (): ILogoutSuccessAction => ({
+    type: LOGOUT_SUCCESS
+})
+
+export const refreshTokenErrorAction = (): IRefreshTokenErrorAction => ({
+    type: REFRESH_TOKEN_ERROR
+})
+
+
+export const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
+    type: REFRESH_TOKEN_REQUEST
+})
+
+
+export const refreshTokenSuccessAction = (): IRefreshTokenSuccessAction => ({
+    type: REFRESH_TOKEN_SUCCESS
+})
+
+export const registerErrorAction = (): IRegisterErrorAction => ({
+    type: REGISTER_ERROR
+})
+
+
+export const registerRequestAction = (): IRegisterRequestAction => ({
+    type: REGISTER_REQUEST
+})
+
+
+export const registerSuccessAction = (): IRegisterSuccessAction => ({
+    type: REGISTER_SUCCESS
+})
+
+export const resetPassErrorAction = (): IResetPassErrorAction => ({
+    type: RESET_PASS_ERROR
+})
+
+
+export const resetPassRequestAction = (): IResetPassRequestAction => ({
+    type: RESET_PASS_REQUEST
+})
+
+
+export const resetPassSuccessAction = (): IResetPassSuccessAction => ({
+    type: RESET_PASS_SUCCESS
+})
+
+export const updateUserInfoErrorAction = (): IUpdateUserInfoErrorAction => ({
+    type: UPDATE_USER_INFO_ERROR
+})
+
+
+export const updateUserInfoRequestAction = (): IUpdateUserInfoRequestAction => ({
+    type: UPDATE_USER_INFO_REQUEST
+})
+
+
+export const updateUserInfoSuccessAction = (): IUpdateUserInfoSuccessAction => ({
+    type: UPDATE_USER_INFO_SUCCESS
+})
 
 export function loginUser(email, password, history) {
     return function (dispatch) {
-        dispatch({
-            type: LOGIN_REQUEST,
-        });
+        dispatch(loginRequestAction());
         fetch(`${baseUrl}api/auth/login`, {
             method: 'POST',
             headers: {
@@ -236,7 +473,7 @@ export function resetPassword(password, token, history) {
     };
 }
 
-export function refreshToken(token, cb) {
+export function refreshToken(token, cb?) {
     return function (dispatch) {
         dispatch({
             type: REFRESH_TOKEN_REQUEST,
@@ -284,7 +521,7 @@ export function getUserInfo() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: getCookie('token')
+                    Authorization: getCookie('token') as string
                 },
             }
         )
@@ -322,7 +559,7 @@ export function updateUserInfo(name, email, password) {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: getCookie('token')
+                Authorization: getCookie('token') as string
             },
             body: JSON.stringify({
                 "email": email,
