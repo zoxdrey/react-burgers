@@ -1,5 +1,4 @@
-import {userReducer} from './userReducer'
-import {initialUserState} from './initialUserState'
+import {userInitialState, userReducer} from './userReducer'
 import {
     FORGOT_PASS_ERROR,
     FORGOT_PASS_REQUEST,
@@ -24,19 +23,19 @@ import {
 describe('userReducer', () => {
 
     it('should return the initial state', () => {
-        expect(userReducer(undefined, {})).toEqual(
+        expect(userReducer(undefined, {type: 'for_test'})).toEqual(
             {
-                ...initialUserState
+                ...userInitialState
             }
         )
     })
 
     it('should handle FORGOT_PASS_ERROR', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: FORGOT_PASS_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 forgotPassRequest: false,
                 forgotPassError: true,
                 forgotPassSuccess: false,
@@ -45,11 +44,11 @@ describe('userReducer', () => {
     })
 
     it('should handle FORGOT_PASS_SUCCESS', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: FORGOT_PASS_SUCCESS,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: null,
                 refreshToken: null,
                 user: {email: "", name: ""},
@@ -61,11 +60,11 @@ describe('userReducer', () => {
     })
 
     it('should handle FORGOT_PASS_REQUEST', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: FORGOT_PASS_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 forgotPassRequest: true,
                 forgotPassError: false,
                 forgotPassSuccess: false,
@@ -74,11 +73,11 @@ describe('userReducer', () => {
     })
 
     it('should handle GET_USER_INFO_ERROR', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: GET_USER_INFO_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: null,
                 refreshToken: null,
                 getUserInfoRequest: false,
@@ -89,11 +88,11 @@ describe('userReducer', () => {
     })
 
     it('should handle GET_USER_INFO_REQUEST', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: GET_USER_INFO_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 getUserInfoRequest: true,
                 getUserInfoError: false,
                 getUserInfoSuccess: false,
@@ -102,7 +101,7 @@ describe('userReducer', () => {
     })
 
     it('should handle GET_USER_INFO_SUCCESS', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: GET_USER_INFO_SUCCESS,
             accessToken: 'accessToken',
             refreshToken: 'refreshToken',
@@ -112,7 +111,7 @@ describe('userReducer', () => {
             },
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: 'accessToken',
                 refreshToken: 'refreshToken',
                 user: {
@@ -128,11 +127,11 @@ describe('userReducer', () => {
 
 
     it('should handle UPDATE_USER_INFO_REQUEST', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: UPDATE_USER_INFO_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 updateUserInfoRequest: true,
                 updateUserInfoInfoError: false,
                 updateUserInfoInfoSuccess: false,
@@ -141,7 +140,7 @@ describe('userReducer', () => {
     })
 
     it('should handle UPDATE_USER_INFO_SUCCESS', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: UPDATE_USER_INFO_SUCCESS,
             accessToken: 'accessToken',
             refreshToken: 'refreshToken',
@@ -151,7 +150,7 @@ describe('userReducer', () => {
             },
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: 'accessToken',
                 refreshToken: 'refreshToken',
                 user: {
@@ -166,11 +165,11 @@ describe('userReducer', () => {
     })
 
     it('should handle UPDATE_USER_INFO_ERROR', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: UPDATE_USER_INFO_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: null,
                 refreshToken: null,
                 updateUserInfoRequest: false,
@@ -182,11 +181,11 @@ describe('userReducer', () => {
 
 
     it('should handle LOGIN_REQUEST', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: LOGIN_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 loginRequest: true,
                 loginError: false,
                 loginSuccess: false,
@@ -195,7 +194,7 @@ describe('userReducer', () => {
     })
 
     it('should handle LOGIN_SUCCESS', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: LOGIN_SUCCESS,
             accessToken: 'accessToken',
             refreshToken: 'refreshToken',
@@ -205,7 +204,7 @@ describe('userReducer', () => {
             },
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: 'accessToken',
                 refreshToken: 'refreshToken',
                 user: {
@@ -220,11 +219,11 @@ describe('userReducer', () => {
     })
 
     it('should handle LOGIN_ERROR', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: LOGIN_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: null,
                 refreshToken: null,
                 loginRequest: false,
@@ -235,11 +234,11 @@ describe('userReducer', () => {
     })
 
     it('should handle LOGOUT_REQUEST', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: LOGOUT_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 logoutRequest: true,
                 logoutError: false,
                 logoutSuccess: false,
@@ -248,11 +247,11 @@ describe('userReducer', () => {
     })
 
     it('should handle LOGOUT_SUCCESS', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: LOGOUT_SUCCESS,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: null,
                 refreshToken: null,
                 user: {email: "", name: ""},
@@ -263,11 +262,11 @@ describe('userReducer', () => {
     })
 
     it('should handle LOGOUT_ERROR', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: LOGOUT_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 logoutRequest: false,
                 logoutError: false,
                 logoutSuccess: false,
@@ -277,11 +276,11 @@ describe('userReducer', () => {
 
 
     it('should handle REGISTER_REQUEST', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: REGISTER_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 registerRequest: true,
                 registerError: false,
                 registerSuccess: false,
@@ -290,12 +289,14 @@ describe('userReducer', () => {
     })
 
     it('should handle REGISTER_SUCCESS', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: REGISTER_SUCCESS,
             accessToken: 'accessToken',
+            refreshToken: 'refreshToken',
+            user: {name: '', email: ''}
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 accessToken: 'accessToken',
                 registerRequest: false,
                 registerError: false,
@@ -305,11 +306,11 @@ describe('userReducer', () => {
     })
 
     it('should handle REGISTER_ERROR', () => {
-        expect(userReducer(initialUserState, {
+        expect(userReducer(userInitialState, {
             type: REGISTER_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...userInitialState,
                 registerRequest: false,
                 registerError: true,
                 registerSuccess: false,

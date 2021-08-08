@@ -16,11 +16,11 @@ export const BurgerIngredientsCard: FC<IBurgerIngredientsCard> = (props) => {
     const items = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
     );
-    const bun: IBurgerElement = useSelector(
+    const bun = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
 
-    function countItems() {
+    function countItems(): number {
         if (cardData.type === "bun") {
             return bun?._id === cardData._id ? 2 : 0;
         } else {

@@ -1,23 +1,22 @@
 import {RESET_PASS_ERROR, RESET_PASS_REQUEST, RESET_PASS_SUCCESS} from "../constants/user";
-import {initialUserState} from "./initialUserState";
-import {resetPassReducer} from "./resetPassReducer";
+import {resetPassReducer, resetPasstInitialState} from "./resetPassReducer";
 
 describe('resetPassReducer', () => {
 
     it('should return the initial state', () => {
-        expect(resetPassReducer(undefined, {})).toEqual(
+        expect(resetPassReducer(undefined, {type: 'for_test'})).toEqual(
             {
-                ...initialUserState
+                ...resetPasstInitialState
             }
         )
     })
 
     it('should handle RESET_PASS_ERROR', () => {
-        expect(resetPassReducer(initialUserState, {
+        expect(resetPassReducer(resetPasstInitialState, {
             type: RESET_PASS_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...resetPasstInitialState,
                 accessToken: null,
                 refreshToken: null,
                 resetPassRequest: false,
@@ -28,7 +27,7 @@ describe('resetPassReducer', () => {
     })
 
     it('should handle RESET_PASS_SUCCESS', () => {
-        expect(resetPassReducer(initialUserState, {
+        expect(resetPassReducer(resetPasstInitialState, {
             type: RESET_PASS_SUCCESS,
             accessToken: 'accessToken',
             refreshToken: 'refreshToken',
@@ -38,7 +37,7 @@ describe('resetPassReducer', () => {
             },
         })).toEqual(
             {
-                ...initialUserState,
+                ...resetPasstInitialState,
                 accessToken: 'accessToken',
                 refreshToken: 'refreshToken',
                 user: {
@@ -53,11 +52,11 @@ describe('resetPassReducer', () => {
     })
 
     it('should handle RESET_PASS_REQUEST', () => {
-        expect(resetPassReducer(initialUserState, {
+        expect(resetPassReducer(resetPasstInitialState, {
             type: RESET_PASS_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...resetPasstInitialState,
                 resetPassRequest: true,
                 resetPassError: false,
                 resetPassSuccess: false,

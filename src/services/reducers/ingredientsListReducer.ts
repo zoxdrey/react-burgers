@@ -3,10 +3,22 @@ import {
     GET_BURGER_INGREDIENTS_REQUEST,
     GET_BURGER_INGREDIENTS_SUCCESS,
 } from "../constants/ingredients";
-import {initialState, TInitialState} from "./initialState";
 import {TIngredientsActions} from "../actions/ingredients";
+import {IBurgerElement} from "../types/data";
 
-export const ingredientsListReducer = (state = initialState, action: TIngredientsActions): TInitialState => {
+export type TingredientsListInitialState = {
+    ingredientsList: Array<IBurgerElement>,
+    ingredientsRequest: boolean,
+    ingredientsError: boolean,
+}
+
+export const IngredientsListInitialState: TingredientsListInitialState = {
+    ingredientsList: [],
+    ingredientsRequest: false,
+    ingredientsError: false,
+}
+
+export const ingredientsListReducer = (state = IngredientsListInitialState, action: TIngredientsActions| {type: 'for_test'}): TingredientsListInitialState => {
     switch (action.type) {
         case GET_BURGER_INGREDIENTS_REQUEST: {
             return {

@@ -1,4 +1,3 @@
-import {initialUserState, TInitialUserState} from "./initialUserState";
 import {
     FORGOT_PASS_ERROR,
     FORGOT_PASS_REQUEST,
@@ -19,8 +18,69 @@ import {
     UPDATE_USER_INFO_REQUEST,
     UPDATE_USER_INFO_SUCCESS
 } from "../constants/user";
+import {TUserActions} from "../actions/user";
+import {TUser} from "../types/data";
 
-export const userReducer = (state = initialUserState, action): TInitialUserState => {
+export type TUserInitialState = {
+    loginRequest: boolean,
+    loginError: boolean,
+    loginSuccess: boolean,
+    logoutRequest: boolean,
+    logoutError: boolean,
+    logoutSuccess: boolean,
+    accessToken?: string | null,
+    refreshToken?: string | null,
+    user?: TUser,
+    getUserInfoRequest: boolean,
+    getUserInfoError: boolean,
+    getUserInfoSuccess: boolean,
+    registerRequest: boolean,
+    registerError: boolean,
+    registerSuccess: boolean,
+    updateUserInfoRequest: boolean,
+    updateUserInfoInfoError: boolean,
+    updateUserInfoInfoSuccess: boolean,
+
+    forgotPassRequest: boolean,
+    forgotPassError: boolean,
+    forgotPassSuccess: boolean,
+}
+
+export const userInitialState: TUserInitialState = {
+    loginRequest: false,
+    loginError: false,
+    loginSuccess: false,
+
+    registerRequest: false,
+    registerError: false,
+    registerSuccess: false,
+
+    accessToken: null,
+    refreshToken: null,
+    user: {
+        email: '',
+        name: ''
+    },
+
+    logoutRequest: false,
+    logoutError: false,
+    logoutSuccess: false,
+
+    getUserInfoRequest: false,
+    getUserInfoError: false,
+    getUserInfoSuccess: false,
+
+    updateUserInfoRequest: false,
+    updateUserInfoInfoError: false,
+    updateUserInfoInfoSuccess: false,
+    forgotPassRequest: false,
+    forgotPassError: false,
+    forgotPassSuccess: false,
+
+
+}
+
+export const userReducer = (state = userInitialState, action: TUserActions | { type: 'for_test' }): TUserInitialState => {
         switch (action.type) {
             case LOGIN_REQUEST: {
                 return {

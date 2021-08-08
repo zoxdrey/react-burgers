@@ -19,24 +19,25 @@ export const OrderDetails: FC = () => {
         dispatch(getIngredientsList())
     }, []);
 
-    const order: TOrderData | null = useSelector(
+    const order = useSelector(
         (store) => store.orderReducer.order
     );
     const {ingredientsList} = useSelector(
         (store) => store.ingredientsListReducer
     );
 
-    function getOrderIngredientList(order) {
-        let ingrList: IBurgerElement[] = []
+    function getOrderIngredientList(order: TOrderData): Array<IBurgerElement> {
+        let ingrList: Array<IBurgerElement> = []
 
-        order.ingredients.forEach((orderIngredient) => {
-            ingrList = [...ingrList, ...ingredientsList.filter(item => item._id === orderIngredient)]
+        order.ingredients.forEach((orderIngredient: string) => {
+            ingrList = [...ingrList, ...ingredientsList.filter(item => item._id === orderIngredient)] || ''
         })
+
         totalCost = getTotalCost(ingrList);
         return ingrList;
     }
 
-    const getTotalCost = (ingredients) => {
+    const getTotalCost = (ingredients: IBurgerElement[]): number => {
         let result = 0
         ingredients.forEach(item => {
             if (item.type === 'bun') {
@@ -76,7 +77,7 @@ export const OrderDetails: FC = () => {
                         </div>
                         <div className={`${styles["order-detail-card__main-list"]} `}>
 
-                            {order && getOrderIngredientList(order).map((item: IBurgerElement, index: number) => {
+                            {order && getOrderIngredientList(order).map((item: any, index) => {
                                 return (
                                     <div key={index} className={`${styles["order-detail-card__main-row"]} mb-4 mr-6`}>
                                         <img className={`${styles["order-detail-card__main-row-img"]} mr-4`}

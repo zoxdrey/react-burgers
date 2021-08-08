@@ -3,6 +3,7 @@ import styles from "./burger-ingredients-list.module.css";
 import React, {Dispatch, FC, SetStateAction, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
 import {useSelector} from "../../../services/types/hooks";
+import {IBurgerElement} from "../../../services/types/data";
 
 interface IBurgerIngredientsListProps {
     setCurrentTab: Dispatch<SetStateAction<string>>
@@ -27,7 +28,7 @@ export const BurgerIngredientsList: FC<IBurgerIngredientsListProps> = (props) =>
         }
     }, [props, inViewBuns, inViewMains, inViewSauces]);
 
-    const getBurgerDataByType = (type) => {
+    const getBurgerDataByType = (type: string):IBurgerElement[] => {
         return burgerData.filter((item) => {
             return item.type === type;
         });

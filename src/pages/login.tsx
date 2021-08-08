@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, SyntheticEvent, useState} from "react";
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './login.module.css';
 import {Link, useHistory} from 'react-router-dom'
@@ -7,13 +7,12 @@ import {loginUser} from "../services/actions/user";
 
 export const LoginPage: FC = () => {
     const dispatch = useDispatch();
-    let history = useHistory();
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent): void => {
         e.preventDefault();
-        console.log(history)
         dispatch(loginUser(email, password, history));
     };
 

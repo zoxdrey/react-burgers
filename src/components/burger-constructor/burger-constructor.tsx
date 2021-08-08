@@ -4,7 +4,7 @@ import styles from "./burger-constructor.module.css";
 import {BurgerConstructorList} from "./burger-constructor-list/burger-constructor-list";
 import {Modal} from "../modal/modal";
 import {createOrder, resetConstructorAction} from "../../services/actions/ingredients";
-import OrderSuccess from "../order-success/order-success";
+import {OrderSuccess} from "../order-success/order-success";
 import {useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "../../services/types/hooks";
 import {IBurgerElement} from "../../services/types/data";
@@ -18,22 +18,22 @@ export const BurgerConstructor: FC = () => {
     const burgerConstructorItems: IBurgerElement[] = useSelector(
         (store) => store.constructorItemsListReducer.constructorItemsList
     );
-    const bun: IBurgerElement = useSelector(
+    const bun = useSelector(
         (store) => store.constructorItemsListReducer.constructorBun
     );
     const {orderId, orderIdRequest} = useSelector((store) => store.orderReducer);
     const orderRequest = useSelector((store) => store.orderReducer.orderRequest);
     const dispatch = useDispatch();
 
-    const openModal = () => {
+    const openModal = (): void => {
         if (!userName) {
             history.replace({pathname: '/login', state: {target: location}});
             return;
         }
-        if (bun._id) {
+        if (bun!._id) {
             const ingredientsIds = [
                 ...burgerConstructorItems.map((element) => element._id),
-                bun._id,
+                bun!._id,
             ];
             dispatch(createOrder(ingredientsIds, setVisible));
             dispatch(resetConstructorAction());
@@ -41,11 +41,11 @@ export const BurgerConstructor: FC = () => {
     };
 
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         setVisible(false);
     };
 
-    const closeByOverlayClickHandler = (e) => {
+    const closeByOverlayClickHandler = (e: any): void => {
         if (e.target.parentNode.id === "modals") {
             closeModal();
         }

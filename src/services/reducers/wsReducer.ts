@@ -5,11 +5,12 @@ import {
     WS_GET_MESSAGE
 } from '../constants/ingredients';
 import {TIngredientsActions} from "../actions/ingredients";
+import {TOrderData} from "../types/data";
 
 export type TWSInitialState = {
     wsConnected: boolean,
-    orders: Array<Object>,
-    error: null,
+    orders: Array<TOrderData>,
+    error: null | string,
     total: number,
     totalToday: number,
 };
@@ -23,7 +24,7 @@ export const initialState: TWSInitialState = {
 };
 
 // Создадим редьюсер для WebSocket
-export const wsReducer = (state = initialState, action: TIngredientsActions): TWSInitialState => {
+export const wsReducer = (state = initialState, action: TIngredientsActions | { type: 'for_test' }): TWSInitialState => {
         switch (action.type) {
             // Опишем обработку экшена с типом WS_CONNECTION_SUCCESS
             // Установим флаг wsConnected в состояние true

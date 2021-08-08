@@ -5,6 +5,12 @@ import thunk from "redux-thunk";
 
 const _wsUrl = 'wss://norma.nomoreparties.space/orders/all'
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
 const composeEnhancers =
     (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 

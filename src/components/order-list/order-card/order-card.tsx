@@ -1,12 +1,16 @@
 import styles from "./order-card.module.css";
-import React from "react";
+import React, {FC} from "react";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useLocation} from "react-router-dom";
-import {useSelector} from "react-redux";
-import PropTypes from "prop-types";
 import {getStatusName} from "../../../utils/getStatusName";
+import {useSelector} from "../../../services/types/hooks";
+import {IBurgerElement, TOrderData} from "../../../services/types/data";
 
-function OrderCard({order}) {
+interface IOrderCardProps {
+    order: TOrderData
+}
+
+export const OrderCard: FC<IOrderCardProps> = ({order}) => {
 
     const location = useLocation()
 
@@ -15,7 +19,7 @@ function OrderCard({order}) {
 
 
     const getOrderIngredientList = () => {
-        let ingrList = []
+        let ingrList: any[] = []
         order.ingredients.forEach(orderIngredient => {
             ingrList = [...ingrList, ...ingredientsList.filter(item => item._id === orderIngredient)]
         })
@@ -23,7 +27,7 @@ function OrderCard({order}) {
         return ingrList;
     }
 
-    const getTotalCost = (ingredients) => {
+    const getTotalCost = (ingredients: IBurgerElement[]): number => {
         let result = 0
         ingredients.forEach(item => {
             if (item.type === 'bun') {
@@ -89,16 +93,3 @@ function OrderCard({order}) {
         </NavLink>
     );
 }
-
-OrderCard.propTypes = {
-    order: PropTypes.shape({
-        number: PropTypes.number,
-        _id: PropTypes.string,
-        createdAt: PropTypes.string,
-        name: PropTypes.string,
-        status: PropTypes.string,
-        ingredients: PropTypes.array,
-    })
-};
-
-export default OrderCard;

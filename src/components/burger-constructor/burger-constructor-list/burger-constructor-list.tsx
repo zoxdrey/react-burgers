@@ -5,6 +5,7 @@ import {useDrop} from "react-dnd";
 import {addBunConstructorItemAction, addConstructorItemAction,} from "../../../services/actions/ingredients";
 import {v4 as uuidv4} from "uuid";
 import {useDispatch, useSelector} from "../../../services/types/hooks";
+import {IBurgerElement} from "../../../services/types/data";
 
 export const BurgerConstructorList = () => {
     const items = useSelector(
@@ -16,12 +17,12 @@ export const BurgerConstructorList = () => {
     const dispatch = useDispatch();
     const [, dropTarget] = useDrop({
         accept: "card",
-        drop(item) {
+        drop(item: IBurgerElement) {
             onDropHandler(item);
         },
     });
 
-    function onDropHandler(item) {
+    function onDropHandler(item: IBurgerElement): void {
         if (item.type === "bun") {
             dispatch(addBunConstructorItemAction(item));
         } else {

@@ -1,16 +1,17 @@
 import styles from "./ingredient-details.module.css";
-import React, {FC} from "react";
+import React, {FC, ReactElement} from "react";
 import {useParams} from "react-router";
 import {ParamTypes, useSelector} from "../../services/types/hooks";
+import {IBurgerElement} from "../../services/types/data";
 
 
 export const IngredientDetails: FC = () => {
 
     const {id} = useParams<ParamTypes>();
     const ingredient = useSelector((state) => state.ingredientsListReducer);
-    const currIngredient = ingredient.ingredientsList.filter((item: any) => item._id === id)[0];
+    const currIngredient = ingredient.ingredientsList.filter((item: IBurgerElement) => item._id === id)[0];
 
-    function renderIngredient(data) {
+    function renderIngredient(data: IBurgerElement): ReactElement {
         return (
 
             <div className={styles["ingredient-details"]}>

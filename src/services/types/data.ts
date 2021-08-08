@@ -29,3 +29,8 @@ export type TOrderData = {
     number: number;
 };
 
+
+export type TUser = {
+    name: string,
+    email: string
+}

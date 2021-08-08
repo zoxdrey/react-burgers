@@ -6,10 +6,29 @@ import {
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
 } from "../constants/ingredients";
-import {initialState, TInitialState} from "./initialState";
 import {TIngredientsActions} from "../actions/ingredients";
+import {TOrderData} from "../types/data";
 
-export const orderReducer = (state = initialState, action: TIngredientsActions): TInitialState => {
+export type TOrderInitialState = {
+    order?: TOrderData | null,
+    orderId: number,
+    orderRequest: boolean,
+    orderError: boolean,
+    orderIdError: boolean,
+    orderIdRequest: boolean,
+}
+
+export const OrderInitialState: TOrderInitialState = {
+    order: null,
+    orderId: 0,
+    orderRequest: false,
+    orderError: false,
+    orderIdError: false,
+    orderIdRequest: false,
+}
+
+
+export const orderReducer = (state = OrderInitialState, action: TIngredientsActions | { type: 'for_test' }): TOrderInitialState => {
     switch (action.type) {
         case GET_ORDER_REQUEST: {
             return {

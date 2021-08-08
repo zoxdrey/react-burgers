@@ -6,25 +6,24 @@ import {
     GET_ORDER_REQUEST,
     GET_ORDER_SUCCESS,
 } from "../constants/ingredients";
-import {initialState} from "./initialState";
-import {orderReducer} from "./orderReducer";
+import {OrderInitialState, orderReducer} from "./orderReducer";
 
 describe('orderReducer', () => {
 
     it('should return the initial state', () => {
-        expect(orderReducer(undefined, {})).toEqual(
+        expect(orderReducer(undefined, {type: 'for_test'})).toEqual(
             {
-                ...initialState
+                ...OrderInitialState
             }
         )
     })
 
     it('should handle GET_ORDER_REQUEST', () => {
-        expect(orderReducer(initialState, {
+        expect(orderReducer(OrderInitialState, {
             type: GET_ORDER_REQUEST,
         })).toEqual(
             {
-                ...initialState,
+                ...OrderInitialState,
                 orderRequest: true,
                 orderError: false,
                 order: null,
@@ -33,12 +32,12 @@ describe('orderReducer', () => {
     })
 
     it('should handle GET_ORDER_SUCCESS', () => {
-        expect(orderReducer(initialState, {
+        expect(orderReducer(OrderInitialState, {
             type: GET_ORDER_SUCCESS,
             order: {orders: [{order: 'order'}, {order2: 'order2'}]}
         })).toEqual(
             {
-                ...initialState,
+                ...OrderInitialState,
                 order: {order: 'order'},
                 orderRequest: false,
             }
@@ -46,11 +45,11 @@ describe('orderReducer', () => {
     })
 
     it('should handle GET_ORDER_ERROR', () => {
-        expect(orderReducer(initialState, {
+        expect(orderReducer(OrderInitialState, {
             type: GET_ORDER_ERROR,
         })).toEqual(
             {
-                ...initialState,
+                ...OrderInitialState,
                 orderError: true,
                 orderRequest: false,
                 order: null,
@@ -59,11 +58,11 @@ describe('orderReducer', () => {
     })
 
     it('should handle ADD_ORDER_REQUEST', () => {
-        expect(orderReducer(initialState, {
+        expect(orderReducer(OrderInitialState, {
             type: ADD_ORDER_REQUEST,
         })).toEqual(
             {
-                ...initialState,
+                ...OrderInitialState,
                 orderIdRequest: true,
                 orderIdError: false,
                 order: null,
@@ -72,12 +71,12 @@ describe('orderReducer', () => {
     })
 
     it('should handle ADD_ORDER_SUCCESS', () => {
-        expect(orderReducer(initialState, {
+        expect(orderReducer(OrderInitialState, {
             type: ADD_ORDER_SUCCESS,
             orderId: {number: '1'}
         })).toEqual(
             {
-                ...initialState,
+                ...OrderInitialState,
                 orderId: '1',
                 orderIdRequest: false,
             }
@@ -85,11 +84,11 @@ describe('orderReducer', () => {
     })
 
     it('should handle ADD_ORDER_ERROR', () => {
-        expect(orderReducer(initialState, {
+        expect(orderReducer(OrderInitialState, {
             type: ADD_ORDER_ERROR,
         })).toEqual(
             {
-                ...initialState,
+                ...OrderInitialState,
                 orderIdError: true,
                 orderIdRequest: false,
                 order: null,

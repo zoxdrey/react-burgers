@@ -23,10 +23,9 @@ import {IngredientDetails} from "../ingredient-details/ingredient-details";
 
 
 export const App: FC = () => {
-    let location = useLocation();
+    const location = useLocation();
     const history = useHistory();
-    let background = history.action === 'PUSH' && location.state && location.state.background;
-    // @ts-ignore
+    const background = history.action === 'PUSH' && location.state && location.state.background;
     const dispatch = useDispatch();
 
     useEffect(() => {

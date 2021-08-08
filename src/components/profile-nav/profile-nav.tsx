@@ -6,11 +6,11 @@ import {logoutUser} from "../../services/actions/user";
 
 
 function ProfileNav() {
-    let history = useHistory();
+    const history = useHistory();
     const dispatch = useDispatch();
     const refreshToken = localStorage.getItem('token');
 
-    function logoutHandler() {
+    function logoutHandler(): void {
         dispatch(logoutUser(refreshToken, history));
     }
 

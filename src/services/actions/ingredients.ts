@@ -26,6 +26,7 @@ import {
     WS_SEND_MESSAGE
 } from "../constants/ingredients";
 import {AppDispatch, AppThunk} from "../types";
+import {IBurgerElement, TOrderData} from "../types/data";
 
 
 export interface IAddOrderErrorAction {
@@ -55,7 +56,7 @@ export interface IGetBurgerIngredientsRequestAction {
 }
 
 export interface IGetBurgerIngredientsSuccessAction {
-    ingredientsList: Array<Object>;
+    ingredientsList: Array<IBurgerElement>;
     readonly type: typeof GET_BURGER_INGREDIENTS_SUCCESS
 }
 
@@ -83,12 +84,12 @@ export type TGetOrderActions =
     | IGetOrderSuccessAction
 
 export interface IAddConstructorItemAction {
-    item: Array<Object> | Object[] | Object;
+    item: IBurgerElement;
     readonly type: typeof ADD_CONSTRUCTOR_ITEM
 }
 
 export interface IRemoveConstructorItemAction {
-    index: number;
+    index: number | undefined;
     readonly type: typeof REMOVE_CONSTRUCTOR_ITEM
 }
 
@@ -98,7 +99,7 @@ export interface IMoveConstructorItemAction {
 }
 
 export interface IAddBunConstructorItemAction {
-    item: Object
+    item: IBurgerElement
     readonly type: typeof ADD_BUN_CONSTRUCTOR_ITEM
 }
 
@@ -131,7 +132,7 @@ export interface IWSConnectionClosedAction {
 }
 
 export interface IWSConnectionErrorAction {
-    error: null;
+    error: null | string;
     readonly type: typeof WS_CONNECTION_ERROR
 }
 
@@ -173,13 +174,13 @@ export type TIngredientsActions =
     | TCurrentIngredientActions
     | TWSAction
 
-export const addBunConstructorItemAction = (item): IAddBunConstructorItemAction => ({
+export const addBunConstructorItemAction = (item: IBurgerElement): IAddBunConstructorItemAction => ({
     type: ADD_BUN_CONSTRUCTOR_ITEM,
     item
 })
 
 
-export const addConstructorItemAction = (item): IAddConstructorItemAction => ({
+export const addConstructorItemAction = (item: IBurgerElement): IAddConstructorItemAction => ({
     type: ADD_CONSTRUCTOR_ITEM,
     item
 })
@@ -196,7 +197,7 @@ export const addOrderRequestAction = (): IAddOrderRequestAction => ({
     type: ADD_ORDER_REQUEST
 })
 
-export const addOrderSuccessAction = (orderId): IAddOrderSuccessAction => ({
+export const addOrderSuccessAction = (orderId: string | number): IAddOrderSuccessAction => ({
     type: ADD_ORDER_SUCCESS,
     orderId
 })
@@ -209,7 +210,7 @@ export const getBurgerIngredientsRequestAction = (): IGetBurgerIngredientsReques
     type: GET_BURGER_INGREDIENTS_REQUEST
 })
 
-export const getBurgerIngredientsSuccessAction = (ingredientsList): IGetBurgerIngredientsSuccessAction => ({
+export const getBurgerIngredientsSuccessAction = (ingredientsList: IBurgerElement[]): IGetBurgerIngredientsSuccessAction => ({
     type: GET_BURGER_INGREDIENTS_SUCCESS,
     ingredientsList
 })
@@ -222,17 +223,17 @@ export const getOrderRequestAction = (): IGetOrderRequestAction => ({
     type: GET_ORDER_REQUEST
 })
 
-export const getOrderSuccessAction = (order): IGetOrderSuccessAction => ({
+export const getOrderSuccessAction = (order: TOrderData): IGetOrderSuccessAction => ({
     type: GET_ORDER_SUCCESS,
     order
 })
 
-export const moveConstructorItemAction = (payload): IMoveConstructorItemAction => ({
+export const moveConstructorItemAction = (payload: any): IMoveConstructorItemAction => ({
     type: MOVE_CONSTRUCTOR_ITEM,
     payload
 })
 
-export const removeConstructorItemAction = (index): IRemoveConstructorItemAction => ({
+export const removeConstructorItemAction = (index?: number): IRemoveConstructorItemAction => ({
     type: REMOVE_CONSTRUCTOR_ITEM,
     index
 })
@@ -253,7 +254,7 @@ export const wsConnectionClosedAction = (): IWSConnectionClosedAction => ({
     type: WS_CONNECTION_CLOSED
 })
 
-export const wsConnectionErrorAction = (error): IWSConnectionErrorAction => ({
+export const wsConnectionErrorAction = (error: string): IWSConnectionErrorAction => ({
     type: WS_CONNECTION_ERROR,
     error
 })
@@ -266,7 +267,7 @@ export const wsConnectionSuccessAction = (): IWSConnectionSuccessAction => ({
     type: WS_CONNECTION_SUCCESS
 })
 
-export const wsGetMessageAction = (payload): IWSGetMessageAction => ({
+export const wsGetMessageAction = (payload: any): IWSGetMessageAction => ({
     type: WS_GET_MESSAGE,
     payload
 })
@@ -295,7 +296,7 @@ export const getIngredientsList: AppThunk = () => {
     };
 }
 
-export const createOrder: AppThunk = (orderIds, openModalFunc) => {
+export const createOrder: AppThunk = (orderIds: string[], openModalFunc: (a) => void) => {
     return function (dispatch: AppDispatch) {
         dispatch(addOrderRequestAction());
         fetch(`${baseUrl}api/orders`, {
@@ -322,7 +323,7 @@ export const createOrder: AppThunk = (orderIds, openModalFunc) => {
     };
 }
 
-export const getOrderById: AppThunk = (id) => {
+export const getOrderById: AppThunk = (id: string) => {
     return function (dispatch: AppDispatch) {
         dispatch(getOrderRequestAction());
         fetch(`${baseUrl}api/orders/${id}`, {

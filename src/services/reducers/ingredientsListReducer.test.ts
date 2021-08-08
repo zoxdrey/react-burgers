@@ -3,25 +3,25 @@ import {
     GET_BURGER_INGREDIENTS_REQUEST,
     GET_BURGER_INGREDIENTS_SUCCESS,
 } from "../constants/ingredients";
-import {initialState} from "./initialState";
-import {ingredientsListReducer} from "./ingredientsListReducer";
+import {IngredientsListInitialState, ingredientsListReducer} from "./ingredientsListReducer";
+import {testData} from "./constructorItemsListReducer.test";
 
 describe('ingredientsListReducer', () => {
 
     it('should return the initial state', () => {
-        expect(ingredientsListReducer(undefined, {})).toEqual(
+        expect(ingredientsListReducer(undefined, {type: 'for_test'})).toEqual(
             {
-                ...initialState
+                ...IngredientsListInitialState
             }
         )
     })
 
     it('should handle GET_BURGER_INGREDIENTS_ERROR', () => {
-        expect(ingredientsListReducer(initialState, {
+        expect(ingredientsListReducer(IngredientsListInitialState, {
             type: GET_BURGER_INGREDIENTS_ERROR,
         })).toEqual(
             {
-                ...initialState,
+                ...IngredientsListInitialState,
                 ingredientsError: true,
                 ingredientsRequest: false,
             }
@@ -29,11 +29,11 @@ describe('ingredientsListReducer', () => {
     })
 
     it('should handle GET_BURGER_INGREDIENTS_REQUEST', () => {
-        expect(ingredientsListReducer(initialState, {
+        expect(ingredientsListReducer(IngredientsListInitialState, {
             type: GET_BURGER_INGREDIENTS_REQUEST,
         })).toEqual(
             {
-                ...initialState,
+                ...IngredientsListInitialState,
                 ingredientsRequest: true,
                 ingredientsError: false,
             }
@@ -41,13 +41,13 @@ describe('ingredientsListReducer', () => {
     })
 
     it('should handle GET_BURGER_INGREDIENTS_SUCCESS', () => {
-        expect(ingredientsListReducer(initialState, {
+        expect(ingredientsListReducer(IngredientsListInitialState, {
             type: GET_BURGER_INGREDIENTS_SUCCESS,
-            ingredientsList: [{object: 'object'}, {object1: 'object1'}],
+            ingredientsList: testData,
         })).toEqual(
             {
-                ...initialState,
-                ingredientsList: [{object: 'object'}, {object1: 'object1'}],
+                ...IngredientsListInitialState,
+                ingredientsList: testData,
                 ingredientsRequest: false,
             }
         )

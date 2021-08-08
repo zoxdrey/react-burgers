@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, SyntheticEvent, useState} from "react";
 import {useDispatch} from 'react-redux';
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './register.module.css';
@@ -13,7 +13,7 @@ export const RegisterPage: FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent ): void => {
         e.preventDefault();
         dispatch(registerUser(userName, email, password, history));
     }

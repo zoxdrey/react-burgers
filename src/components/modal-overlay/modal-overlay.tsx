@@ -1,9 +1,14 @@
 import styles from "./modal-overlay.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 
-function ModalOverlay(props) {
+interface IModalOverlayProps {
+    title?: boolean
+    titleValue?: string
+    closeHandler?: () => void
+}
+
+export const ModalOverlay: FC<IModalOverlayProps> = (props) => {
     return (
         <div className={styles["modal-overlay"]}>
             <div className={styles["modal-overlay__header"]}>
@@ -18,11 +23,3 @@ function ModalOverlay(props) {
         </div>
     );
 }
-
-ModalOverlay.propTypes = {
-    closeHandler: PropTypes.func,
-    title: PropTypes.bool,
-    children: PropTypes.element,
-};
-
-export default ModalOverlay;

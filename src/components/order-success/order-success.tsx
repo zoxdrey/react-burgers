@@ -1,8 +1,12 @@
 import styles from "./order-success.module.css";
 import doneImg from "../../images/done.svg";
-import PropTypes from "prop-types";
+import {FC} from "react";
 
-function OrderSuccess({orderId}) {
+interface IOrderSuccessProps {
+    orderId: string
+}
+
+export const OrderSuccess: FC<IOrderSuccessProps> = ({orderId}) => {
     return (
         <div className={`${styles["order-success"]}`}>
             <p className="text text_type_digits-large  mt-4 mb-15">{orderId}</p>
@@ -18,9 +22,3 @@ function OrderSuccess({orderId}) {
         </div>
     );
 }
-
-OrderSuccess.propTypes = {
-    orderId: PropTypes.string.isRequired,
-};
-
-export default OrderSuccess;

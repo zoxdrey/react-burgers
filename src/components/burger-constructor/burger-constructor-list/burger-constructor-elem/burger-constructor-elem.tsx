@@ -16,14 +16,14 @@ interface IBurgerConstructorElem {
     type?: 'top' | 'bottom',
     index?: number,
     postfix?: string,
-    locked?: boolean
+    locked?: boolean,
 }
 
 export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
     const {type, burgerConstructorElemData, index, postfix, locked} = props;
     const dispatch = useDispatch();
 
-    function handleClose() {
+    function handleClose():void {
         dispatch(removeConstructorItemAction(index));
     }
 
@@ -49,11 +49,11 @@ export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
+            if (dragIndex < hoverIndex! && hoverClientY < hoverMiddleY) {
                 return;
             }
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            if (dragIndex > hoverIndex! && hoverClientY > hoverMiddleY) {
                 return;
             }
 
@@ -89,7 +89,7 @@ export const BurgerConstructorElem = (props: IBurgerConstructorElem) => {
             ) : null}
 
             <ConstructorElement
-                text={`${burgerConstructorElemData?.name}${postfix}`}
+                text={`${burgerConstructorElemData?.name}${postfix || ''}`}
                 price={burgerConstructorElemData?.price}
                 thumbnail={burgerConstructorElemData?.image}
                 type={type}

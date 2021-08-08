@@ -1,8 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './order-list.module.css';
-import OrderCard from "./order-card/order-card";
+import {OrderCard} from "./order-card/order-card";
+import {TOrderData} from "../../services/types/data";
 
-function OrderList({ordersFeed}) {
+interface IOrderListProps {
+    ordersFeed: TOrderData[]
+}
+
+export const OrderList: FC<IOrderListProps> = ({ordersFeed}) => {
 
     return (
         <div className={`${styles['order-list']}`}>

@@ -5,10 +5,20 @@ import {
     REMOVE_CONSTRUCTOR_ITEM,
     RESET_CONSTRUCTOR,
 } from "../constants/ingredients";
-import {initialState, TInitialState} from "./initialState";
 import {TIngredientsActions} from "../actions/ingredients";
+import {IBurgerElement} from "../types/data";
 
-export const constructorItemsListReducer = (state = initialState, action: TIngredientsActions): TInitialState => {
+export type TConstructorItemsListInitialState = {
+    constructorBun?: IBurgerElement | null,
+    constructorItemsList: Array<IBurgerElement>,
+}
+
+export const constructorItemsListInitialState: TConstructorItemsListInitialState = {
+    constructorItemsList: [],
+    constructorBun: undefined,
+}
+
+export const constructorItemsListReducer = (state = constructorItemsListInitialState, action: TIngredientsActions | { type: 'for_test' }): TConstructorItemsListInitialState => {
     switch (action.type) {
         case ADD_BUN_CONSTRUCTOR_ITEM: {
             return {
@@ -46,8 +56,8 @@ export const constructorItemsListReducer = (state = initialState, action: TIngre
         case RESET_CONSTRUCTOR: {
             return {
                 ...state,
-                constructorItemsList: initialState.constructorItemsList,
-                constructorBun: initialState.constructorBun,
+                constructorItemsList: constructorItemsListInitialState.constructorItemsList,
+                constructorBun: constructorItemsListInitialState.constructorBun,
             };
         }
 

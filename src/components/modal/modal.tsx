@@ -1,4 +1,4 @@
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import {ModalOverlay} from "../modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import ReactDOM from "react-dom";
 import React, {FC, useEffect} from "react";
@@ -18,8 +18,8 @@ export const Modal: FC<IModalProps> = (props) => {
     const modalRoot: Element | null = document.getElementById("modals");
 
     useEffect(() => {
-        const escHandler = (event) => {
-            if (event.keyCode === ESC_KEY_CODE) {
+        const escHandler = (event: KeyboardEvent) => {
+            if (event.key === ESC_KEY_CODE) {
                 props.closeHandler()
             }
         };

@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, SyntheticEvent, useState} from "react";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css';
 import {useDispatch} from "react-redux";
@@ -11,7 +11,7 @@ export const ForgotPasswordPage: FC = () => {
 
     const [email, setEmail] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent): void => {
         e.preventDefault();
         dispatch(forgotPassword(email, history));
     };

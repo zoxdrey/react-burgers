@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {SyntheticEvent, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './reset-password.module.css';
 import {useDispatch} from "react-redux";
@@ -12,7 +12,7 @@ export const ResetPasswordPage = () => {
     const [password, setPassword] = useState('');
     const [mailCode, setMailCode] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent): void => {
         e.preventDefault();
         dispatch(resetPassword(password, mailCode, history))
     }

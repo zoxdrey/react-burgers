@@ -8,13 +8,14 @@ import {
     WS_GET_MESSAGE,
     WS_SEND_MESSAGE
 } from "../constants/ingredients";
+import {AnyAction, MiddlewareAPI} from "redux";
 
 
-export const socketMiddleware = (wsUrl) => {
-    return store => {
-        let socket;
+export const socketMiddleware = (wsUrl: string) => {
+    return (store: MiddlewareAPI) => {
+        let socket: WebSocket | null = null;
 
-        return next => action => {
+        return (next: (a: AnyAction) => void) => (action: AnyAction) => {
             const {dispatch} = store;
             const {type, payload} = action;
 

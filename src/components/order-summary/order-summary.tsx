@@ -1,7 +1,14 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './order-summary.module.css';
+import {TOrderData} from "../../services/types/data";
 
-function OrderSummary({ordersFeed, total, totalToday}) {
+interface IOrderSummaryProps {
+    ordersFeed: TOrderData[],
+    total: number | string,
+    totalToday: number | string
+}
+
+export const OrderSummary: FC<IOrderSummaryProps> = ({ordersFeed, total, totalToday}) => {
 
     const doneOrders = ordersFeed.filter((item) => {
         return item.status === 'done'
@@ -67,4 +74,3 @@ function OrderSummary({ordersFeed, total, totalToday}) {
     )
 }
 
-export default OrderSummary;

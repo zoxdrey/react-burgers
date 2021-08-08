@@ -1,12 +1,12 @@
 import React, {FC} from "react";
 import styles from "./app-header.module.css";
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavBurgerLink} from "../nav-link/nav-link.tsx";
+import {NavBurgerLink} from "../nav-link/nav-link";
 import {NavLink} from "react-router-dom";
 
 export const AppHeader: FC = () => {
 
-    const userName: string = localStorage.getItem('userName');
+    const userName = localStorage.getItem('userName');
 
     return (
         <header className={`${styles.header} + p-4`}>

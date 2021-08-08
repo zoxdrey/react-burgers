@@ -3,7 +3,7 @@ import {WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS} from "
 
 describe('wsReducer', () => {
     it('should return the initial state', () => {
-        expect(wsReducer(undefined, {})).toEqual(
+        expect(wsReducer(undefined, {type: 'for_test'})).toEqual(
             {
                 wsConnected: false,
                 orders: [],

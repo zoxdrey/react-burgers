@@ -13,11 +13,11 @@ function ProfileUserInfo() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     useEffect(() => {
-        setUserName(user.name)
-        setEmail(user.email)
+        setUserName(user!.name)
+        setEmail(user!.email)
     }, [])
 
-    function handleSubmit() {
+    function handleSubmit(): void {
         dispatch(updateUserInfo(userName, email, password))
     }
 

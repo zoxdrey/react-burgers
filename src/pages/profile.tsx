@@ -17,8 +17,7 @@ export const ProfilePage: FC = () => {
 
     const {orders} = useSelector(state => state.wsReducer)
     const {path, url} = useRouteMatch();
-
-    const user = useSelector(state => state.userReducer.user)
+    
     useEffect(() => {
         dispatch(getUserInfo())
     }, [dispatch])

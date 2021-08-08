@@ -1,23 +1,22 @@
 import {REFRESH_TOKEN_ERROR, REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS} from "../constants/user";
-import {initialUserState} from "./initialUserState";
-import {refreshTokenReducer} from "./refreshTokenReducer";
+import {refreshTokenInitialState, refreshTokenReducer} from "./refreshTokenReducer";
 
 describe('refreshTokenReducer', () => {
 
     it('should return the initial state', () => {
-        expect(refreshTokenReducer(undefined, {})).toEqual(
+        expect(refreshTokenReducer(undefined, {type: 'for_test'})).toEqual(
             {
-                ...initialUserState
+                ...refreshTokenInitialState
             }
         )
     })
 
     it('should handle REFRESH_TOKEN_REQUEST', () => {
-        expect(refreshTokenReducer(initialUserState, {
+        expect(refreshTokenReducer(refreshTokenInitialState, {
             type: REFRESH_TOKEN_REQUEST,
         })).toEqual(
             {
-                ...initialUserState,
+                ...refreshTokenInitialState,
                 refreshTokenRequest: true,
                 refreshTokenError: false,
                 refreshTokenSuccess: false,
@@ -26,7 +25,7 @@ describe('refreshTokenReducer', () => {
     })
 
     it('should handle REFRESH_TOKEN_SUCCESS', () => {
-        expect(refreshTokenReducer(initialUserState, {
+        expect(refreshTokenReducer(refreshTokenInitialState, {
             type: REFRESH_TOKEN_SUCCESS,
             accessToken: 'accessToken',
             refreshToken: 'refreshToken',
@@ -36,7 +35,7 @@ describe('refreshTokenReducer', () => {
             },
         })).toEqual(
             {
-                ...initialUserState,
+                ...refreshTokenInitialState,
                 accessToken: 'accessToken',
                 refreshToken: 'refreshToken',
                 user: {
@@ -51,11 +50,11 @@ describe('refreshTokenReducer', () => {
     })
 
     it('should handle REFRESH_TOKEN_ERROR', () => {
-        expect(refreshTokenReducer(initialUserState, {
+        expect(refreshTokenReducer(refreshTokenInitialState, {
             type: REFRESH_TOKEN_ERROR,
         })).toEqual(
             {
-                ...initialUserState,
+                ...refreshTokenInitialState,
                 accessToken: null,
                 refreshToken: null,
                 refreshTokenRequest: false,

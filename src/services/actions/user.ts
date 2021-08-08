@@ -26,8 +26,8 @@ import {
     UPDATE_USER_INFO_REQUEST,
     UPDATE_USER_INFO_SUCCESS
 } from "../constants/user";
-import {TUser} from "../reducers/initialUserState";
 import {AppDispatch, AppThunk} from "../types";
+import {TUser} from "../types/data";
 
 export interface IForgotPasswordErrorAction {
     readonly type: typeof FORGOT_PASS_ERROR
@@ -55,6 +55,8 @@ export interface IGetUserInfoRequestAction {
 }
 
 export interface IGetUserInfoSuccessAction {
+    accessToken: string | null | undefined;
+    refreshToken: string | null | undefined;
     user: TUser
     readonly type: typeof GET_USER_INFO_SUCCESS
 }
@@ -72,8 +74,8 @@ export interface ILoginRequestAction {
 
 export interface ILoginSuccessAction {
     user: TUser;
-    refreshToken: null;
-    accessToken: null;
+    refreshToken?: null | string;
+    accessToken?: null | string;
     readonly type: typeof LOGIN_SUCCESS
 }
 
@@ -104,7 +106,9 @@ export interface IRefreshTokenRequestAction {
 }
 
 export interface IRefreshTokenSuccessAction {
-    accessToken: null;
+    user?: TUser;
+    refreshToken?: null | string | undefined;
+    accessToken?: null | string | undefined;
     readonly type: typeof REFRESH_TOKEN_SUCCESS
 }
 
@@ -121,8 +125,8 @@ export interface IRegisterRequestAction {
 
 export interface IRegisterSuccessAction {
     user: TUser;
-    refreshToken: null;
-    accessToken: null;
+    refreshToken?: null | string;
+    accessToken?: null | string;
     readonly type: typeof REGISTER_SUCCESS
 }
 
@@ -139,8 +143,8 @@ export interface IResetPassRequestAction {
 
 export interface IResetPassSuccessAction {
     user: TUser;
-    refreshToken: null;
-    accessToken: null;
+    refreshToken?: null | string;
+    accessToken?: null | string;
     readonly type: typeof RESET_PASS_SUCCESS
 }
 
@@ -156,6 +160,8 @@ export interface IUpdateUserInfoRequestAction {
 }
 
 export interface IUpdateUserInfoSuccessAction {
+    accessToken: string | null | undefined;
+    refreshToken: string | null | undefined;
     user: TUser
     readonly type: typeof UPDATE_USER_INFO_SUCCESS
 }
@@ -200,7 +206,9 @@ export const getUserInfoRequestAction = (): IGetUserInfoRequestAction => ({
 })
 
 
-export const getUserInfoSuccessAction = (user): IGetUserInfoSuccessAction => ({
+export const getUserInfoSuccessAction = (user: TUser, accessToken?: string | null, refreshToken?: string | null): IGetUserInfoSuccessAction => ({
+    accessToken,
+    refreshToken,
     user,
     type: GET_USER_INFO_SUCCESS
 })
@@ -215,7 +223,7 @@ export const loginRequestAction = (): ILoginRequestAction => ({
 })
 
 
-export const loginSuccessAction = (accessToken, refreshToken, user): ILoginSuccessAction => ({
+export const loginSuccessAction = (user: TUser, accessToken?: null | string, refreshToken?: null | string): ILoginSuccessAction => ({
     accessToken,
     refreshToken,
     user,
@@ -246,7 +254,7 @@ export const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
 })
 
 
-export const refreshTokenSuccessAction = (accessToken): IRefreshTokenSuccessAction => <IRefreshTokenSuccessAction>({
+export const refreshTokenSuccessAction = (accessToken?: string | null): IRefreshTokenSuccessAction => ({
     accessToken,
     type: REFRESH_TOKEN_SUCCESS
 })
@@ -261,7 +269,7 @@ export const registerRequestAction = (): IRegisterRequestAction => ({
 })
 
 
-export const registerSuccessAction = (accessToken, refreshToken, user): IRegisterSuccessAction => ({
+export const registerSuccessAction = (user: TUser, accessToken?: null | string, refreshToken?: null | string): IRegisterSuccessAction => ({
     accessToken,
     refreshToken,
     user,
@@ -292,7 +300,9 @@ export const updateUserInfoRequestAction = (): IUpdateUserInfoRequestAction => (
 })
 
 
-export const updateUserInfoSuccessAction = (user): IUpdateUserInfoSuccessAction => ({
+export const updateUserInfoSuccessAction = (user: TUser, accessToken?: null | string, refreshToken?: null | string): IUpdateUserInfoSuccessAction => ({
+    accessToken,
+    refreshToken,
     user,
     type: UPDATE_USER_INFO_SUCCESS
 })
@@ -331,7 +341,7 @@ export const loginUser: AppThunk = (email: string, password: string, history) =>
     };
 }
 
-export const registerUser: AppThunk = (name, email, password, history) => {
+export const registerUser: AppThunk = (name: string, email: string, password: string, history: any) => {
     return function (dispatch: AppDispatch) {
         dispatch(registerRequestAction());
         fetch(`${baseUrl}api/auth/register`, {
@@ -366,7 +376,7 @@ export const registerUser: AppThunk = (name, email, password, history) => {
 }
 
 
-export const logoutUser: AppThunk = (token, history) => {
+export const logoutUser: AppThunk = (token: string, history: any) => {
     return function (dispatch: AppDispatch) {
         dispatch(logoutRequestAction());
         fetch(`${baseUrl}api/auth/logout`, {
@@ -397,7 +407,7 @@ export const logoutUser: AppThunk = (token, history) => {
     };
 }
 
-export const forgotPassword: AppThunk = (email, history) => {
+export const forgotPassword: AppThunk = (email: string, history: any) => {
     return function (dispatch: AppDispatch) {
         dispatch(forgotPassRequestAction());
         fetch(`${baseUrl}api/password-reset`, {
@@ -425,7 +435,7 @@ export const forgotPassword: AppThunk = (email, history) => {
     };
 }
 
-export const resetPassword: AppThunk = (password, token, history) => {
+export const resetPassword: AppThunk = (password: string, token: string, history: any) => {
     return function (dispatch: AppDispatch) {
         dispatch(resetPassRequestAction());
         fetch(`${baseUrl}api/password-reset/reset`, {
@@ -454,7 +464,7 @@ export const resetPassword: AppThunk = (password, token, history) => {
     };
 }
 
-export const refreshToken: AppThunk = (token, cb?) => {
+export const refreshToken: AppThunk = (token: string, cb?: () => {}) => {
     return function (dispatch: AppDispatch) {
         dispatch(refreshTokenRequestAction());
         fetch(`${baseUrl}api/auth/token`, {
@@ -472,7 +482,9 @@ export const refreshToken: AppThunk = (token, cb?) => {
                 if (res && res.success) {
                     localStorage.setItem('token', res.data.refreshToken)
                     setCookie('token', res.data.accessToken)
-                    cb();
+                    if (cb) {
+                        cb();
+                    }
                     dispatch(
                         refreshTokenSuccessAction(res.data)
                     )
@@ -516,7 +528,7 @@ export const getUserInfo: AppThunk = () => {
     };
 }
 
-export const updateUserInfo: AppThunk = (name, email, password) => {
+export const updateUserInfo: AppThunk = (name: string, email: string, password: string) => {
     return function (dispatch: AppDispatch) {
         dispatch(updateUserInfoRequestAction());
         fetch(`${baseUrl}api/auth/user`, {
